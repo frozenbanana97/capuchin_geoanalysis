@@ -1,0 +1,351 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<gpx version="1.1" creator="Locus Map, Android"
+ xmlns="http://www.topografix.com/GPX/1/1"
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xsi:schemaLocation="http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd"
+ xmlns:gpxx="http://www.garmin.com/xmlschemas/GpxExtensions/v3"
+ xmlns:gpxtrkx="http://www.garmin.com/xmlschemas/TrackStatsExtension/v1"
+ xmlns:gpxtpx="http://www.garmin.com/xmlschemas/TrackPointExtension/v2"
+ xmlns:locus="http://www.locusmap.eu">
+	<metadata>
+		<desc>File with points/tracks from Locus Map/4.10.0</desc>
+		<time>2022-06-07T20:19:34.858Z</time>
+	</metadata>
+<wpt lat="-7.517397" lon="-34.967164">
+	<ele>89.00</ele>
+	<time>2022-06-07T16:47:08.393Z</time>
+	<name>2022-06-07 13:46:24j22</name>
+</wpt>
+<wpt lat="-7.517351" lon="-34.967194">
+	<ele>89.00</ele>
+	<time>2022-06-07T16:49:15.389Z</time>
+	<name>2022-06-07 13:49:07m4</name>
+</wpt>
+<wpt lat="-7.517413" lon="-34.967114">
+	<ele>89.00</ele>
+	<time>2022-06-07T16:50:32.675Z</time>
+	<name>2022-06-07 13:50:24j13</name>
+</wpt>
+<wpt lat="-7.517787" lon="-34.967158">
+	<ele>84.00</ele>
+	<time>2022-06-07T16:53:35.458Z</time>
+	<name>2022-06-07 13:53:31m4</name>
+</wpt>
+<wpt lat="-7.517740" lon="-34.967198">
+	<ele>84.00</ele>
+	<time>2022-06-07T16:54:40.031Z</time>
+	<name>2022-06-07 13:54:10m4</name>
+</wpt>
+<wpt lat="-7.517767" lon="-34.967197">
+	<ele>84.00</ele>
+	<time>2022-06-07T16:54:59.017Z</time>
+	<name>2022-06-07 13:54:44ff4</name>
+</wpt>
+<wpt lat="-7.517644" lon="-34.967206">
+	<ele>86.00</ele>
+	<time>2022-06-07T16:56:40.115Z</time>
+	<name>2022-06-07 13:56:33f4</name>
+</wpt>
+<wpt lat="-7.517622" lon="-34.967187">
+	<ele>86.00</ele>
+	<time>2022-06-07T16:57:08.383Z</time>
+	<name>2022-06-07 13:57:05m4</name>
+</wpt>
+<wpt lat="-7.517654" lon="-34.967193">
+	<ele>86.00</ele>
+	<time>2022-06-07T16:57:31.476Z</time>
+	<name>2022-06-07 13:57:26j34</name>
+</wpt>
+<wpt lat="-7.517594" lon="-34.967185">
+	<ele>87.00</ele>
+	<time>2022-06-07T16:58:27.980Z</time>
+	<name>2022-06-07 13:58:24m4</name>
+</wpt>
+<wpt lat="-7.518156" lon="-34.966741">
+	<ele>87.00</ele>
+	<time>2022-06-07T17:00:37.270Z</time>
+	<name>2022-06-07 14:00:34m3</name>
+</wpt>
+<wpt lat="-7.518234" lon="-34.966560">
+	<ele>89.00</ele>
+	<time>2022-06-07T17:02:50.342Z</time>
+	<name>2022-06-07 14:02:39m3forcane</name>
+</wpt>
+<wpt lat="-7.518253" lon="-34.966450">
+	<ele>90.00</ele>
+	<time>2022-06-07T17:03:20.225Z</time>
+	<name>2022-06-07 14:03:15f3</name>
+</wpt>
+<wpt lat="-7.518194" lon="-34.966472">
+	<ele>91.00</ele>
+	<time>2022-06-07T17:03:58.543Z</time>
+	<name>2022-06-07 14:03:45m1forcane</name>
+</wpt>
+<wpt lat="-7.518269" lon="-34.966570">
+	<ele>89.00</ele>
+	<time>2022-06-07T17:05:06.985Z</time>
+	<name>2022-06-07 14:04:59ago</name>
+	<desc><![CDATA[Test]]></desc>
+</wpt>
+<wpt lat="-7.518288" lon="-34.966430">
+	<ele>90.00</ele>
+	<time>2022-06-07T17:05:29.931Z</time>
+	<name>2022-06-07 14:05:18ago</name>
+</wpt>
+<wpt lat="-7.518260" lon="-34.966455">
+	<ele>90.00</ele>
+	<time>2022-06-07T17:06:04.183Z</time>
+	<name>2022-06-07 14:06:00m2</name>
+</wpt>
+<wpt lat="-7.518260" lon="-34.966465">
+	<ele>90.00</ele>
+	<time>2022-06-07T17:06:34.547Z</time>
+	<name>2022-06-07 14:06:26j32</name>
+</wpt>
+<wpt lat="-7.518269" lon="-34.966465">
+	<ele>90.00</ele>
+	<time>2022-06-07T17:07:10.743Z</time>
+	<name>2022-06-07 14:06:54j32forcane</name>
+</wpt>
+<wpt lat="-7.518262" lon="-34.966420">
+	<ele>91.00</ele>
+	<time>2022-06-07T17:08:02.049Z</time>
+	<name>2022-06-07 14:07:58j21</name>
+</wpt>
+<wpt lat="-7.518266" lon="-34.966421">
+	<ele>91.00</ele>
+	<time>2022-06-07T17:08:10.062Z</time>
+	<name>2022-06-07 14:08:04j21</name>
+</wpt>
+<wpt lat="-7.518289" lon="-34.966464">
+	<ele>90.00</ele>
+	<time>2022-06-07T17:08:41.640Z</time>
+	<name>2022-06-07 14:08:37j11</name>
+</wpt>
+<wpt lat="-7.518336" lon="-34.966513">
+	<ele>89.00</ele>
+	<time>2022-06-07T17:09:27.692Z</time>
+	<name>2022-06-07 14:09:18mf3</name>
+</wpt>
+<wpt lat="-7.518319" lon="-34.966476">
+	<ele>90.00</ele>
+	<time>2022-06-07T17:10:00.295Z</time>
+	<name>2022-06-07 14:09:52sa2</name>
+</wpt>
+<wpt lat="-7.518370" lon="-34.966211">
+	<ele>91.00</ele>
+	<time>2022-06-07T17:29:57.614Z</time>
+	<name>2022-06-07 14:29:53ago</name>
+</wpt>
+<wpt lat="-7.518367" lon="-34.966308">
+	<ele>91.00</ele>
+	<time>2022-06-07T17:31:42.375Z</time>
+	<name>2022-06-07 14:31:33m3</name>
+	<desc><![CDATA[Start scan 2]]></desc>
+</wpt>
+<wpt lat="-7.518369" lon="-34.966299">
+	<ele>91.00</ele>
+	<time>2022-06-07T17:32:01.487Z</time>
+	<name>2022-06-07 14:31:55j23</name>
+</wpt>
+<wpt lat="-7.518363" lon="-34.966320">
+	<ele>91.00</ele>
+	<time>2022-06-07T17:32:31.859Z</time>
+	<name>2022-06-07 14:32:21j23</name>
+</wpt>
+<wpt lat="-7.518486" lon="-34.966323">
+	<ele>89.00</ele>
+	<time>2022-06-07T17:33:13.715Z</time>
+	<name>2022-06-07 14:33:09m3</name>
+</wpt>
+<wpt lat="-7.518247" lon="-34.966472">
+	<ele>90.00</ele>
+	<time>2022-06-07T17:34:50.457Z</time>
+	<name>2022-06-07 14:34:40m3sleep</name>
+</wpt>
+<wpt lat="-7.518293" lon="-34.966345">
+	<ele>91.00</ele>
+	<time>2022-06-07T17:35:20.730Z</time>
+	<name>2022-06-07 14:35:13j11forcane</name>
+</wpt>
+<wpt lat="-7.518345" lon="-34.966331">
+	<ele>91.00</ele>
+	<time>2022-06-07T17:36:14.351Z</time>
+	<name>2022-06-07 14:36:06j23</name>
+</wpt>
+<wpt lat="-7.518291" lon="-34.966362">
+	<ele>91.00</ele>
+	<time>2022-06-07T17:37:09.901Z</time>
+	<name>2022-06-07 14:37:01f3</name>
+</wpt>
+<wpt lat="-7.518274" lon="-34.966355">
+	<ele>91.00</ele>
+	<time>2022-06-07T17:37:33.351Z</time>
+	<name>2022-06-07 14:37:21m3forcane</name>
+</wpt>
+<wpt lat="-7.518329" lon="-34.966317">
+	<ele>91.00</ele>
+	<time>2022-06-07T17:38:31.364Z</time>
+	<name>2022-06-07 14:38:26ff4sleep</name>
+</wpt>
+<wpt lat="-7.518331" lon="-34.966311">
+	<ele>91.00</ele>
+	<time>2022-06-07T17:39:14.561Z</time>
+	<name>2022-06-07 14:39:03f4groom</name>
+</wpt>
+<wpt lat="-7.518330" lon="-34.966310">
+	<ele>91.00</ele>
+	<time>2022-06-07T17:39:36.681Z</time>
+	<name>2022-06-07 14:39:28j23groom</name>
+</wpt>
+<wpt lat="-7.518319" lon="-34.966314">
+	<ele>92.00</ele>
+	<time>2022-06-07T17:40:23.006Z</time>
+	<name>2022-06-07 14:40:19ni4</name>
+	<hdop>9.94</hdop>
+</wpt>
+<wpt lat="-7.518493" lon="-34.966251">
+	<ele>90.00</ele>
+	<time>2022-06-07T17:42:40.068Z</time>
+	<name>2022-06-07 14:42:36f4</name>
+</wpt>
+<wpt lat="-7.518487" lon="-34.966279">
+	<ele>90.00</ele>
+	<time>2022-06-07T17:43:51.450Z</time>
+	<name>2022-06-07 14:43:48j33</name>
+</wpt>
+<wpt lat="-7.518556" lon="-34.966306">
+	<ele>89.00</ele>
+	<time>2022-06-07T17:44:55.601Z</time>
+	<name>2022-06-07 14:44:51j23</name>
+</wpt>
+<wpt lat="-7.518562" lon="-34.966294">
+	<ele>89.00</ele>
+	<time>2022-06-07T17:46:22.287Z</time>
+	<name>2022-06-07 14:46:19ago</name>
+</wpt>
+<wpt lat="-7.518538" lon="-34.966419">
+	<ele>88.00</ele>
+	<time>2022-06-07T17:48:51.076Z</time>
+	<name>2022-06-07 14:48:46ni3</name>
+</wpt>
+<wpt lat="-7.518957" lon="-34.966377">
+	<ele>82.00</ele>
+	<time>2022-06-07T17:51:53.833Z</time>
+	<name>2022-06-07 14:51:39ago</name>
+	<desc><![CDATA[Scan 2 done (not included)]]></desc>
+</wpt>
+<wpt lat="-7.518894" lon="-34.966221">
+	<ele>86.00</ele>
+	<time>2022-06-07T17:52:27.007Z</time>
+	<name>2022-06-07 14:52:23ago</name>
+</wpt>
+<wpt lat="-7.518430" lon="-34.966597">
+	<ele>87.00</ele>
+	<time>2022-06-07T18:09:41.959Z</time>
+	<name>2022-06-07 15:09:34j11</name>
+	<desc><![CDATA[Start scan 3]]></desc>
+</wpt>
+<wpt lat="-7.517888" lon="-34.966999">
+	<ele>85.00</ele>
+	<time>2022-06-07T18:13:43.630Z</time>
+	<name>2022-06-07 15:13:40m4</name>
+</wpt>
+<wpt lat="-7.518070" lon="-34.967145">
+	<ele>80.00</ele>
+	<time>2022-06-07T18:14:21.772Z</time>
+	<name>2022-06-07 15:14:18m4</name>
+</wpt>
+<wpt lat="-7.517623" lon="-34.967224">
+	<ele>86.00</ele>
+	<time>2022-06-07T18:16:53.531Z</time>
+	<name>2022-06-07 15:16:41m4</name>
+</wpt>
+<wpt lat="-7.517560" lon="-34.967280">
+	<ele>86.00</ele>
+	<time>2022-06-07T18:17:10.977Z</time>
+	<name>2022-06-07 15:17:07m4</name>
+</wpt>
+<wpt lat="-7.517415" lon="-34.967345">
+	<ele>87.00</ele>
+	<time>2022-06-07T18:18:44.486Z</time>
+	<name>2022-06-07 15:18:37m4</name>
+</wpt>
+<wpt lat="-7.517335" lon="-34.967387">
+	<ele>87.00</ele>
+	<time>2022-06-07T18:19:23.982Z</time>
+	<name>2022-06-07 15:19:17ff4</name>
+</wpt>
+<wpt lat="-7.517352" lon="-34.967473">
+	<ele>86.00</ele>
+	<time>2022-06-07T18:20:36.200Z</time>
+	<name>2022-06-07 15:20:33ni3</name>
+</wpt>
+<wpt lat="-7.517264" lon="-34.967600">
+	<ele>85.00</ele>
+	<time>2022-06-07T18:21:15.209Z</time>
+	<name>2022-06-07 15:21:11ni3</name>
+</wpt>
+<wpt lat="-7.517333" lon="-34.967422">
+	<ele>86.00</ele>
+	<time>2022-06-07T18:23:30.040Z</time>
+	<name>2022-06-07 15:23:27m4</name>
+	<hdop>15.33</hdop>
+</wpt>
+<wpt lat="-7.517236" lon="-34.967436">
+	<ele>87.00</ele>
+	<time>2022-06-07T18:24:26.832Z</time>
+	<name>2022-06-07 15:24:23ago</name>
+</wpt>
+<wpt lat="-7.516910" lon="-34.967674">
+	<ele>86.00</ele>
+	<time>2022-06-07T18:27:05.520Z</time>
+	<name>2022-06-07 15:26:59mf4</name>
+</wpt>
+<wpt lat="-7.516412" lon="-34.967974">
+	<ele>85.00</ele>
+	<time>2022-06-07T18:50:32.923Z</time>
+	<name>2022-06-07 15:50:28mf4</name>
+	<desc><![CDATA[Start scan 4]]></desc>
+</wpt>
+<wpt lat="-7.516296" lon="-34.967998">
+	<ele>85.00</ele>
+	<time>2022-06-07T19:05:59.260Z</time>
+	<name>2022-06-07 16:05:56m3</name>
+</wpt>
+<wpt lat="-7.516377" lon="-34.968032">
+	<ele>85.00</ele>
+	<time>2022-06-07T19:07:00.090Z</time>
+	<name>2022-06-07 16:06:56ni3</name>
+</wpt>
+<wpt lat="-7.516446" lon="-34.967903">
+	<ele>86.00</ele>
+	<time>2022-06-07T19:08:11.917Z</time>
+	<name>2022-06-07 16:08:08j34</name>
+</wpt>
+<wpt lat="-7.516445" lon="-34.967882">
+	<ele>86.00</ele>
+	<time>2022-06-07T19:08:49.907Z</time>
+	<name>2022-06-07 16:08:36m3</name>
+</wpt>
+<wpt lat="-7.516442" lon="-34.967896">
+	<ele>86.00</ele>
+	<time>2022-06-07T19:09:02.206Z</time>
+	<name>2022-06-07 16:08:52f3</name>
+</wpt>
+<wpt lat="-7.516464" lon="-34.967898">
+	<ele>86.00</ele>
+	<time>2022-06-07T19:09:12.100Z</time>
+	<name>2022-06-07 16:09:09m4</name>
+</wpt>
+<wpt lat="-7.516472" lon="-34.967880">
+	<ele>86.00</ele>
+	<time>2022-06-07T19:09:31.220Z</time>
+	<name>2022-06-07 16:09:28ni4</name>
+</wpt>
+<wpt lat="-7.516531" lon="-34.967944">
+	<ele>85.00</ele>
+	<time>2022-06-07T19:10:13.602Z</time>
+	<name>2022-06-07 16:10:10ff4</name>
+</wpt>
+</gpx>
