@@ -1,4 +1,62 @@
+import pandas as pd
 import geopandas as gpd
+from datetime import datetime, timedelta
+
+def timeScan(df):
+    # Setup time variables for scan labeling / Variáveis de tempo de configuração para rotulagem de digitalização
+    scanStart = df.at[1,'time']
+    scanStart = datetime.strptime(scanStart,'%H:%M:%S')
+    scanEnd = scanStart + timedelta(minutes=20)
+    df.insert(loc=2, column='scan', value=0, allow_duplicates=True)
+    scanMins = 20
+    bufferMins = 5
+
+    # Create list for temporary storage of scan ID's / Criar lista para armazenamento temporário de IDs de digitalização
+    scanNum = []
+
+    # Loop to check each time against the times for each day and assign scan ID
+    # Faça um loop para verificar cada vez em relação aos horários de cada dia e atribuir a ID de verificação
+    for row in df['time']:
+        row = datetime.strptime(row,'%H:%M:%S')
+        if scanStart <= row <= scanEnd:
+            scanNum.append('1')
+        elif (scanStart + timedelta(minutes=scanMins*2-bufferMins)) <= row <= (scanEnd + timedelta(minutes=scanMins*2+bufferMins)):
+            scanNum.append('2')
+        elif (scanStart + timedelta(minutes=scanMins*4-bufferMins)) <= row <= (scanEnd + timedelta(minutes=scanMins*4+bufferMins)):
+            scanNum.append('3')
+        elif (scanStart + timedelta(minutes=scanMins*6-bufferMins)) <= row <= (scanEnd + timedelta(minutes=scanMins*6+bufferMins)):
+            scanNum.append('4')
+        elif (scanStart + timedelta(minutes=scanMins*8-bufferMins)) <= row <= (scanEnd + timedelta(minutes=scanMins*8+bufferMins)):
+            scanNum.append('5')
+        elif (scanStart + timedelta(minutes=scanMins*10-bufferMins)) <= row <= (scanEnd + timedelta(minutes=scanMins*10+bufferMins)):
+            scanNum.append('6')
+        elif (scanStart + timedelta(minutes=scanMins*12-bufferMins)) <= row <= (scanEnd + timedelta(minutes=scanMins*12+bufferMins)):
+            scanNum.append('7')
+        elif (scanStart + timedelta(minutes=scanMins*14-bufferMins)) <= row <= (scanEnd + timedelta(minutes=scanMins*14+bufferMins)):
+            scanNum.append('8')
+        elif (scanStart + timedelta(minutes=scanMins*16-bufferMins)) <= row <= (scanEnd + timedelta(minutes=scanMins*16+bufferMins)):
+            scanNum.append('9')
+        elif (scanStart + timedelta(minutes=scanMins*18-bufferMins)) <= row <= (scanEnd + timedelta(minutes=scanMins*18+bufferMins)):
+            scanNum.append('10')
+        elif (scanStart + timedelta(minutes=scanMins*20-bufferMins)) <= row <= (scanEnd + timedelta(minutes=scanMins*20+bufferMins)):
+            scanNum.append('11')
+        elif (scanStart + timedelta(minutes=scanMins*22-bufferMins)) <= row <= (scanEnd + timedelta(minutes=scanMins*22+bufferMins)):
+            scanNum.append('12')
+        elif (scanStart + timedelta(minutes=scanMins*24-bufferMins)) <= row <= (scanEnd + timedelta(minutes=scanMins*24+bufferMins)):
+            scanNum.append('13')
+        elif (scanStart + timedelta(minutes=scanMins*26-bufferMins)) <= row <= (scanEnd + timedelta(minutes=scanMins*26+bufferMins)):
+            scanNum.append('14')
+        elif (scanStart + timedelta(minutes=scanMins*28-bufferMins)) <= row <= (scanEnd + timedelta(minutes=scanMins*28+bufferMins)):
+            scanNum.append('15')
+        elif (scanStart + timedelta(minutes=scanMins*30-bufferMins)) <= row <= (scanEnd + timedelta(minutes=scanMins*30+bufferMins)):
+            scanNum.append('16')
+
+        # If no times fit, apply N/A / Se nenhum tempo se encaixar, aplique N/A
+        else:
+            scanNum.append('') 
+
+    # Apply scan ID list to the dataframe / Aplicar lista de IDs de varredura ao dataframe
+    df['scan'] = scanNum
 
 def observations(df):
     # Create lists to store observations / Crie listas para armazenar observações
