@@ -155,6 +155,8 @@ def observations(df):
 
     return(df)
 
+# Additional spatial functions can be added here using the same methodology
+# Funções espaciais adicionais podem ser adicionadas aqui usando a mesma metodologia
 def scanSpatial(gdf, i, spatialCounter):
     # Get centroid value of all points in scan / Obtenha o valor do centroide de todos os pontos na varredura
     centroid = gdf.dissolve().centroid
