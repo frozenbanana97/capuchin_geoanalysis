@@ -1,10 +1,8 @@
 import geopandas as gpd
 
 def scanSpatial(gdf, i, spatialCounter):
-    # counter =
-    # if counter == 1:
-    #     spatialCounter = 1
-    # Calculate the centroid of the group
+    # spatialCounter = str(spatialCounter)
+    # type(spatialCounter)
     centroid = gdf.dissolve().centroid
 
     # Calculate distance of each point to the centroid of the group
@@ -20,4 +18,5 @@ def scanSpatial(gdf, i, spatialCounter):
     centroid.to_file('gpkgData/'+i[:-4]+'scans.gpkg', driver="GPKG", layer=i[:-4]+'_scan'+spatialCounter+'_centroid')
     area.to_file('gpkgData/'+i[:-4]+'scans.gpkg', driver="GPKG", layer=i[:-4]+'_scan'+spatialCounter+'_zone')
     gdf.to_file('gpkgData/'+i[:-4]+'scans.gpkg', driver="GPKG", layer=i[:-4]+'_scan'+spatialCounter)
-    spatialCounter = spatialCounter+1
+    # spatialCounter = int(spatialCounter)
+    # spatialCounter = spatialCounter+1
