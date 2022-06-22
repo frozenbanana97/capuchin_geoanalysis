@@ -1,5 +1,14 @@
 This work has been transfered from my fork of [https://github.com/frozenbanana97/automacao](https://github.com/frozenbanana97/automacao)
 <br>
+
+# Contents
+- [Contents](#contents)
+- [GPX Parsing, Data Prep, & Analysis](#gpx-parsing-data-prep--analysis)
+    - [Instructions](#instructions)
+    - [Notes](#notes)
+    - [Steps](#steps)
+      - [Creating a Virtual Environment](#creating-a-virtual-environment)
+
 # GPX Parsing, Data Prep, & Analysis
 <br>
 Optimized for working with scan sampling data specifically for primatological purposes.
