@@ -156,8 +156,7 @@ def observations(df):
     return(df)
 
 def scanSpatial(gdf, i, spatialCounter):
-    # spatialCounter = str(spatialCounter)
-    # type(spatialCounter)
+    # Get centroid value of all points in scan / Obtenha o valor do centroide de todos os pontos na varredura
     centroid = gdf.dissolve().centroid
 
     # Calculate distance of each point to the centroid of the group
@@ -173,5 +172,54 @@ def scanSpatial(gdf, i, spatialCounter):
     centroid.to_file('gpkgData/'+i[:-4]+'scans.gpkg', driver="GPKG", layer=i[:-4]+'_scan'+spatialCounter+'_centroid')
     area.to_file('gpkgData/'+i[:-4]+'scans.gpkg', driver="GPKG", layer=i[:-4]+'_scan'+spatialCounter+'_zone')
     gdf.to_file('gpkgData/'+i[:-4]+'scans.gpkg', driver="GPKG", layer=i[:-4]+'_scan'+spatialCounter)
-    # spatialCounter = int(spatialCounter)
-    # spatialCounter = spatialCounter+1
+
+def scanExport(gdf, i):
+    spatialCounter = '1'
+    gdfs1 = gdf[(gdf['scan'].isin(['1']))]
+    if not gdfs1.empty:
+        scanSpatial(gdfs1, i, '1')
+
+    gdfs2 = gdf[(gdf['scan'].isin(['2']))]
+    if not gdfs2.empty:
+        scanSpatial(gdfs2, i, '2')
+
+    gdfs3 = gdf[(gdf['scan'].isin(['3']))]
+    if not gdfs3.empty:
+        scanSpatial(gdfs3, i, '3')
+
+    gdfs4 = gdf[(gdf['scan'].isin(['4']))]
+    if not gdfs4.empty:
+        scanSpatial(gdfs4, i, '4')
+
+    gdfs5 = gdf[(gdf['scan'].isin(['5']))]
+    if not gdfs5.empty:
+        scanSpatial(gdfs5, i, '5')
+
+    gdfs6 = gdf[(gdf['scan'].isin(['6']))]
+    if not gdfs6.empty:
+        scanSpatial(gdfs6, i, '6')
+
+    gdfs7 = gdf[(gdf['scan'].isin(['7']))]
+    if not gdfs7.empty:
+            scanSpatial(gdfs7, i, '7')
+
+    gdfs8 = gdf[(gdf['scan'].isin(['8']))]
+    if not gdfs8.empty:
+        scanSpatial(gdfs8, i, '8')
+
+    gdfs9 = gdf[(gdf['scan'].isin(['9']))]
+    if not gdfs9.empty:
+        scanSpatial(gdfs9, i, '9')
+
+    gdfs10 = gdf[(gdf['scan'].isin(['10']))]
+    if not gdfs10.empty:
+        scanSpatial(gdfs10, i, '10')
+
+    # Create layers for non-scan data / Crie camadas para dados não digitalizados
+    gdfago = gdf[(gdf['scan'].isin(['ago']))]
+    if not gdfago.empty:
+        gdfago.to_file('gpkgData/'+i[:-4]+'scans.gpkg', driver="GPKG", layer=i[:-4]+'_ago')
+
+    gdfother = gdf[(gdf['scan'].isin(['other']))]
+    if not gdfother.empty:
+        gdfother.to_file('gpkgData/'+i[:-4]+'scans.gpkg', driver="GPKG", layer=i[:-4]+'_other')
