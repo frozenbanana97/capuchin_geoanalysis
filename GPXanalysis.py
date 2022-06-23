@@ -15,7 +15,7 @@ warnings.filterwarnings(action='ignore',category=FutureWarning)
 pd.set_option('mode.chained_assignment',None)
 
 # Get user decision for input fields and state the variables / Obtenha a decisão do usuário para campos de entrada e indique as variáveis
-userInput = input('To add observer, group, and weather information for each day type \'yes\'. Otherwise hit escape')
+userInput = input('To add observer, group, and weather information for each day type \'yes\'. Otherwise leave blank and hit enter')
 observer = ''
 group = ''
 weather = ''
