@@ -1,13 +1,16 @@
 This work has been transfered from my fork of [https://github.com/frozenbanana97/automacao](https://github.com/frozenbanana97/automacao)
 <br>
-
 # Contents
+
 - [Contents](#contents)
 - [GPX Parsing, Data Prep, & Analysis](#gpx-parsing-data-prep--analysis)
     - [Instructions](#instructions)
     - [Notes](#notes)
     - [Steps](#steps)
       - [Creating a Virtual Environment](#creating-a-virtual-environment)
+- [Pre-Analysis Data Format](#pre-analysis-data-format)
+    - [Issues & Limitations](#issues--limitations)
+- [Roadmap](#roadmap)
 
 # GPX Parsing, Data Prep, & Analysis
 <br>
@@ -61,3 +64,56 @@ pip install -r requirements.txt
 ```
 
 The environment should now be ready to run the scripts!
+
+# Pre-Analysis Data Format
+
+Here is a snippet from a `.gpx` made and exported using Locus Map v4, all data will have to match this format to not require tweaking of the code to succesfully parse the information.
+<br>
+```
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<gpx version="1.1" creator="Locus Map, Android"
+xmlns="http://www.topografix.com/GPX/1/1"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd"
+xmlns:gpxx="http://www.garmin.com/xmlschemas/GpxExtensions/v3"
+xmlns:gpxtrkx="http://www.garmin.com/xmlschemas/TrackStatsExtension/v1"
+xmlns:gpxtpx="http://www.garmin.com/xmlschemas/TrackPointExtension/v2"
+xmlns:locus="http://www.locusmap.eu">
+<metadata>
+<desc>File with points/tracks from Locus Map/4.10.0</desc>
+<time>2022-06-21T15:31:54.073Z</time>
+</metadata>
+<wpt lat="-7.519585" lon="-34.965436">
+<ele>90.00</ele>
+<time>2022-06-10T12:45:02.777Z</time>
+<name>2022-06-10 09:44:17 ni3 sleeping</name>
+</wpt>
+```
+
+The initial dataframe after import and conversion is builtas follows, with all observations from the field appended to the name column in Locus Map, whether with or without spaces, see column `name` row `1`, which contains `2022-06-10 09:44:17 ni3 sleeping` where `ni3 sleeping` are the observations made by the field worker. This format is crucial for the script to work at its full extent. The full format is: `'age/sex'+'strata'+'additional observations/notes'`. Note that the `hdop` column may or may not be present and that is okay.
+<br>
+|  | desc | time | lat | lon | ele | name | hdop |
+| --- | ---- | ---- | --- | --- | --- | ---- | ---- |
+| 0 | File with points/tracks from Locus Map/4.10.0 | 2022-06-21T15:31:54.073000Z | NaN | NaN | NaN | None | NaN |
+| 1 | None | 2022-06-10T12:45:02.777000Z | -7.519585 | -34.965436 | 90.0 | 2022-06-10 09:44:17 ni3 sleeping | NaN |
+| 2 | None | 2022-06-10T12:45:57.017000Z | -7.519684 | -34.965638 | 90.0 | 2022-06-10 09:45:46m3 | NaN |
+| 3 | None | 2022-06-10T12:46:31.088000Z | -7.519624 | -34.965603 | 90.0 | 2022-06-10 09:46:28 f4 | NaN |
+| 4 | None | 2022-06-10T12:46:46.679000Z | -7.519653 | -34.965601 | 90.0 | 2022-06-10 09:46:42j23cane | NaN |
+
+Once your data resembles this, the algorithms will work properly and output the csv's and geopackage files for further study and analysis.
+<br>
+Please see the roadmap for further developmment plans!
+
+### Issues & Limitations
+
+There is a major limitation however. If the age/sex part of the observation (ni, m, j2 etc) is not hard-coded intp the algorith then it will break. This is due to the methd of data collection that had already taken place for a while before this code was written, where a lack of seperator was used for the age/sex, strata, and observations. The nature of having different lengths of age/sex values and no seperator (i.e commas or consistent use of spaces) made it particularly difficult to automate the extraction of this data from the string. If anyone can figure out how to solve this issue please let me know and feel free to contribute!
+<br><br>
+The scan seperation segment of the code is also hard-coded in and is not fully scalable. I put in code to account for upwards of 10 scans per day, but again if this proves problematic it can be fixed by simply copy-pasting the existing code and changing the identifier values.
+
+# Roadmap
+
+* Centroid to centroid, scan by scan distance in temporal order
+* Area overlap
+* Automated map creation by day
+    * Tool to view scan by scan
+* Aggregate all data and make a webmap tool to view it with a time slider day by day, hour by hour averages of monkey location
