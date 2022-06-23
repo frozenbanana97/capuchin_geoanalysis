@@ -79,14 +79,14 @@ xmlns:gpxx="http://www.garmin.com/xmlschemas/GpxExtensions/v3"
 xmlns:gpxtrkx="http://www.garmin.com/xmlschemas/TrackStatsExtension/v1"
 xmlns:gpxtpx="http://www.garmin.com/xmlschemas/TrackPointExtension/v2"
 xmlns:locus="http://www.locusmap.eu">
-<metadata>
-<desc>File with points/tracks from Locus Map/4.10.0</desc>
-<time>2022-06-21T15:31:54.073Z</time>
-</metadata>
+    <metadata>
+        <desc>File with points/tracks from Locus Map/4.10.0</desc>
+        <time>2022-06-21T15:31:54.073Z</time>
+    </metadata>
 <wpt lat="-7.519585" lon="-34.965436">
-<ele>90.00</ele>
-<time>2022-06-10T12:45:02.777Z</time>
-<name>2022-06-10 09:44:17 ni3 sleeping</name>
+    <ele>90.00</ele>
+    <time>2022-06-10T12:45:02.777Z</time>
+    <name>2022-06-10 09:44:17 ni3 sleeping</name>
 </wpt>
 ```
 
@@ -101,13 +101,13 @@ The initial dataframe after import and conversion is builtas follows, with all o
 | 4 | None | 2022-06-10T12:46:46.679000Z | -7.519653 | -34.965601 | 90.0 | 2022-06-10 09:46:42j23cane | NaN |
 
 Once your data resembles this, the algorithms will work properly and output the csv's and geopackage files for further study and analysis.
-<br>
+
 Please see the roadmap for further developmment plans!
 
 ### Issues & Limitations
 
 There is a major limitation however. If the age/sex part of the observation (ni, m, j2 etc) is not hard-coded intp the algorith then it will break. This is due to the methd of data collection that had already taken place for a while before this code was written, where a lack of seperator was used for the age/sex, strata, and observations. The nature of having different lengths of age/sex values and no seperator (i.e commas or consistent use of spaces) made it particularly difficult to automate the extraction of this data from the string. If anyone can figure out how to solve this issue please let me know and feel free to contribute!
-<br><br>
+
 The scan seperation segment of the code is also hard-coded in and is not fully scalable. I put in code to account for upwards of 10 scans per day, but again if this proves problematic it can be fixed by simply copy-pasting the existing code and changing the identifier values.
 
 # Roadmap
