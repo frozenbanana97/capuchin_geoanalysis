@@ -113,7 +113,10 @@ The scan seperation segment of the code is also hard-coded in and is not fully s
 # Roadmap
 
 * Centroid to centroid, scan by scan distance in temporal order
-* Area overlap
+* Calculate individual distances to the border of teh fragment.
+* Improve tutorial/instructions for getting started
+* Create a home range analysis month by month
+* Automatically create csv's for relevant statistical analysis (scan by scan, day by day etc) where geographical data is not needed.
 * Automated map creation by day
     * Tool to view scan by scan
 * Aggregate all data and make a webmap tool to view it with a time slider day by day, hour by hour averages of monkey location
