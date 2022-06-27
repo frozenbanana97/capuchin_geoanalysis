@@ -57,7 +57,7 @@ def timeScan(df):
 
     # Apply scan ID list to the dataframe / Aplicar lista de IDs de varredura ao dataframe
     df['scan'] = scanNum
-
+    
 def observations(df):
     # Create lists to store observations / Crie listas para armazenar observações
     scanAgeSex = []
@@ -153,17 +153,17 @@ def observations(df):
     df.loc[df['age/sex']=='', 'scan'] = 'other'
     df.loc[df['age/sex']=='ago', 'scan'] = 'ago'
 
-    return(df)
-
 # Additional spatial functions can be added here using the same methodology
 # Funções espaciais adicionais podem ser adicionadas aqui usando a mesma metodologia
 def scanSpatial(gdf, i, spatialCounter):
     # Get centroid value of all points in scan / Obtenha o valor do centroide de todos os pontos na varredura
     centroid = gdf.dissolve().centroid
 
-    # Calculate distance of each point to the centroid of the group
+    # Calculate distance of each point in the group to the centroid and border
+    # Calcular a distância de cada ponto no grupo para o centroide e fronteira
     for row in gdf['geometry']:
         gdf.loc[:,'distCentr'] = gdf.distance(centroid[0])
+        gdf.loc[:,'distBorder'] = gdf.distance(centroid[0])
 
     # Create geodataframe for the area, perimeter, and polygon of each scan
     area = gdf.dissolve().convex_hull
@@ -171,6 +171,10 @@ def scanSpatial(gdf, i, spatialCounter):
     area = area.rename(columns={0:'geometry'}).set_geometry('geometry')
     area.loc[:,'area'] = area.area
     area.loc[:,'perimeter'] = area.length
+    area.loc[:,'individuals'] = len(gdf)
+    area.loc[:,'ind/m2'] = len(gdf)/area['area']
+    area.loc[:,'ind/perim(m)'] = len(gdf)/area['perimeter']
+
     centroid.to_file('gpkgData/'+i[:-4]+'scans.gpkg', driver="GPKG", layer=i[:-4]+'_scan'+spatialCounter+'_centroid')
     area.to_file('gpkgData/'+i[:-4]+'scans.gpkg', driver="GPKG", layer=i[:-4]+'_scan'+spatialCounter+'_zone')
     gdf.to_file('gpkgData/'+i[:-4]+'scans.gpkg', driver="GPKG", layer=i[:-4]+'_scan'+spatialCounter)
