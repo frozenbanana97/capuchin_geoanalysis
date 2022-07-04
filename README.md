@@ -112,7 +112,17 @@ The scan seperation segment of the code is also hard-coded in and is not fully s
 
 # Roadmap
 
-* Centroid to centroid, scan by scan distance in temporal order
+* Create a more clear and complete installation guide at the start of the readme. Python, QGIS, VS Code, and Git (as optinal, ad signing into git here)
+* Open links in new tabs.
+* Mention adding Python to PATH
+* Make tutorial to creating a repo to work in.
+* Show how to open the terminal in VS Code.
+* Add how to use .gitignore
+* Add a location for GPX data to run the code with.
+* Distance from each individual to the border.
+* Size of the group.
+* Home range.
+* Centroid to centroid, scan by scan distance in temporal order.
 * Calculate individual distances to the border of teh fragment.
 * Improve tutorial/instructions for getting started
 * Create a home range analysis month by month
