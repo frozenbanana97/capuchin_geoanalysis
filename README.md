@@ -7,6 +7,18 @@ This work has been transfered from my fork of [https://github.com/frozenbanana97
       - [Optional Software](#optional-software)
     - [Python Installation](#python-installation)
       - [Windows](#windows)
+      - [Linux](#linux)
+    - [QGIS Installation](#qgis-installation)
+      - [Windows](#windows-1)
+      - [Linux](#linux-1)
+    - [To Git, or not to Git](#to-git-or-not-to-git)
+      - [Not to Git](#not-to-git)
+      - [To Git](#to-git)
+        - [Windows](#windows-2)
+      - [Linux](#linux-2)
+    - [Visual Studio Code](#visual-studio-code)
+      - [Opening the Project Files in VS Code (not using Git)](#opening-the-project-files-in-vs-code-not-using-git)
+      - [Opening the Project Files in VS Code (using Git)](#opening-the-project-files-in-vs-code-using-git)
 - [GPX Parsing, Data Prep, & Analysis](#gpx-parsing-data-prep--analysis)
     - [Instructions](#instructions)
     - [Notes](#notes)
@@ -36,7 +48,136 @@ If you already have a version of the above installed then you can skip that sect
 
 First make sure you have python 3.8.10 or higher installed on your system, you can download Python [here](https://www.python.org/downloads/). Once the instller is downloaded run it and you will be greeted with a window similar to the image below. Ensure to click Add Python to PATH, and then click install now.
 ![Python Installation](https://github.com/frozenbanana97/documentation/blob/master/imgs/Py1_PATH.png)
+Continue with the installation until it is complete.
+
+#### Linux
+
+Python should already be installed by default, you can check by running the following in your terminal.
 <br>
+```
+python3 --version
+```
+
+If Python is *not* installed then you can install it by running (Ubuntu/Debian:
+<br>
+```
+sudo apt install python3
+```
+
+Now python is installed!
+
+### QGIS Installation
+
+#### Windows
+
+Go to the [QGIS download page](https://www.qgis.org/en/site/forusers/download.html) and download the Long term release standalone installer. Simply run the installer and thats it!
+
+#### Linux
+
+The instructions on the QGIS download page for Linux are very thorough, jsut make surenif using a distro spin of Debian/Ubuntu to use the corresponding distro name from either Ubuntu or Debian. For example I am running Linux Mint 20.3 Una, which corresponds to the Ubuntu Focal release so I would use Focal where it asks for your distro name.
+<br>
+### To Git, or not to Git
+
+Using Git is completely optional, if you are going to be developing code further and wish to store it on GitHub and use the versioning systems built into Git then you can install it, otherwise you can just manually download the project files and run them. Most people will be fine not using Git.
+
+#### Not to Git
+
+First the project files will need to be downloaded from this webpage, you can download them as seen below. Save the zip file to the directory where you will be working out of and unzip it, the project files will now be accesible to run.
+![Downlaod as zip](https://github.com/frozenbanana97/documentation/blob/master/imgs/VS6.1_ZIP.png)
+![Extract here](https://github.com/frozenbanana97/documentation/blob/master/imgs/VS6.1.2.png)
+From this point you can either skip ahead to [GPX Parsing, Data Prep, & Analysis](#gpx-parsing-data-prep--analysis) and just run the Python (.py) files as instructed. If you want to install and use VS Code to be able to see the code, read comments to understand how it works etc then continue to [Visual Studio Code](#visual-studio-code) to install VS Code.
+
+#### To Git
+
+I will be using Git solely within VS Code so be sure to install it as well. You can use Git through the command line but this is beyond the scope of this tutorial.
+First make yourself an account on GitHub (you're already here!!!), this is needed to use Git's functionality.
+
+##### Windows
+
+Next download Git from [their website](https://git-scm.com/downloads) and run the installer. After installation you need to set your username and email for Git on your computer. To do so open up Windows search and type `Git Bash` and open it.
+![Run Git Bash](https://github.com/frozenbanana97/documentation/blob/master/imgs/GIT2.png)
+Next to set your username run:
+<br>
+```
+git config --global user.name "UserName"
+```
+
+Confirm that your username is correct:
+<br>
+```
+git config --global user.name
+```
+
+Next set you email:
+<br>
+```
+git config --global user.email youremail@mail.com
+```
+
+And conform that it is correct:
+<br>
+```
+git config --global user.email
+```
+
+Now Git is set up! You can close the Git Bash window.
+
+#### Linux
+
+Open terminal and instll Git using your package manager i.e
+<br>
+```
+sudo apt install git
+```
+
+Next you need to setup your username and email with Git to be able to use it, run:
+
+```
+git config --global user.name "UserName"
+```
+
+Confirm that your username is correct:
+<br>
+```
+git config --global user.name
+```
+
+Next set you email:
+<br>
+```
+git config --global user.email youremail@mail.com
+```
+
+And conform that it is correct:
+<br>
+```
+git config --global user.email
+```
+
+Now Git is set up! You can close the terminal.
+
+### Visual Studio Code
+
+VS Code is my preferred code editor, it has built in git intergration which is very handy as well as an extensive list of extensions. While not required to use this project it can make it more easily viewable and editable.
+Simply download VS Code [from their website](https://code.visualstudio.com/Download) and run the installer. Once VS Code is installed some extensions will need to be added. Launch the program and navigate to the extensions tab on the left side. You will need both the Python and Jupyter extensions, optional is the Excel Viewer to make viewing csv files way easier.
+![VS Code Extensions](https://github.com/frozenbanana97/documentation/blob/master/imgs/VS2_Extensions.png)
+![Add Extensions](https://github.com/frozenbanana97/documentation/blob/master/imgs/VS3_Py_Jup.png)
+![Excel Viewer](https://github.com/frozenbanana97/documentation/blob/master/imgs/VS4_Excel.png)
+(note: to set as the default viewer, right click a csv file and set default viewer as Excel Viewer)
+
+#### Opening the Project Files in VS Code (not using Git)
+
+In the explorer you will have the option to open a folder, click this and navigate to the extraced folder of the project files. When opening the folder you will be propmted to trust the authors of the folder, click yes.
+![VS Code open folder](https://github.com/frozenbanana97/documentation/blob/master/imgs/VS5_OpenFolder.png)
+![VS folder open](https://github.com/frozenbanana97/documentation/blob/master/imgs/VS6.1.3_Open.png)
+![VS trust](https://github.com/frozenbanana97/documentation/blob/master/imgs/VS6.1.4_Trust.png)
+Now you are ready to continue using your local files!
+
+#### Opening the Project Files in VS Code (using Git)
+
+In the bottom left of VS Code above the gear you can login using your GitHub account. Once logged in, in the open folder section `Clone Repository` should now be clickable (restarting VS Code may be required).
+Click on `Clone Repository` and past the link of the repo to clone (same areas as downlaoding the zip but copy the link), in this case [https://github.com/frozenbanana97/capuchin\_geoanalysis.git](https://github.com/frozenbanana97/capuchin_geoanalysis.git) and then choose the directory to clone it do. Now it should open up in VS Code and you're ready to get going!
+
 # GPX Parsing, Data Prep, & Analysis
 <br>
 Optimized for working with scan sampling data specifically for primatological purposes.
