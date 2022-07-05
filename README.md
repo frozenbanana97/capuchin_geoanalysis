@@ -56,7 +56,7 @@ python3 -m venv /path/to/new/virtual/environment
 \venvFolder\Scripts\Activate.ps1
 ```
 
-* Now you should see the virtual environements name on the command line of your terminal. This means all commands using that terminal are being executed through the virtual environment. If this does not work you can troubleshoot using eith the [official python documentation](https://docs.python.org/3/library/venv.html) or [my own documentation](https://github.com/frozenbanana97/documentation), admittedly not as thorough but may come in handy.
+* Now you should see the virtual environements name on the command line of your terminal. This means all commands using that terminal are being executed through the virtual environment. If this does not work you can troubleshoot using eith the [official python documentation](https://docs.python.org/3/library/venv.html){:target="_blank"} or [my own documentation](https://github.com/frozenbanana97/documentation){:target="_blank"}, admittedly not as thorough but may come in handy.
 * Next step is to install the requirements, this can be done (after downloading all the required files) by running:
 
 ```
