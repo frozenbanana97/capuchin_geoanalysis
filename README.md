@@ -15,7 +15,7 @@ This work has been transfered from my fork of [https://github.com/frozenbanana97
       - [Not to Git](#not-to-git)
       - [To Git](#to-git)
         - [Windows](#windows-2)
-      - [Linux](#linux-2)
+        - [Linux](#linux-2)
     - [Visual Studio Code](#visual-studio-code)
       - [Opening the Project Files in VS Code (not using Git)](#opening-the-project-files-in-vs-code-not-using-git)
       - [Opening the Project Files in VS Code (using Git)](#opening-the-project-files-in-vs-code-using-git)
@@ -126,7 +126,7 @@ git config --global user.email
 
 Now Git is set up! You can close the Git Bash window.
 
-#### Linux
+##### Linux
 
 Open terminal and instll Git using your package manager i.e
 <br>
