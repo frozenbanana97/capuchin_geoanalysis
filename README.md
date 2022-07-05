@@ -24,6 +24,10 @@ This work has been transfered from my fork of [https://github.com/frozenbanana97
     - [Notes](#notes)
     - [Steps](#steps)
       - [Creating a Virtual Environment](#creating-a-virtual-environment)
+      - [Linux](#linux-3)
+      - [Windows](#windows-3)
+      - [Linux](#linux-4)
+      - [Windows](#windows-4)
 - [Pre-Analysis Data Format](#pre-analysis-data-format)
     - [Issues & Limitations](#issues--limitations)
 - [Roadmap](#roadmap)
@@ -191,8 +195,7 @@ Optimized for working with scan sampling data specifically for primatological pu
 
 ### Notes
 
-* The Jupyter Notebook `Automation Notebook.ipynb` is for development purposes and testing as it requires additional setup to run, but feel free to use it for your own purposes. I will keep it and the .py modules up to date with each other.
-* `dataprep.py` is a backup of the main chunk of code before I implemented modules and functions. It is also from before the spatial analysis functions were developed and is used solely as a backup in case no spatial properties are wanted for a certain analysis. This will **not** be kept updated.
+* The Jupyter Notebook `Automation Notebook.ipynb` is currently for development purposes and testing as it requires additional setup to run, but feel free to use it for your own purposes. I will keep it and the .py modules up to date with each other.
 
 ### Steps
 
@@ -201,30 +204,65 @@ Optimized for working with scan sampling data specifically for primatological pu
 This is recommended whenever working on a coding project to ensure that everything installed for the project does not affect the system at large and therefore can be reset with ease if something goes wrong.
 
 <br>
+<br>
 Follow these steps to create and enter a python virtual environment:
 
-* First make sure you have python 3.8.10 or higher installed on your system, follow instructions [here](https://www.python.org/downloads/) to download and install it.
+* First make sure you have python 3.8.10 or higher installed on your system, follow instructions above to download and install it.
 * The `venv` is installed with python on your system, this can be done by running the following code. You can also check the [official python documentation](https://docs.python.org/3/library/venv.html) if there are any problems. Your virtual environment should be created in the working directory for this project.
+* To open the terminal in VS Code use \`Ctrl+\`\` (the same key with the \~ tilda right below escape), now you can create your virtual environment with the code below (make sure you are in the correct directory).
 
 ```
-python3 -m venv /path/to/new/virtual/environment
+python3 -m venv /venvName
 ```
 
 * To start the virtual environment, navigate to its folder, locate either `/Scripts/` or `/bin/` depending on your OS and installation method. Within this folder locate the activate script, copy this directory into your python workspace (terminal window, VS Code terminal etc.) and run it as so:
 
-```
-#Linux
-. venvFolder/bin/activate
-```
+#### Linux
+
+Run in the integrated terminal to activate the virtual environment:
 
 ```
-#Windows
-\venvFolder\Scripts\Activate.ps1
+. venvName/bin/activate
 ```
 
-* Now you should see the virtual environements name on the command line of your terminal. This means all commands using that terminal are being executed through the virtual environment. If this does not work you can troubleshoot using eith the [official python documentation](https://docs.python.org/3/library/venv.html) or [my own documentation](https://github.com/frozenbanana97/documentation), admittedly not as thorough but may come in handy.
-* Next step is to install the requirements, this can be done (after downloading all the required files) by running:
+#### Windows
 
+Change permissions to allow the terminal to execte commands:
+
+```
+Set-ExecutionPolicy -ExecutionPolicy Unrestricted -Scope CurrentUser
+```
+
+Activate the virtual environment:
+
+```
+\venvName\Scripts\Activate.ps1
+```
+<br>
+* Now you should see the virtual environements name on the command line of your terminal. This means all commands using that terminal are being executed through the virtual environment. If this does not work you can troubleshoot using with the [official python documentation](https://docs.python.org/3/library/venv.html) or [my own documentation](https://github.com/frozenbanana97/documentation), admittedly not as thorough but may come in handy.
+* Next step is to install the requirements, this can be done by running:
+
+#### Linux
+
+```
+pip install -r requirements.txt
+```
+
+The environment should now be ready to run the scripts!
+
+#### Windows
+
+Windows lacks some of the packages required so you'll have to download them manually, go to [this folder in my documentation repo](https://github.com/frozenbanana97/documentation/tree/master/winDependencies) and downlaod both the Fiona and GDAL files into the project directory. NOTE - these files are for a 64 bit version of Windows running Pyhon 3.10, if your system does not match this you should download the files yourself using instructions provided in [my documentation](https://github.com/frozenbanana97/documentation).
+Now install them (in the virtual environment) using:
+(if you downloaded different versions make sure to use those file names)
+<br>
+```
+pip install Fiona-1.8.21-cp310-cp310-win_amd64.whl
+pip install GDAL-3.4.2-cp310-cp310-win_amd64.whl
+```
+
+Next you can install the rest of the requirements using:
+<br>
 ```
 pip install -r requirements.txt
 ```
@@ -278,11 +316,6 @@ The scan seperation segment of the code is also hard-coded in and is not fully s
 
 # Roadmap
 
-* Create a more clear and complete installation guide at the start of the readme. Python, QGIS, VS Code, and Git (as optinal, ad signing into git here)
-* Open links in new tabs.
-* Mention adding Python to PATH
-* Make tutorial to creating a repo to work in.
-* Show how to open the terminal in VS Code.
 * Add how to use .gitignore
 * Add a location for GPX data to run the code with.
 * Distance from each individual to the border.
