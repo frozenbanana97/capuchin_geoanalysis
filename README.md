@@ -3,6 +3,10 @@ This work has been transfered from my fork of [https://github.com/frozenbanana97
 # Contents
 
 - [Contents](#contents)
+- [Software Installation Guide](#software-installation-guide)
+      - [Optional Software](#optional-software)
+    - [Python Installation](#python-installation)
+      - [Windows](#windows)
 - [GPX Parsing, Data Prep, & Analysis](#gpx-parsing-data-prep--analysis)
     - [Instructions](#instructions)
     - [Notes](#notes)
@@ -12,6 +16,27 @@ This work has been transfered from my fork of [https://github.com/frozenbanana97
     - [Issues & Limitations](#issues--limitations)
 - [Roadmap](#roadmap)
 
+# Software Installation Guide
+
+Required Software
+
+* Python
+* QGIS
+
+#### Optional Software
+
+* Visual Studio Code (or another IDE, my instructions will be for VS Code)
+* Git
+
+If you already have a version of the above installed then you can skip that section!
+
+### Python Installation
+
+#### Windows
+
+First make sure you have python 3.8.10 or higher installed on your system, you can download Python [here](https://www.python.org/downloads/). Once the instller is downloaded run it and you will be greeted with a window similar to the image below. Ensure to click Add Python to PATH, and then click install now.
+![Python Installation](https://github.com/frozenbanana97/documentation/blob/master/imgs/Py1_PATH.png)
+<br>
 # GPX Parsing, Data Prep, & Analysis
 <br>
 Optimized for working with scan sampling data specifically for primatological purposes.
