@@ -20,7 +20,7 @@ Optimized for working with scan sampling data specifically for primatological pu
 
 * To run the algorithm, you will need both `GPXanalysis.py` and `dataprep.py` downloaded in your working directory.
 * The GPX files to be analysed should be copied into this same directory, the scripts will create any additional required directories for data storage.
-* You will need a Python environment, whether global (installed on your computer) or a virtual environment (recommended, see instructions in steps below, or see <a href="https://github.com/frozenbanana97/documentation" target="_blank"> here </a> for setting one up and troubleshooting), with the proper requirements from `requirements.txt` installed.
+* You will need a Python environment, whether global (installed on your computer) or a virtual environment (recommended, see instructions in steps below, or see [here](https://github.com/frozenbanana97/documentation) for setting one up and troubleshooting), with the proper requirements from `requirements.txt` installed.
 * Once everything is installed correctly, run `GPXanalysis.py` and follow the prompts, the analysed data will be exported to the folder `gpkgData/` ready for use in GIS applications as well as the folder `csvDayFiles/` in .csv format.
 
 ### Notes
