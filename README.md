@@ -19,7 +19,7 @@ This work has been transfered from my fork of [https://github.com/frozenbanana97
     - [Visual Studio Code](#visual-studio-code)
       - [Opening the Project Files in VS Code (not using Git)](#opening-the-project-files-in-vs-code-not-using-git)
       - [Opening the Project Files in VS Code (using Git)](#opening-the-project-files-in-vs-code-using-git)
-- [GPX Parsing, Data Prep, & Analysis](#gpx-parsing-data-prep--analysis)
+- [Data Parsing, Prep, & Analysis](#data-parsing-prep--analysis)
     - [Instructions](#instructions)
     - [Notes](#notes)
     - [Steps](#steps)
@@ -89,7 +89,7 @@ Using Git is completely optional, if you are going to be developing code further
 First the project files will need to be downloaded from this webpage, you can download them as seen below. Save the zip file to the directory where you will be working out of and unzip it, the project files will now be accesible to run.
 ![Downlaod as zip](https://github.com/frozenbanana97/documentation/blob/master/imgs/VS6.1_ZIP.png)
 ![Extract here](https://github.com/frozenbanana97/documentation/blob/master/imgs/VS6.1.2.png)
-From this point you can either skip ahead to [GPX Parsing, Data Prep, & Analysis](#gpx-parsing-data-prep--analysis) and just run the Python (.py) files as instructed. If you want to install and use VS Code to be able to see the code, read comments to understand how it works etc then continue to [Visual Studio Code](#visual-studio-code) to install VS Code.
+From this point you can either skip ahead to [Data Parsing, Data Prep, & Analysis](#data-parsing-prep--analysis) and just run the Python (.py) files as instructed. If you want to install and use VS Code to be able to see the code, read comments to understand how it works etc then continue to [Visual Studio Code](#visual-studio-code) to install VS Code.
 
 #### To Git
 
@@ -182,7 +182,7 @@ Now you are ready to continue using your local files!
 In the bottom left of VS Code above the gear you can login using your GitHub account. Once logged in, in the open folder section `Clone Repository` should now be clickable (restarting VS Code may be required).
 Click on `Clone Repository` and past the link of the repo to clone (same areas as downlaoding the zip but copy the link), in this case [https://github.com/frozenbanana97/capuchin\_geoanalysis.git](https://github.com/frozenbanana97/capuchin_geoanalysis.git) and then choose the directory to clone it do. Now it should open up in VS Code and you're ready to get going!
 
-# GPX Parsing, Data Prep, & Analysis
+# Data Parsing, Prep, & Analysis
 <br>
 Optimized for working with scan sampling data specifically for primatological purposes.
 
