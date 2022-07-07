@@ -323,6 +323,7 @@ The scan seperation segment of the code is also hard-coded in and is not fully s
 * Home range.
 * Centroid to centroid, scan by scan distance in temporal order.
 * Area overlap
+* UI tool for selection of which functions to be used on each round of data
 * Automated map creation by day
     * Tool to view scan by scan
 * Aggregate all data and make a webmap tool to view it with a time slider day by day, hour by hour averages of monkey location
