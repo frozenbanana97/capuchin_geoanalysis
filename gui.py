@@ -4,9 +4,6 @@ from tkinter import filedialog
  
 # create root window
 root = Tk()
- 
-# root.directory = tkFileDialog.askdirectory()
-# print (root.directory)
 
 # root window title and dimension
 root.title('Capuchin Geoanalysis Settings')
