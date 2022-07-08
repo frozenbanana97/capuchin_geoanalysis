@@ -1,3 +1,4 @@
+from typing import Dict
 import gpxpy
 import pandas as pd
 import geopandas as gpd
@@ -37,6 +38,12 @@ group = ''
 weather = ''
 dirpath = StringVar()
 
+class WrappingLabel(tk.Label):
+    '''a type of Label that automatically adjusts the wrap to the size'''
+    def __init__(self, master=None, **kwargs):
+        tk.Label.__init__(self, master, **kwargs)
+        self.bind('<Configure>', lambda e: self.config(wraplength=self.winfo_width()))
+
 # Functions to be used by widgets
 
 # Select working directory
@@ -44,10 +51,11 @@ def getdirectory():
     # get a directory path by user
     dir_select=filedialog.askdirectory()
     dirpath.set(dir_select)
-    label_path=Label(root,text=dir_select,font=('italic 10'))
+    label_path=WrappingLabel(root,text=dir_select,font=('italic 9'))
     label_path.grid(row=7,column=2)
     print(dirpath)
     print(dir_select)
+    return(dirpath)
 
 # Have tab move to next widget
 def focus_next_window(event):
@@ -97,6 +105,7 @@ def toggleObservations():
 
 # Run for loop to cover every gpx file in directory / Execute o loop para cobrir todos os arquivos gpx no diretório
 def big_loop():
+    gpxDict = dict()
     print('big loop')
     dir_sel = dirpath.get()
     print('dir selected')
@@ -238,6 +247,7 @@ def big_loop():
 # all widgets will be here
 # Labels
 lbl = Label(root, text='Time to parse GPX data').grid()
+dir_path=Label(root,text=dirpath,font=('italic 10'))
 
 # User Input
 observer_lbl = Label(root, text='Observer')
@@ -249,6 +259,7 @@ observer_input.bind('<Tab>', focus_next_window)
 group_input = Text(root, height=1,width=20)
 group_input.bind('<Tab>', focus_next_window)
 weather_input = Text(root, height=1,width=20)
+
 
 # Buttons
 dir_btn = Button(root, text='Select Directory', command=getdirectory)
@@ -280,24 +291,27 @@ obs_btn = Checkbutton(root, text = 'Parse Observations',
                       width = 15,
                       command=toggleObservations)
 
-# Set Grid
-userIn_btn.grid(row=1)
-observer_lbl.grid(row=2)
-group_lbl.grid(row=3)
-weather_lbl.grid(row=4)
-
-observer_input.grid(row=2,column=2)
-group_input.grid(row=3,column=2)
-weather_input.grid(row=4,column=2)
-
-scans_btn.grid()
-obs_btn.grid()
-
-dir_btn.grid()
-
-run_btn.grid()
 
 
+def main():
+    # Set Grid for GUI. Some widgets may be located elsewhere (dir output)
+    userIn_btn.grid(row=1)
+    observer_lbl.grid(row=2)
+    group_lbl.grid(row=3)
+    weather_lbl.grid(row=4)
 
-# Execute Tkinter
-root.mainloop()
+    observer_input.grid(row=2,column=2)
+    group_input.grid(row=3,column=2)
+    weather_input.grid(row=4,column=2)
+
+    scans_btn.grid()
+    obs_btn.grid()
+
+    dir_btn.grid()
+    # Path in the directory choosing function
+    run_btn.grid()
+    # Execute Tkinter
+    root.mainloop()
+
+if __name__ == '__main__':
+    main()
