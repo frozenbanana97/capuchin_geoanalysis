@@ -27,26 +27,27 @@ root.title('Capuchin Geoanalysis Settings')
 root.geometry('500x300')
 
 # varibales to be used by functions
-scansButton = IntVar()  
-obsButton = IntVar() 
+scansButton = IntVar(value=1)  
+obsButton = IntVar(value=1) 
 user_button = IntVar()
 gpxDict = dict()
 userIn = ''
 observer = ''
 group = ''
 weather = ''
+dirpath = StringVar()
 
 # Functions to be used by widgets
 
 # Select working directory
-def directory():
+def getdirectory():
     # get a directory path by user
-    filepath=filedialog.askdirectory(initialdir=r"F:\python\pythonProject",
-                                    title="Select Directory")
-    label_path=Label(root,text=filepath,font=('italic 10'))
-    label_path.grid(row=6,column=2)
-    dir_path = filepath
-    print(dir_path)
+    dir_select=filedialog.askdirectory()
+    dirpath.set(dir_select)
+    label_path=Label(root,text=dir_select,font=('italic 10'))
+    label_path.grid(row=7,column=2)
+    print(dirpath)
+    print(dir_select)
 
 # Have tab move to next widget
 def focus_next_window(event):
@@ -97,20 +98,41 @@ def toggleObservations():
 # Run for loop to cover every gpx file in directory / Execute o loop para cobrir todos os arquivos gpx no diretório
 def big_loop():
     print('big loop')
-    for file in os.listdir():
-        if file.endswith('.gpx'):
-            gpxDict[file] = 'file_'+file
-        print('GPX dict')
+    dir_sel = dirpath.get()
+    print('dir selected')
+    print(dir_sel)
+    if dir_sel:
+        # dirpath=readdirectory()
+        for file in os.listdir(dir_sel):
+            if file.endswith('.gpx'):
+                gpxDict[file] = dir_sel+'_file_'+file
+                print('GPX dict')
+                print(gpxDict)
+                print('dir path')        
+    else:
+        for file in os.listdir():
+            if file.endswith('.gpx'):
+                gpxDict[file] = 'file_'+file
+                print('GPX dict')
+                print(gpxDict)
+                print('not dir path')
     
     for i in gpxDict:
         print('running')
         
         # Open and read in the .gpx to a dataframe / Abra e leia no .gpx para um dataframe
-        gpxCurrent = i
-        gpxCurrent = open(gpxCurrent)
-        gpxCurrent = gpxpy.parse(gpxCurrent)
-        gpxCurrent = gpxCurrent.to_xml()
-        df = pd.read_xml(gpxCurrent)
+        if dir_sel:
+            gpxCurrent = i
+            gpxCurrent = open(dir_sel+'/'+gpxCurrent)
+            gpxCurrent = gpxpy.parse(gpxCurrent)
+            gpxCurrent = gpxCurrent.to_xml()
+            df = pd.read_xml(gpxCurrent)
+        else:
+            gpxCurrent = i
+            gpxCurrent = open(gpxCurrent)
+            gpxCurrent = gpxpy.parse(gpxCurrent)
+            gpxCurrent = gpxCurrent.to_xml()
+            df = pd.read_xml(gpxCurrent)
 
               
         # Remove unecessary columns / Remova colunas desnecessárias
@@ -166,27 +188,50 @@ def big_loop():
         gdf = gdf.to_crs('EPSG:31985')
 
         # Check and create save directory for gpkg files / Verifique e crie um diretório de salvamento para arquivos gpkg
-        gpkgsavePath = './gpkgData'
-        isDir = os.path.isdir(gpkgsavePath)
-        if isDir == False:
-            mkdir('gpkgData')
-        
-        # Export gdf into gpkg / Exportar gdf para gpkg
-        gdf.to_file('gpkgData/'+i[:-4]+'scans.gpkg', driver="GPKG", layer=i[:-4]+'_wholeDay')
-        
-        # Export each scan as a separate layer using the scanExport and scanSpatial methods in spatialFunctions
-        # Exporte cada varredura como uma camada separada usando os métodos scanExport e scanSpatial em spatialFunctions    
-        if toggleScans() == 'yes':
-            scanExport(gdf, i)
+        if dir_sel:
+            gpkgsavePath = dir_sel+'/gpkgData'
+            isDir = os.path.isdir(gpkgsavePath)
+            if isDir == False:
+                mkdir(dir_sel+'/gpkgData')
+            
+            # Export gdf into gpkg / Exportar gdf para gpkg
+            gdf.to_file(dir_sel+'/gpkgData/'+i[:-4]+'scans.gpkg', driver="GPKG", layer=i[:-4]+'_wholeDay')
+            
+            # Export each scan as a separate layer using the scanExport and scanSpatial methods in spatialFunctions
+            # Exporte cada varredura como uma camada separada usando os métodos scanExport e scanSpatial em spatialFunctions    
+            if toggleScans() == 'yes':
+                scanExportDir(gdf, i, dir_sel)
 
-        # Check and create save directory for csv files / Verifique e crie um diretório de salvamento para arquivos csv
-        csvsavePath = './csvDayFiles'
-        isDir = os.path.isdir(csvsavePath)
-        if isDir == False:
-            mkdir('csvDayFiles')
-        
-        # Save to csv / Salvar em csv
-        gdf.to_csv('csvDayFiles/'+i[:-4]+'.csv')
+            # Check and create save directory for csv files / Verifique e crie um diretório de salvamento para arquivos csv
+            csvsavePath = dir_sel+'/csvDayFiles'
+            isDir = os.path.isdir(csvsavePath)
+            if isDir == False:
+                mkdir(dir_sel+'/csvDayFiles')
+            
+            # Save to csv / Salvar em csv
+            gdf.to_csv(dir_sel+'/csvDayFiles/'+i[:-4]+'.csv')
+        else:
+            gpkgsavePath = './gpkgData'
+            isDir = os.path.isdir(gpkgsavePath)
+            if isDir == False:
+                mkdir('gpkgData')
+            
+            # Export gdf into gpkg / Exportar gdf para gpkg
+            gdf.to_file('gpkgData/'+i[:-4]+'scans.gpkg', driver="GPKG", layer=i[:-4]+'_wholeDay')
+            
+            # Export each scan as a separate layer using the scanExport and scanSpatial methods in spatialFunctions
+            # Exporte cada varredura como uma camada separada usando os métodos scanExport e scanSpatial em spatialFunctions    
+            if toggleScans() == 'yes':
+                scanExport(gdf, i)
+
+            # Check and create save directory for csv files / Verifique e crie um diretório de salvamento para arquivos csv
+            csvsavePath = './csvDayFiles'
+            isDir = os.path.isdir(csvsavePath)
+            if isDir == False:
+                mkdir('csvDayFiles')
+            
+            # Save to csv / Salvar em csv
+            gdf.to_csv('csvDayFiles/'+i[:-4]+'.csv')
 
         print('done')
 
@@ -206,7 +251,7 @@ group_input.bind('<Tab>', focus_next_window)
 weather_input = Text(root, height=1,width=20)
 
 # Buttons
-dir_btn = Button(root, text='Select Directory', command=directory)
+dir_btn = Button(root, text='Select Directory', command=getdirectory)
 
 run_btn = Button(root, text = 'Run' ,
              fg = 'black', command=run)
