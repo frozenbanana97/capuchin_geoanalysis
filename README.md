@@ -1,38 +1,28 @@
 This work has been transfered from my fork of [https://github.com/frozenbanana97/automacao](https://github.com/frozenbanana97/automacao)
 <br>
+
 # Contents
 
-- [Contents](#contents)
 - [The Program](#the-program)
 - [Data Parsing, Prep, & Analysis](#data-parsing-prep--analysis)
     - [Instructions](#instructions)
-        - [Notes](#notes)
     - [Getting Started - Setting up the Environment](#getting-started---setting-up-the-environment)
-        - [Linux](#linux)
-        - [Windows](#windows)
-        - [Linux](#linux-1)
-        - [Windows](#windows-1)
 - [Pre-Analysis Data Format](#pre-analysis-data-format)
     - [Issues & Limitations](#issues--limitations)
 - [Software Installation Guide](#software-installation-guide)
       - [Optional Software](#optional-software)
     - [Python Installation](#python-installation)
-        - [Windows](#windows-2)
-        - [Linux](#linux-2)
     - [QGIS Installation](#qgis-installation)
-        - [Windows](#windows-3)
-        - [Linux](#linux-3)
     - [Visual Studio Code](#visual-studio-code)
       - [Opening the Project Files in VS Code (not using Git)](#opening-the-project-files-in-vs-code-not-using-git)
       - [Opening the Project Files in VS Code (using Git)](#opening-the-project-files-in-vs-code-using-git)
     - [To Git, or not to Git](#to-git-or-not-to-git)
       - [Not to Git](#not-to-git)
       - [To Git](#to-git)
-        - [Windows](#windows-4)
-        - [Linux](#linux-4)
 - [Roadmap](#roadmap)
 
 <br>
+
 # The Program
 
 This program is made to allow for quick analysis and data preperation in primate observation studies, such as scan sampling. To use this program you must have the minimum of Python and the project requiremtns installed as well as the proper type of data to analyze.
