@@ -1,37 +1,25 @@
 This work has been transfered from my fork of [https://github.com/frozenbanana97/automacao](https://github.com/frozenbanana97/automacao)
 <br>
 
-# Contents
+# Contents  <!-- omit in toc -->
 
-- [Contents](#contents)
 - [The Program](#the-program)
 - [Data Parsing, Prep, & Analysis](#data-parsing-prep--analysis)
     - [Instructions](#instructions)
-        - [Notes](#notes)
     - [Steps](#steps)
       - [Creating a Virtual Environment](#creating-a-virtual-environment)
-      - [Linux](#linux)
-      - [Windows](#windows)
-      - [Linux](#linux-1)
-      - [Windows](#windows-1)
 - [Pre-Analysis Data Format](#pre-analysis-data-format)
     - [Issues & Limitations](#issues--limitations)
 - [Software Installation Guide](#software-installation-guide)
       - [Optional Software](#optional-software)
     - [Python Installation](#python-installation)
-      - [Windows](#windows-2)
-      - [Linux](#linux-2)
     - [QGIS Installation](#qgis-installation)
-      - [Windows](#windows-3)
-      - [Linux](#linux-3)
     - [Visual Studio Code](#visual-studio-code)
       - [Opening the Project Files in VS Code (not using Git)](#opening-the-project-files-in-vs-code-not-using-git)
       - [Opening the Project Files in VS Code (using Git)](#opening-the-project-files-in-vs-code-using-git)
     - [To Git, or not to Git](#to-git-or-not-to-git)
       - [Not to Git](#not-to-git)
       - [To Git](#to-git)
-        - [Windows](#windows-4)
-        - [Linux](#linux-4)
 - [Roadmap](#roadmap)
 
 <br>
@@ -46,12 +34,12 @@ Optimized for working with scan sampling data specifically for primatological pu
 
 ### Instructions
 
-* To run the algorithm, you will need both `main.py` and `GPXanalysis``py` downloaded in your working directory.
+* To run the algorithm, you will need both `main.py` and `spatialFunctions.py` downloaded in your working directory.
 * The GPX files to be analysed should be copied into this same directory, the scripts will create any additional required directories for data storage.
 * You will need a Python environment, whether global (installed on your computer) or a virtual environment (recommended, see instructions in steps below, or see [here](https://github.com/frozenbanana97/documentation) for setting one up and troubleshooting), with the proper requirements from `requirements.txt` installed.
 * Once everything is installed correctly, run `main.py` and choose the desired options, the analysed data will be exported in the selected directory under a sub directory `gpkgData/` ready for use in GIS applications as well as the folder `csvDayFiles/` in .csv format.
 
-##### Notes
+##### Notes  <!-- omit in toc -->
 
 * The Jupyter Notebook `Automation Notebook.ipynb` is currently for development purposes and testing as it requires additional setup to run, but feel free to use it for your own purposes. I will keep it and the .py modules up to date with each other.
 
@@ -75,7 +63,7 @@ python3 -m venv /venvName
 
 * To start the virtual environment, navigate to its folder, locate either `/Scripts/` or `/bin/` depending on your OS and installation method. Within this folder locate the activate script, copy this directory into your python workspace (terminal window, VS Code terminal etc.) and run it as so:
 
-#### Linux
+##### Linux <!-- omit in toc -->
 
 Run in the integrated terminal to activate the virtual environment:
 
@@ -83,7 +71,7 @@ Run in the integrated terminal to activate the virtual environment:
 . venvName/bin/activate
 ```
 
-#### Windows
+##### Windows <!-- omit in toc -->
 
 Change permissions to allow the terminal to execte commands:
 
@@ -100,7 +88,7 @@ Activate the virtual environment:
 * Now you should see the virtual environements name on the command line of your terminal. This means all commands using that terminal are being executed through the virtual environment. If this does not work you can troubleshoot using with the [official python documentation](https://docs.python.org/3/library/venv.html) or [my own documentation](https://github.com/frozenbanana97/documentation), admittedly not as thorough but may come in handy.
 * Next step is to install the requirements, this can be done by running:
 
-#### Linux
+##### Linux <!-- omit in toc -->
 
 ```
 pip install -r requirements.txt
@@ -108,7 +96,7 @@ pip install -r requirements.txt
 
 The environment should now be ready to run the scripts!
 
-#### Windows
+##### Windows <!-- omit in toc -->
 
 Windows lacks some of the packages required so you'll have to download them manually, go to [this folder in my documentation repo](https://github.com/frozenbanana97/documentation/tree/master/winDependencies) and downlaod both the Fiona and GDAL files into the project directory. NOTE - these files are for a 64 bit version of Windows running Pyhon 3.10, if your system does not match this you should download the files yourself using instructions provided in [my documentation](https://github.com/frozenbanana97/documentation).
 Now install them (in the virtual environment) using:
@@ -188,13 +176,13 @@ If you already have a version of the above installed then you can skip that sect
 
 ### Python Installation
 
-#### Windows
+##### Windows <!-- omit in toc -->
 
 First make sure you have python 3.8.10 or higher installed on your system, you can download Python [here](https://www.python.org/downloads/). Once the instller is downloaded run it and you will be greeted with a window similar to the image below. Ensure to click Add Python to PATH, and then click install now.
 ![Python Installation](https://github.com/frozenbanana97/documentation/blob/master/imgs/Py1_PATH.png)
 Continue with the installation until it is complete.
 
-#### Linux
+##### Linux <!-- omit in toc -->
 
 Python should already be installed by default, you can check by running the following in your terminal.
 <br>
@@ -212,11 +200,11 @@ Now python is installed!
 
 ### QGIS Installation
 
-#### Windows
+##### Windows <!-- omit in toc -->
 
 Go to the [QGIS download page](https://www.qgis.org/en/site/forusers/download.html) and download the Long term release standalone installer. Simply run the installer and thats it!
 
-#### Linux
+##### Linux <!-- omit in toc -->
 
 The instructions on the QGIS download page for Linux are very thorough, jsut make surenif using a distro spin of Debian/Ubuntu to use the corresponding distro name from either Ubuntu or Debian. For example I am running Linux Mint 20.3 Una, which corresponds to the Ubuntu Focal release so I would use Focal where it asks for your distro name.
 
@@ -253,7 +241,7 @@ From this point you can either skip ahead to [Data Parsing, Data Prep, & Analysi
 I will be using Git solely within VS Code so be sure to install it as well. You can use Git through the command line but this is beyond the scope of this tutorial.
 First make yourself an account on GitHub (you're already here!!!), this is needed to use Git's functionality.
 
-##### Windows
+##### Windows <!-- omit in toc -->
 
 Next download Git from [their website](https://git-scm.com/downloads) and run the installer. After installation you need to set your username and email for Git on your computer. To do so open up Windows search and type `Git Bash` and open it.
 ![Run Git Bash](https://github.com/frozenbanana97/documentation/blob/master/imgs/GIT2.png)
@@ -283,7 +271,7 @@ git config --global user.email
 
 Now Git is set up! You can close the Git Bash window.
 
-##### Linux
+##### Linux <!-- omit in toc -->
 
 Open terminal and instll Git using your package manager i.e
 <br>
