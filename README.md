@@ -6,8 +6,7 @@ This work has been transfered from my fork of [https://github.com/frozenbanana97
 - [The Program](#the-program)
 - [Data Parsing, Prep, & Analysis](#data-parsing-prep--analysis)
     - [Instructions](#instructions)
-    - [Steps](#steps)
-      - [Creating a Virtual Environment](#creating-a-virtual-environment)
+    - [Getting Started - Setting up the Environment](#getting-started---setting-up-the-environment)
 - [Pre-Analysis Data Format](#pre-analysis-data-format)
     - [Issues & Limitations](#issues--limitations)
 - [Software Installation Guide](#software-installation-guide)
@@ -43,9 +42,7 @@ Optimized for working with scan sampling data specifically for primatological pu
 
 * The Jupyter Notebook `Automation Notebook.ipynb` is currently for development purposes and testing as it requires additional setup to run, but feel free to use it for your own purposes. I will keep it and the .py modules up to date with each other.
 
-### Steps
-
-#### Creating a Virtual Environment
+### Getting Started - Setting up the Environment
 
 This is recommended whenever working on a coding project to ensure that everything installed for the project does not affect the system at large and therefore can be reset with ease if something goes wrong.
 
