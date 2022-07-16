@@ -1,28 +1,38 @@
 This work has been transfered from my fork of [https://github.com/frozenbanana97/automacao](https://github.com/frozenbanana97/automacao)
 <br>
+# Contents
 
-# Contents  <!-- omit in toc -->
-
+- [Contents](#contents)
 - [The Program](#the-program)
 - [Data Parsing, Prep, & Analysis](#data-parsing-prep--analysis)
     - [Instructions](#instructions)
+        - [Notes](#notes)
     - [Getting Started - Setting up the Environment](#getting-started---setting-up-the-environment)
+        - [Linux](#linux)
+        - [Windows](#windows)
+        - [Linux](#linux-1)
+        - [Windows](#windows-1)
 - [Pre-Analysis Data Format](#pre-analysis-data-format)
     - [Issues & Limitations](#issues--limitations)
 - [Software Installation Guide](#software-installation-guide)
       - [Optional Software](#optional-software)
     - [Python Installation](#python-installation)
+        - [Windows](#windows-2)
+        - [Linux](#linux-2)
     - [QGIS Installation](#qgis-installation)
+        - [Windows](#windows-3)
+        - [Linux](#linux-3)
     - [Visual Studio Code](#visual-studio-code)
       - [Opening the Project Files in VS Code (not using Git)](#opening-the-project-files-in-vs-code-not-using-git)
       - [Opening the Project Files in VS Code (using Git)](#opening-the-project-files-in-vs-code-using-git)
     - [To Git, or not to Git](#to-git-or-not-to-git)
       - [Not to Git](#not-to-git)
       - [To Git](#to-git)
+        - [Windows](#windows-4)
+        - [Linux](#linux-4)
 - [Roadmap](#roadmap)
 
 <br>
-
 # The Program
 
 This program is made to allow for quick analysis and data preperation in primate observation studies, such as scan sampling. To use this program you must have the minimum of Python and the project requiremtns installed as well as the proper type of data to analyze.
@@ -34,25 +44,23 @@ Optimized for working with scan sampling data specifically for primatological pu
 ### Instructions
 
 * To run the algorithm, you will need both `main.py` and `spatialFunctions.py` downloaded in your working directory.
-* The GPX files to be analysed should be copied into this same directory, the scripts will create any additional required directories for data storage.
+* The GPX files to be analysed should all be copied into one directory, the scripts will create any additional required directories for data storage.
 * You will need a Python environment, whether global (installed on your computer) or a virtual environment (recommended, see instructions in steps below, or see [here](https://github.com/frozenbanana97/documentation) for setting one up and troubleshooting), with the proper requirements from `requirements.txt` installed.
-* Once everything is installed correctly, run `main.py` and choose the desired options, the analysed data will be exported in the selected directory under a sub directory `gpkgData/` ready for use in GIS applications as well as the folder `csvDayFiles/` in .csv format.
+* Once everything is installed correctly, run `main.py` and choose the desired options, the analysed data will be exported in the selected directory under a sub directory `gpkgData/` ready for use in GIS applications as well as the folder `csvDayFiles/` in .csv format. See the [installation instructions](#software-installation-guide) if Python and other programs are not yet installed.
 
-##### Notes  <!-- omit in toc -->
+##### Notes
 
 * The Jupyter Notebook `Automation Notebook.ipynb` is currently for development purposes and testing as it requires additional setup to run, but feel free to use it for your own purposes. I will keep it and the .py modules up to date with each other.
 
 ### Getting Started - Setting up the Environment
 
-This is recommended whenever working on a coding project to ensure that everything installed for the project does not affect the system at large and therefore can be reset with ease if something goes wrong.
+This is recommended whenever working on a coding project to ensure that everything installed for the project does not affect the system at large and therefore can be reset with ease if something goes wrong. However you can just install it all globally *not* in a virtual environemnt if you would like.
 
-<br>
-<br>
 Follow these steps to create and enter a python virtual environment:
 
 * First make sure you have python 3.8.10 or higher installed on your system, follow instructions above to download and install it.
-* The `venv` is installed with python on your system, this can be done by running the following code. You can also check the [official python documentation](https://docs.python.org/3/library/venv.html) if there are any problems. Your virtual environment should be created in the working directory for this project.
-* To open the terminal in VS Code use \`Ctrl+\`\` (the same key with the \~ tilda right below escape), now you can create your virtual environment with the code below (make sure you are in the correct directory).
+* The `venv` (virtual environment) is installed with python on your system, this can be done by running the following code. You can also check the [official python documentation](https://docs.python.org/3/library/venv.html) if there are any problems. Your virtual environment should be created in the working directory for this project.
+* To open the terminal in VS Code use `Ctrl+`` (the same key with the \~ tilda right below escape), now you can create your virtual environment with the code below (make sure you are in the correct directory). In Linux you can simply open the terminal while in Windows you'll need to open command prompt
 
 ```
 python3 -m venv /venvName
@@ -60,17 +68,17 @@ python3 -m venv /venvName
 
 * To start the virtual environment, navigate to its folder, locate either `/Scripts/` or `/bin/` depending on your OS and installation method. Within this folder locate the activate script, copy this directory into your python workspace (terminal window, VS Code terminal etc.) and run it as so:
 
-##### Linux <!-- omit in toc -->
+##### Linux
 
-Run in the integrated terminal to activate the virtual environment:
+Run in the terminal to activate the virtual environment:
 
 ```
 . venvName/bin/activate
 ```
 
-##### Windows <!-- omit in toc -->
+##### Windows
 
-Change permissions to allow the terminal to execte commands:
+Change permissions in the command line/terminal to allow the terminal to execte commands:
 
 ```
 Set-ExecutionPolicy -ExecutionPolicy Unrestricted -Scope CurrentUser
@@ -85,7 +93,7 @@ Activate the virtual environment:
 * Now you should see the virtual environements name on the command line of your terminal. This means all commands using that terminal are being executed through the virtual environment. If this does not work you can troubleshoot using with the [official python documentation](https://docs.python.org/3/library/venv.html) or [my own documentation](https://github.com/frozenbanana97/documentation), admittedly not as thorough but may come in handy.
 * Next step is to install the requirements, this can be done by running:
 
-##### Linux <!-- omit in toc -->
+##### Linux
 
 ```
 pip install -r requirements.txt
@@ -93,7 +101,7 @@ pip install -r requirements.txt
 
 The environment should now be ready to run the scripts!
 
-##### Windows <!-- omit in toc -->
+##### Windows
 
 Windows lacks some of the packages required so you'll have to download them manually, go to [this folder in my documentation repo](https://github.com/frozenbanana97/documentation/tree/master/winDependencies) and downlaod both the Fiona and GDAL files into the project directory. NOTE - these files are for a 64 bit version of Windows running Pyhon 3.10, if your system does not match this you should download the files yourself using instructions provided in [my documentation](https://github.com/frozenbanana97/documentation).
 Now install them (in the virtual environment) using:
@@ -173,13 +181,13 @@ If you already have a version of the above installed then you can skip that sect
 
 ### Python Installation
 
-##### Windows <!-- omit in toc -->
+##### Windows
 
 First make sure you have python 3.8.10 or higher installed on your system, you can download Python [here](https://www.python.org/downloads/). Once the instller is downloaded run it and you will be greeted with a window similar to the image below. Ensure to click Add Python to PATH, and then click install now.
 ![Python Installation](https://github.com/frozenbanana97/documentation/blob/master/imgs/Py1_PATH.png)
 Continue with the installation until it is complete.
 
-##### Linux <!-- omit in toc -->
+##### Linux
 
 Python should already be installed by default, you can check by running the following in your terminal.
 <br>
@@ -197,11 +205,11 @@ Now python is installed!
 
 ### QGIS Installation
 
-##### Windows <!-- omit in toc -->
+##### Windows
 
 Go to the [QGIS download page](https://www.qgis.org/en/site/forusers/download.html) and download the Long term release standalone installer. Simply run the installer and thats it!
 
-##### Linux <!-- omit in toc -->
+##### Linux
 
 The instructions on the QGIS download page for Linux are very thorough, jsut make surenif using a distro spin of Debian/Ubuntu to use the corresponding distro name from either Ubuntu or Debian. For example I am running Linux Mint 20.3 Una, which corresponds to the Ubuntu Focal release so I would use Focal where it asks for your distro name.
 
@@ -238,7 +246,7 @@ From this point you can either skip ahead to [Data Parsing, Data Prep, & Analysi
 I will be using Git solely within VS Code so be sure to install it as well. You can use Git through the command line but this is beyond the scope of this tutorial.
 First make yourself an account on GitHub (you're already here!!!), this is needed to use Git's functionality.
 
-##### Windows <!-- omit in toc -->
+##### Windows
 
 Next download Git from [their website](https://git-scm.com/downloads) and run the installer. After installation you need to set your username and email for Git on your computer. To do so open up Windows search and type `Git Bash` and open it.
 ![Run Git Bash](https://github.com/frozenbanana97/documentation/blob/master/imgs/GIT2.png)
@@ -268,7 +276,7 @@ git config --global user.email
 
 Now Git is set up! You can close the Git Bash window.
 
-##### Linux <!-- omit in toc -->
+##### Linux
 
 Open terminal and instll Git using your package manager i.e
 <br>
