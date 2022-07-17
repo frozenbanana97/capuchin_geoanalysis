@@ -36,7 +36,7 @@ To get started using the bare minimum to get the data analyzed, you will need Py
 
 - Collect data in the proper format, if you are using Locus Map the GPX export is the correct format. [See here](#pre-analysis-data-format) for more info.
 - Install Python 3. For help [jump here](#python-installation)
-    - Install the required packages in your Python environemt using `pip install -r requirements.txt`, whether using a virtual environemt or a global one. Windows users will need to do some manual work, [see here](#installing-python-requirements) for more info.
+- Install the required packages in your Python environemt using `pip install -r requirements.txt`, whether using a virtual environemt or a global one. Windows users will need to do some manual work, [see here](#installing-python-requirements) for more info.
 -  Now you can simply run `main.py` to start the program in your Python command line, select the directory the GPX files are in, choose the options to run with and click run! The output files will be in the same directory as the GPX files.
 
 <br>
