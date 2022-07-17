@@ -323,13 +323,13 @@ Now Git is set up! You can close the terminal.
 
 # Roadmap
 
+* Distance from each individual to the border.
+* Centroid to centroid, scan by scan distance in temporal order.
+* Area overlap between scans
+* Pack extra data pertaining to each scan into a data frame. Centroid, zone, dist perim, dist next centroid, group size.
+* Home range
 * Create working .exe
 * Add how to use .gitignore
-* Distance from each individual to the border.
-* Size of the group.
-* Home range.
-* Centroid to centroid, scan by scan distance in temporal order.
-* Area overlap
 * Automated map creation by day
     * Tool to view scan by scan
 * Aggregate all data and make a webmap tool to view it with a time slider day by day, hour by hour averages of monkey location
