@@ -4,10 +4,10 @@ This work has been transfered from my fork of [https://github.com/frozenbanana97
 # Contents
 
 - [The Program](#the-program)
-- [Quick Setup](#quick-setup)
+    - [Quick Setup](#quick-setup)
 - [Data Parsing, Prep, & Analysis](#data-parsing-prep--analysis)
     - [Instructions](#instructions)
-    - [Getting Started - Setting up the Environment](#getting-started---setting-up-the-environment)
+    - [Setting up the Virtual Environment](#setting-up-the-virtual-environment)
     - [Installing Python Requirements](#installing-python-requirements)
 - [Pre-Analysis Data Format](#pre-analysis-data-format)
     - [Issues & Limitations](#issues--limitations)
@@ -29,34 +29,35 @@ This work has been transfered from my fork of [https://github.com/frozenbanana97
 This program is made to allow for quick analysis and data preperation in primate observation studies, such as scan sampling. To use this program you must have the minimum of Python and the project requiremtns installed as well as the proper type of data to analyze.
 <br>
 
-# Quick Setup
+### Quick Setup
 
 To get started using the bare minimum to get the data analyzed, you will need Python installed and the raw data in the correct format.
 <br>
 
 - Collect data in the proper format, if you are using Locus Map the GPX export is the correct format. [See here](#pre-analysis-data-format) for more info.
-- Install Python 3. For help [jump here](#python-installation)
-- Install the required packages in your Python environemt using `pip install -r requirements.txt`, whether using a virtual environemt or a global one. Windows users will need to do some manual work, [see here](#installing-python-requirements) for more info.
--  Now you can simply run `main.py` to start the program in your Python command line, select the directory the GPX files are in, choose the options to run with and click run! The output files will be in the same directory as the GPX files.
+- Install Python 3. For help [jump to here](#python-installation)
+- Install the required packages in your Python environemt using `pip install -r requirements.txt`, whether using a [virtual environemt](#setting-up-the-virtual-environment)(recommended) or a global one. Windows users will need to do some extra manual work to install two dependencies (Fiona and GDAL). I have provided them for a 64 bit system with Pythom 3.10 installed (the current version as of writing) so these should work for most people,[see here](#installing-python-requirements) for more info.
+-  Now you can simply run `main.py` to start the program in your Python command line: `python3 main.py`. Select the directory the GPX files are in, choose the options to run with and click run! The output files will be in the same directory as the GPX files.
 
 <br>
 
 # Data Parsing, Prep, & Analysis
 <br>
-Optimized for working with scan sampling data specifically for primatological purposes.
+This prohram was made for working with scan sampling data specifically for primatological purposes.
 
 ### Instructions
 
 * To run the algorithm, you will need both `main.py` and `spatialFunctions.py` downloaded in your working directory.
-* The GPX files to be analysed should all be copied into one directory, the scripts will create any additional required directories for data storage.
+* The GPX files to be analysed should all be copied into one directory, the program will create any additional required directories for data storage.
 * You will need a Python environment, whether global (installed on your computer) or a virtual environment (recommended, see instructions in steps below, or see [here](https://github.com/frozenbanana97/documentation) for setting one up and troubleshooting), with the proper requirements from `requirements.txt` installed.
-* Once everything is installed correctly, run `main.py` and choose the desired options, the analysed data will be exported in the selected directory under a sub directory `gpkgData/` ready for use in GIS applications as well as the folder `csvDayFiles/` in .csv format. See the [installation instructions](#software-installation-guide) if Python and other programs are not yet installed.
+* Once everything is installed correctly, run `main.py` with `python3 main.py` and choose the desired options, the analysed data will be exported in the selected directory under a sub directory gpkgData/ ready for use in GIS applications as well as the folder csvDayFiles/ in .csv format. See the installation instructions if Python and other programs are not yet installed.
+<br>
 
 ##### Notes
 
-* The Jupyter Notebook `Automation Notebook.ipynb` is currently for development purposes and testing as it requires additional setup to run, but feel free to use it for your own purposes. I will keep it and the .py modules up to date with each other.
+The Jupyter Notebook Automation Notebook.ipynb is currently for development purposes and testing as it requires additional setup to run, but feel free to use it for your own purposes. I will keep it and the .py modules up to date with each other.
 
-### Getting Started - Setting up the Environment
+### Setting up the Virtual Environment
 
 This is recommended whenever working on a coding project to ensure that everything installed for the project does not affect the system at large and therefore can be reset with ease if something goes wrong. However you can just install it all globally *not* in a virtual environemnt if you would like.
 
@@ -111,8 +112,8 @@ The environment should now be ready to run the scripts!
 
 ##### Windows
 
-Windows lacks some of the packages required so you'll have to download them manually, go to [this folder in my documentation repo](https://github.com/frozenbanana97/documentation/tree/master/winDependencies) and downlaod both the Fiona and GDAL files into the project directory. NOTE - these files are for a 64 bit version of Windows running Pyhon 3.10, if your system does not match this you should download the files yourself using instructions provided in [my documentation](https://github.com/frozenbanana97/documentation).
-Now install them using:
+Windows lacks some of the packages required so you'll have to download them manually, go to the `Windows Dependencies` folder at the top of this page and downlaod both the Fiona and GDAL files into the project directory. NOTE - these files are for a 64 bit version of Windows running Pyhon 3.10, if your system does not match this you should download the files yourself using instructions provided in [my documentation](https://github.com/frozenbanana97/documentation).
+<br> Now install them using the Python terminal running out of the directory the filesa re downloaded:
 <br>
 (if you downloaded different versions make sure to use those file names)
 <br>
@@ -170,18 +171,18 @@ Please see the roadmap for further developmment plans!
 
 ### Issues & Limitations
 
-There is a major limitation however. If the age/sex part of the observation (ni, m, j2 etc) is not hard-coded intp the algorith then it will break. This is due to the methd of data collection that had already taken place for a while before this code was written, where a lack of seperator was used for the age/sex, strata, and observations. The nature of having different lengths of age/sex values and no seperator (i.e commas or consistent use of spaces) made it particularly difficult to automate the extraction of this data from the string. If anyone can figure out how to solve this issue please let me know and feel free to contribute!
+There is a major limitation however. If the age/sex part of the observation (ni, m, j2 etc) is not hard-coded into the algorith then it will break. This is due to the method of data collection that had already taken place for a while before this code was written, where a lack of seperator was used for the age/sex, strata, and observations. The nature of having different lengths of age/sex values and no seperator (i.e commas or consistent use of spaces) made it particularly difficult to automate the extraction of this data from the string. If anyone can figure out how to solve this issue please let me know and feel free to contribute!
 
 The scan seperation segment of the code is also hard-coded in and is not fully scalable. I put in code to account for upwards of 10 scans per day, but again if this proves problematic it can be fixed by simply copy-pasting the existing code and changing the identifier values.
 <br>
 
 # Software Installation Guide
 
-*Required Software*
+**Required Software**
 
 * Python 3
 
-*Optional Software*
+**Optional Software**
 
 * QGIS
 * Visual Studio Code (or another IDE, my instructions will be for VS Code)
