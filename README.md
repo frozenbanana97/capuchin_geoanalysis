@@ -4,13 +4,14 @@ This work has been transfered from my fork of [https://github.com/frozenbanana97
 # Contents
 
 - [The Program](#the-program)
+- [Quick Setup](#quick-setup)
 - [Data Parsing, Prep, & Analysis](#data-parsing-prep--analysis)
     - [Instructions](#instructions)
     - [Getting Started - Setting up the Environment](#getting-started---setting-up-the-environment)
+    - [Installing Python Requirements](#installing-python-requirements)
 - [Pre-Analysis Data Format](#pre-analysis-data-format)
     - [Issues & Limitations](#issues--limitations)
 - [Software Installation Guide](#software-installation-guide)
-      - [Optional Software](#optional-software)
     - [Python Installation](#python-installation)
     - [QGIS Installation](#qgis-installation)
     - [Visual Studio Code](#visual-studio-code)
@@ -26,6 +27,19 @@ This work has been transfered from my fork of [https://github.com/frozenbanana97
 # The Program
 
 This program is made to allow for quick analysis and data preperation in primate observation studies, such as scan sampling. To use this program you must have the minimum of Python and the project requiremtns installed as well as the proper type of data to analyze.
+<br>
+
+# Quick Setup
+
+To get started using the bare minimum to get the data analyzed, you will need Python installed and the raw data in the correct format.
+<br>
+
+- Collect data in the proper format, if you are using Locus Map the GPX export is the correct format. [See here](#pre-analysis-data-format) for more info.
+- Install Python 3. For help [jump here](#python-installation)
+    - Install the required packages in your Python environemt using `pip install -r requirements.txt`, whether using a virtual environemt or a global one. Windows users will need to do some manual work, [see here](#installing-python-requirements) for more info.
+-  Now you can simply run `main.py` to start the program in your Python command line, select the directory the GPX files are in, choose the options to run with and click run! The output files will be in the same directory as the GPX files.
+
+<br>
 
 # Data Parsing, Prep, & Analysis
 <br>
@@ -81,7 +95,11 @@ Activate the virtual environment:
 ```
 <br>
 * Now you should see the virtual environements name on the command line of your terminal. This means all commands using that terminal are being executed through the virtual environment. If this does not work you can troubleshoot using with the [official python documentation](https://docs.python.org/3/library/venv.html) or [my own documentation](https://github.com/frozenbanana97/documentation), admittedly not as thorough but may come in handy.
-* Next step is to install the requirements, this can be done by running:
+<br>
+
+### Installing Python Requirements
+
+Next step is to install the requirements, this can be done by running:
 
 ##### Linux
 
@@ -94,7 +112,8 @@ The environment should now be ready to run the scripts!
 ##### Windows
 
 Windows lacks some of the packages required so you'll have to download them manually, go to [this folder in my documentation repo](https://github.com/frozenbanana97/documentation/tree/master/winDependencies) and downlaod both the Fiona and GDAL files into the project directory. NOTE - these files are for a 64 bit version of Windows running Pyhon 3.10, if your system does not match this you should download the files yourself using instructions provided in [my documentation](https://github.com/frozenbanana97/documentation).
-Now install them (in the virtual environment) using:
+Now install them using:
+<br>
 (if you downloaded different versions make sure to use those file names)
 <br>
 ```
@@ -155,13 +174,14 @@ There is a major limitation however. If the age/sex part of the observation (ni,
 
 The scan seperation segment of the code is also hard-coded in and is not fully scalable. I put in code to account for upwards of 10 scans per day, but again if this proves problematic it can be fixed by simply copy-pasting the existing code and changing the identifier values.
 <br>
+
 # Software Installation Guide
 
-Required Software
+*Required Software*
 
-* Python
+* Python 3
 
-#### Optional Software
+*Optional Software*
 
 * QGIS
 * Visual Studio Code (or another IDE, my instructions will be for VS Code)
@@ -173,7 +193,7 @@ If you already have a version of the above installed then you can skip that sect
 
 ##### Windows
 
-First make sure you have python 3.8.10 or higher installed on your system, you can download Python [here](https://www.python.org/downloads/). Once the instller is downloaded run it and you will be greeted with a window similar to the image below. Ensure to click Add Python to PATH, and then click install now.
+First make sure you have python 3.8.10 or higher installed on your system, you can download Python [here](https://www.python.org/downloads/). Once the installer is downloaded run it and you will be greeted with a window similar to the image below. Ensure to click Add Python to PATH, and then click install now.
 ![Python Installation](https://github.com/frozenbanana97/documentation/blob/master/imgs/Py1_PATH.png)
 Continue with the installation until it is complete.
 
@@ -185,7 +205,7 @@ Python should already be installed by default, you can check by running the foll
 python3 --version
 ```
 
-If Python is *not* installed then you can install it by running (Ubuntu/Debian:
+If Python is *not* installed then you can install it by running (Ubuntu/Debian):
 <br>
 ```
 sudo apt install python3
