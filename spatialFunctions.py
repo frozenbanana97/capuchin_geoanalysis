@@ -158,12 +158,15 @@ def observations(df):
 def scanSpatial(gdf, i, spatialCounter):
     # Get centroid value of all points in scan / Obtenha o valor do centroide de todos os pontos na varredura
     centroid = gdf.dissolve().centroid
+    borderLine = gpd.read_file('/home/kyle/Nextcloud/Monkey_Research/Data_Work/CapuchinExtraGIS/FragmentData.gpkg', layer='EdgeLine')
+    border = borderLine.unary_union
 
     # Calculate distance of each point in the group to the centroid and border
     # Calcular a distância de cada ponto no grupo para o centroide e fronteira
     for row in gdf['geometry']:
         gdf.loc[:,'distCentr'] = gdf.distance(centroid[0])
-        gdf.loc[:,'distBorder'] = gdf.distance(centroid[0])
+        gdf.loc[:,'distBorder'] = gdf.distance(border)
+        
 
     # Create geodataframe for the area, perimeter, and polygon of each scan
     area = gdf.dissolve().convex_hull
@@ -178,6 +181,7 @@ def scanSpatial(gdf, i, spatialCounter):
     centroid.to_file('gpkgData/'+i[:-4]+'scans.gpkg', driver="GPKG", layer=i[:-4]+'_scan'+spatialCounter+'_centroid')
     area.to_file('gpkgData/'+i[:-4]+'scans.gpkg', driver="GPKG", layer=i[:-4]+'_scan'+spatialCounter+'_zone')
     gdf.to_file('gpkgData/'+i[:-4]+'scans.gpkg', driver="GPKG", layer=i[:-4]+'_scan'+spatialCounter)
+    return(gdf)
 
 def scanExport(gdf, i):
     spatialCounter = '1'
@@ -207,7 +211,7 @@ def scanExport(gdf, i):
 
     gdfs7 = gdf[(gdf['scan'].isin(['7']))]
     if not gdfs7.empty:
-            scanSpatial(gdfs7, i, '7')
+        scanSpatial(gdfs7, i, '7')
 
     gdfs8 = gdf[(gdf['scan'].isin(['8']))]
     if not gdfs8.empty:
@@ -229,16 +233,20 @@ def scanExport(gdf, i):
     gdfother = gdf[(gdf['scan'].isin(['other']))]
     if not gdfother.empty:
         gdfother.to_file('gpkgData/'+i[:-4]+'scans.gpkg', driver="GPKG", layer=i[:-4]+'_other')
+    
+    return(gdf)
 
 def scanSpatialDir(gdf, i, spatialCounter, dir_sel):
     # Get centroid value of all points in scan / Obtenha o valor do centroide de todos os pontos na varredura
     centroid = gdf.dissolve().centroid
+    borderLine = gpd.read_file('/home/kyle/Nextcloud/Monkey_Research/Data_Work/CapuchinExtraGIS/FragmentData.gpkg', layer='EdgeLine')
+    border = borderLine.unary_union
 
     # Calculate distance of each point in the group to the centroid and border
     # Calcular a distância de cada ponto no grupo para o centroide e fronteira
     for row in gdf['geometry']:
         gdf.loc[:,'distCentr'] = gdf.distance(centroid[0])
-        gdf.loc[:,'distBorder'] = gdf.distance(centroid[0])
+        gdf.loc[:,'distBorder'] = gdf.distance(border)
 
     # Create geodataframe for the area, perimeter, and polygon of each scan
     area = gdf.dissolve().convex_hull

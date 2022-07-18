@@ -126,6 +126,10 @@ def big_loop():
                 print(gpxDict)
                 print('not dir path')
     
+    # # Import fragment border
+    # border = gpd.read_file('/home/kyle/Nextcloud/Monkey_Research/Data_Work/CapuchinExtraGIS/FragmentData.gpkg', layer='EdgeLine')
+
+    
     for i in gpxDict:
         print('running')
         
@@ -196,26 +200,26 @@ def big_loop():
         gdf = gdf.set_crs('EPSG:4326')
         gdf = gdf.to_crs('EPSG:31985')
 
-        # Check and create save directory for gpkg files / Verifique e crie um diretório de salvamento para arquivos gpkg
         if dir_sel:
+            # Export each scan as a separate layer using the scanExport and scanSpatial methods in spatialFunctions
+            # Exporte cada varredura como uma camada separada usando os métodos scanExport e scanSpatial em spatialFunctions    
+            if toggleScans() == 'yes':
+                scanExportDir(gdf, i, dir_sel)
+    
+            # Check and create save directory for gpkg files / Verifique e crie um diretório de salvamento para arquivos gpkg
             gpkgsavePath = dir_sel+'/gpkgData'
             isDir = os.path.isdir(gpkgsavePath)
             if isDir == False:
                 mkdir(dir_sel+'/gpkgData')
             
-            # Export gdf into gpkg / Exportar gdf para gpkg
-            gdf.to_file(dir_sel+'/gpkgData/'+i[:-4]+'scans.gpkg', driver="GPKG", layer=i[:-4]+'_wholeDay')
-            
-            # Export each scan as a separate layer using the scanExport and scanSpatial methods in spatialFunctions
-            # Exporte cada varredura como uma camada separada usando os métodos scanExport e scanSpatial em spatialFunctions    
-            if toggleScans() == 'yes':
-                scanExportDir(gdf, i, dir_sel)
-
             # Check and create save directory for csv files / Verifique e crie um diretório de salvamento para arquivos csv
             csvsavePath = dir_sel+'/csvDayFiles'
             isDir = os.path.isdir(csvsavePath)
             if isDir == False:
                 mkdir(dir_sel+'/csvDayFiles')
+            
+            # Export gdf into gpkg / Exportar gdf para gpkg
+            gdf.to_file(dir_sel+'/gpkgData/'+i[:-4]+'scans.gpkg', driver="GPKG", layer=i[:-4]+'_wholeDay')
             
             # Save to csv / Salvar em csv
             gdf.to_csv(dir_sel+'/csvDayFiles/'+i[:-4]+'.csv')
