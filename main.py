@@ -138,6 +138,9 @@ def big_loop():
     # Loop thorugh all GPX files and perform analysis / Percorra todos os arquivos GPX e realize análises
     for i in gpxDict:
         print('running')
+
+        gdfFullCen = []
+        gdfFullBor = []
         
         # Open and read in the .gpx to a dataframe / Abra e leia no .gpx para um dataframe
         if dir_sel:
@@ -234,8 +237,11 @@ def big_loop():
         # Export each scan as a separate layer using the scanExport and scanSpatial methods in spatialFunctions
         # Exporte cada varredura como uma camada separada usando os métodos scanExport e scanSpatial em spatialFunctions   
         if toggleScans() == 'yes':
-                scanExport(gdf, i, dir_sel)
-        
+                scanExport(gdf, i, dir_sel, gdfFullCen, gdfFullBor)
+
+        # gdf['distCentr'] = gdfFullCen
+        # gdf['distBorder'] = gdfFullBor  
+
         if dir_sel:
             # Export gdf into gpkg / Exportar gdf para gpkg
             gdf.to_file(dir_sel+'/gpkgData/'+i[:-4]+'scans.gpkg', driver="GPKG", layer=i[:-4]+'_wholeDay')
@@ -248,8 +254,12 @@ def big_loop():
             gdf.to_file('gpkgData/'+i[:-4]+'scans.gpkg', driver="GPKG", layer=i[:-4]+'_wholeDay')
 
             # Save to csv / Salvar em csv
-            gdf.to_csv('csvDayFiles/'+i[:-4]+'.csv')
+            gdf.to_csv('csvDayFiles/'+i[:-4]+'.csv')              
+        
+    
 
+
+    
 
         print('done')
 

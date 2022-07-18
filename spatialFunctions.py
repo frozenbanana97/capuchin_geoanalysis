@@ -154,154 +154,80 @@ def observations(df):
     df.loc[df['age/sex']=='', 'scan'] = 'other'
     df.loc[df['age/sex']=='ago', 'scan'] = 'ago'
 
-# Additional spatial functions can be added here using the same methodology
-# Funções espaciais adicionais podem ser adicionadas aqui usando a mesma metodologia
-# def scanSpatial(gdf, i, spatialCounter):
-#     # Get centroid value of all points in scan / Obtenha o valor do centroide de todos os pontos na varredura
-#     centroid = gdf.dissolve().centroid
-#     borderLine = gpd.read_file('/home/kyle/Nextcloud/Monkey_Research/Data_Work/CapuchinExtraGIS/FragmentData.gpkg', layer='EdgeLine')
-#     border = borderLine.unary_union
+def scanExport(gdf, i, dir_sel, gdfFullCen, gdfFullBor):
 
-#     # Calculate distance of each point in the group to the centroid and border
-#     # Calcular a distância de cada ponto no grupo para o centroide e fronteira
-#     for row in gdf['geometry']:
-#         gdf.loc[:,'distCentr'] = gdf.distance(centroid[0])
-#         gdf.loc[:,'distBorder'] = gdf.distance(border)
-        
-
-#     # Create geodataframe for the area, perimeter, and polygon of each scan
-#     area = gdf.dissolve().convex_hull
-#     area = gpd.GeoDataFrame(gpd.GeoSeries(area))
-#     area = area.rename(columns={0:'geometry'}).set_geometry('geometry')
-#     area.loc[:,'area'] = area.area
-#     area.loc[:,'perimeter'] = area.length
-#     area.loc[:,'individuals'] = len(gdf)
-#     area.loc[:,'ind/m2'] = len(gdf)/area['area']
-#     area.loc[:,'ind/perim(m)'] = len(gdf)/area['perimeter']
-
-#     centroid.to_file('gpkgData/'+i[:-4]+'scans.gpkg', driver="GPKG", layer=i[:-4]+'_scan'+spatialCounter+'_centroid')
-#     area.to_file('gpkgData/'+i[:-4]+'scans.gpkg', driver="GPKG", layer=i[:-4]+'_scan'+spatialCounter+'_zone')
-#     gdf.to_file('gpkgData/'+i[:-4]+'scans.gpkg', driver="GPKG", layer=i[:-4]+'_scan'+spatialCounter)
-
-# def scanExport(gdf, i):
-#     spatialCounter = '1'
-#     gdfs1 = gdf[(gdf['scan'].isin(['1']))]
-#     if not gdfs1.empty:
-#         scanSpatial(gdfs1, i, '1')
-
-#     gdfs2 = gdf[(gdf['scan'].isin(['2']))]
-#     if not gdfs2.empty:
-#         scanSpatial(gdfs2, i, '2')
-
-#     gdfs3 = gdf[(gdf['scan'].isin(['3']))]
-#     if not gdfs3.empty:
-#         scanSpatial(gdfs3, i, '3')
-
-#     gdfs4 = gdf[(gdf['scan'].isin(['4']))]
-#     if not gdfs4.empty:
-#         scanSpatial(gdfs4, i, '4')
-
-#     gdfs5 = gdf[(gdf['scan'].isin(['5']))]
-#     if not gdfs5.empty:
-#         scanSpatial(gdfs5, i, '5')
-
-#     gdfs6 = gdf[(gdf['scan'].isin(['6']))]
-#     if not gdfs6.empty:
-#         scanSpatial(gdfs6, i, '6')
-
-#     gdfs7 = gdf[(gdf['scan'].isin(['7']))]
-#     if not gdfs7.empty:
-#         scanSpatial(gdfs7, i, '7')
-
-#     gdfs8 = gdf[(gdf['scan'].isin(['8']))]
-#     if not gdfs8.empty:
-#         scanSpatial(gdfs8, i, '8')
-
-#     gdfs9 = gdf[(gdf['scan'].isin(['9']))]
-#     if not gdfs9.empty:
-#         scanSpatial(gdfs9, i, '9')
-
-#     gdfs10 = gdf[(gdf['scan'].isin(['10']))]
-#     if not gdfs10.empty:
-#         scanSpatial(gdfs10, i, '10')
-
-#     # Create layers for non-scan data / Crie camadas para dados não digitalizados
-#     gdfago = gdf[(gdf['scan'].isin(['ago']))]
-#     if not gdfago.empty:
-#         gdfago.to_file('gpkgData/'+i[:-4]+'scans.gpkg', driver="GPKG", layer=i[:-4]+'_ago')
-
-#     gdfother = gdf[(gdf['scan'].isin(['other']))]
-#     if not gdfother.empty:
-#         gdfother.to_file('gpkgData/'+i[:-4]+'scans.gpkg', driver="GPKG", layer=i[:-4]+'_other')
-    
-#     return(gdf)
-
-def scanExport(gdf, i, dir_sel):
-    spatialCounter = '1'
     gdfs1 = gdf[(gdf['scan'].isin(['1']))]
     if not gdfs1.empty:
-        scanSpatial(gdfs1, i, '1', dir_sel)
+        scanSpatial(gdfs1, i, '1', dir_sel, gdf, gdfFullCen, gdfFullBor)
 
     gdfs2 = gdf[(gdf['scan'].isin(['2']))]
     if not gdfs2.empty:
-        scanSpatial(gdfs2, i, '2', dir_sel)
+        scanSpatial(gdfs2, i, '2', dir_sel, gdf, gdfFullCen, gdfFullBor)
 
     gdfs3 = gdf[(gdf['scan'].isin(['3']))]
     if not gdfs3.empty:
-        scanSpatial(gdfs3, i, '3', dir_sel)
+        scanSpatial(gdfs3, i, '3', dir_sel, gdf, gdfFullCen, gdfFullBor)
 
     gdfs4 = gdf[(gdf['scan'].isin(['4']))]
     if not gdfs4.empty:
-        scanSpatial(gdfs4, i, '4', dir_sel)
+        scanSpatial(gdfs4, i, '4', dir_sel, gdf, gdfFullCen, gdfFullBor)
 
     gdfs5 = gdf[(gdf['scan'].isin(['5']))]
     if not gdfs5.empty:
-        scanSpatial(gdfs5, i, '5', dir_sel)
+        scanSpatial(gdfs5, i, '5', dir_sel, gdf, gdfFullCen, gdfFullBor)
 
     gdfs6 = gdf[(gdf['scan'].isin(['6']))]
     if not gdfs6.empty:
-        scanSpatial(gdfs6, i, '6', dir_sel)
+        scanSpatial(gdfs6, i, '6', dir_sel, gdf, gdfFullCen, gdfFullBor)
 
     gdfs7 = gdf[(gdf['scan'].isin(['7']))]
     if not gdfs7.empty:
-        scanSpatial(gdfs7, i, '7', dir_sel)
+        scanSpatial(gdfs7, i, '7', dir_sel, gdf, gdfFullCen, gdfFullBor)
 
     gdfs8 = gdf[(gdf['scan'].isin(['8']))]
     if not gdfs8.empty:
-        scanSpatial(gdfs8, i, '8', dir_sel)
+        scanSpatial(gdfs8, i, '8', dir_sel, gdf, gdfFullCen, gdfFullBor)
 
     gdfs9 = gdf[(gdf['scan'].isin(['9']))]
     if not gdfs9.empty:
-        scanSpatial(gdfs9, i, '9', dir_sel)
+        scanSpatial(gdfs9, i, '9', dir_sel, gdf, gdfFullCen, gdfFullBor)
 
     gdfs10 = gdf[(gdf['scan'].isin(['10']))]
     if not gdfs10.empty:
-        scanSpatial(gdfs10, i, '10', dir_sel)
+        scanSpatial(gdfs10, i, '10', dir_sel, gdf, gdfFullCen, gdfFullBor)
 
     # Create layers for non-scan data / Crie camadas para dados não digitalizados
     gdfago = gdf[(gdf['scan'].isin(['ago']))]
     if not gdfago.empty:
-        scanSpatial(gdfago, i, 'ago', dir_sel)
-        # gdfago.to_file(dir_sel+'/gpkgData/'+i[:-4]+'scans.gpkg', driver="GPKG", layer=i[:-4]+'_ago')
+        scanSpatial(gdfago, i, 'ago', dir_sel, gdf, gdfFullCen, gdfFullBor)
 
     gdfother = gdf[(gdf['scan'].isin(['other']))]
     if not gdfother.empty:
-        scanSpatial(gdfago, i, 'other', dir_sel)
-        # gdfother.to_file(dir_sel+'/gpkgData/'+i[:-4]+'scans.gpkg', driver="GPKG", layer=i[:-4]+'_other')
+        scanSpatial(gdfago, i, 'other', dir_sel, gdf, gdfFullCen, gdfFullBor)
 
-def scanSpatial(gdfscan, i, spatialCounter, dir_sel):
+    # gdf['distCentr'] = gdfFullCen
+    # gdf['distBorder'] = gdfFullBor
+
+def scanSpatial(gdfscan, i, spatialCounter, dir_sel, gdfFull, gdfFullCen, gdfFullBor):
     # Get centroid value of all points in scan / Obtenha o valor do centroide de todos os pontos na varredura
     centroid = gdfscan.dissolve().centroid
     borderLine = gpd.read_file('/home/kyle/Nextcloud/Monkey_Research/Data_Work/CapuchinExtraGIS/FragmentData.gpkg', layer='EdgeLine')
     border = borderLine.unary_union
-
+    
     # Calculate distance of each point in the group to the centroid and border
     # Calcular a distância de cada ponto no grupo para o centroide e fronteira
     for row in gdfscan['geometry']:
+        # Apply to the scan geodataframe / 
         gdfscan.loc[:,'distCentr'] = gdfscan.distance(centroid[0])
         gdfscan.loc[:,'distBorder'] = gdfscan.distance(border)
+        # Apply to the wholeDay geodataframe as list/ 
+        # gdfFullCen.append(gdfscan.distance(centroid[0]))
+        # gdfFullBor.append(gdfscan.distance(border))
 
-    # Create geodataframe for the area, perimeter, and polygon of each scan
+    # gdfFull['distCentr'] = gdfFullCen
+    # gdfFull['distBorder'] = gdfFullBor        
+
+    # Create geodataframe for the area incuding perimeter, and polygon of each scan / 
     area = gdfscan.dissolve().convex_hull
     area = gpd.GeoDataFrame(gpd.GeoSeries(area))
     area = area.rename(columns={0:'geometry'}).set_geometry('geometry')
@@ -316,10 +242,8 @@ def scanSpatial(gdfscan, i, spatialCounter, dir_sel):
     mastercsv.pop('geometry')
     mastercsv.insert(loc=0, column='scan', value = i[:-4]+'scan'+spatialCounter)
     mastercsv.loc[:,'centroid'] = centroid
-    mastercsv.loc[:,'centBorder'] = mastercsv['centroid'].distance(border)
+    mastercsv.loc[:,'centBorder(m)'] = mastercsv['centroid'].distance(border)
     
-    
-
     if dir_sel:
         centroid.to_file(dir_sel+'/gpkgData/'+i[:-4]+'scans.gpkg', driver="GPKG", layer=i[:-4]+'_scan'+spatialCounter+'_centroid')
         area.to_file(dir_sel+'/gpkgData/'+i[:-4]+'scans.gpkg', driver="GPKG", layer=i[:-4]+'_scan'+spatialCounter+'_zone')
