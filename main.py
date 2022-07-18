@@ -135,8 +135,7 @@ def big_loop():
     if os.path.isfile(dir_sel+'/csvDayFiles/master.csv'):
         os.remove(dir_sel+'/csvDayFiles/master.csv')
     
-
-    
+    # Loop thorugh all GPX files and perform analysis / Percorra todos os arquivos GPX e realize análises
     for i in gpxDict:
         print('running')
         
@@ -207,8 +206,7 @@ def big_loop():
         gdf = gdf.set_crs('EPSG:4326')
         gdf = gdf.to_crs('EPSG:31985')
             
-        if dir_sel:           
-    
+        if dir_sel:    
             # Check and create save directory for gpkg files / Verifique e crie um diretório de salvamento para arquivos gpkg
             gpkgsavePath = dir_sel+'/gpkgData'
             isDir = os.path.isdir(gpkgsavePath)
@@ -297,8 +295,6 @@ obs_btn = Checkbutton(root, text = 'Parse Observations',
                       height = 1,
                       width = 15,
                       command=toggleObservations)
-
-
 
 def main():
     # Set Grid for GUI. Some widgets may be located elsewhere (dir output)
