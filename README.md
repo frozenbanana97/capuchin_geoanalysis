@@ -323,7 +323,7 @@ Now Git is set up! You can close the terminal.
 
 # Roadmap
 
-* Distance from each individual to the border.
+* Get centroid and border distances into the whole day and ago and other scans
 * Centroid to centroid, scan by scan distance in temporal order.
 * Area overlap between scans
 * Pack extra data pertaining to each scan into a data frame. Centroid, zone, dist perim, dist next centroid, group size.
