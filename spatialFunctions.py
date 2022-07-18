@@ -1,3 +1,4 @@
+import os
 import pandas as pd
 import geopandas as gpd
 from datetime import datetime, timedelta
@@ -155,160 +156,184 @@ def observations(df):
 
 # Additional spatial functions can be added here using the same methodology
 # Funções espaciais adicionais podem ser adicionadas aqui usando a mesma metodologia
-def scanSpatial(gdf, i, spatialCounter):
-    # Get centroid value of all points in scan / Obtenha o valor do centroide de todos os pontos na varredura
-    centroid = gdf.dissolve().centroid
-    borderLine = gpd.read_file('/home/kyle/Nextcloud/Monkey_Research/Data_Work/CapuchinExtraGIS/FragmentData.gpkg', layer='EdgeLine')
-    border = borderLine.unary_union
+# def scanSpatial(gdf, i, spatialCounter):
+#     # Get centroid value of all points in scan / Obtenha o valor do centroide de todos os pontos na varredura
+#     centroid = gdf.dissolve().centroid
+#     borderLine = gpd.read_file('/home/kyle/Nextcloud/Monkey_Research/Data_Work/CapuchinExtraGIS/FragmentData.gpkg', layer='EdgeLine')
+#     border = borderLine.unary_union
 
-    # Calculate distance of each point in the group to the centroid and border
-    # Calcular a distância de cada ponto no grupo para o centroide e fronteira
-    for row in gdf['geometry']:
-        gdf.loc[:,'distCentr'] = gdf.distance(centroid[0])
-        gdf.loc[:,'distBorder'] = gdf.distance(border)
+#     # Calculate distance of each point in the group to the centroid and border
+#     # Calcular a distância de cada ponto no grupo para o centroide e fronteira
+#     for row in gdf['geometry']:
+#         gdf.loc[:,'distCentr'] = gdf.distance(centroid[0])
+#         gdf.loc[:,'distBorder'] = gdf.distance(border)
         
 
-    # Create geodataframe for the area, perimeter, and polygon of each scan
-    area = gdf.dissolve().convex_hull
-    area = gpd.GeoDataFrame(gpd.GeoSeries(area))
-    area = area.rename(columns={0:'geometry'}).set_geometry('geometry')
-    area.loc[:,'area'] = area.area
-    area.loc[:,'perimeter'] = area.length
-    area.loc[:,'individuals'] = len(gdf)
-    area.loc[:,'ind/m2'] = len(gdf)/area['area']
-    area.loc[:,'ind/perim(m)'] = len(gdf)/area['perimeter']
+#     # Create geodataframe for the area, perimeter, and polygon of each scan
+#     area = gdf.dissolve().convex_hull
+#     area = gpd.GeoDataFrame(gpd.GeoSeries(area))
+#     area = area.rename(columns={0:'geometry'}).set_geometry('geometry')
+#     area.loc[:,'area'] = area.area
+#     area.loc[:,'perimeter'] = area.length
+#     area.loc[:,'individuals'] = len(gdf)
+#     area.loc[:,'ind/m2'] = len(gdf)/area['area']
+#     area.loc[:,'ind/perim(m)'] = len(gdf)/area['perimeter']
 
-    centroid.to_file('gpkgData/'+i[:-4]+'scans.gpkg', driver="GPKG", layer=i[:-4]+'_scan'+spatialCounter+'_centroid')
-    area.to_file('gpkgData/'+i[:-4]+'scans.gpkg', driver="GPKG", layer=i[:-4]+'_scan'+spatialCounter+'_zone')
-    gdf.to_file('gpkgData/'+i[:-4]+'scans.gpkg', driver="GPKG", layer=i[:-4]+'_scan'+spatialCounter)
-    return(gdf)
+#     centroid.to_file('gpkgData/'+i[:-4]+'scans.gpkg', driver="GPKG", layer=i[:-4]+'_scan'+spatialCounter+'_centroid')
+#     area.to_file('gpkgData/'+i[:-4]+'scans.gpkg', driver="GPKG", layer=i[:-4]+'_scan'+spatialCounter+'_zone')
+#     gdf.to_file('gpkgData/'+i[:-4]+'scans.gpkg', driver="GPKG", layer=i[:-4]+'_scan'+spatialCounter)
 
-def scanExport(gdf, i):
+# def scanExport(gdf, i):
+#     spatialCounter = '1'
+#     gdfs1 = gdf[(gdf['scan'].isin(['1']))]
+#     if not gdfs1.empty:
+#         scanSpatial(gdfs1, i, '1')
+
+#     gdfs2 = gdf[(gdf['scan'].isin(['2']))]
+#     if not gdfs2.empty:
+#         scanSpatial(gdfs2, i, '2')
+
+#     gdfs3 = gdf[(gdf['scan'].isin(['3']))]
+#     if not gdfs3.empty:
+#         scanSpatial(gdfs3, i, '3')
+
+#     gdfs4 = gdf[(gdf['scan'].isin(['4']))]
+#     if not gdfs4.empty:
+#         scanSpatial(gdfs4, i, '4')
+
+#     gdfs5 = gdf[(gdf['scan'].isin(['5']))]
+#     if not gdfs5.empty:
+#         scanSpatial(gdfs5, i, '5')
+
+#     gdfs6 = gdf[(gdf['scan'].isin(['6']))]
+#     if not gdfs6.empty:
+#         scanSpatial(gdfs6, i, '6')
+
+#     gdfs7 = gdf[(gdf['scan'].isin(['7']))]
+#     if not gdfs7.empty:
+#         scanSpatial(gdfs7, i, '7')
+
+#     gdfs8 = gdf[(gdf['scan'].isin(['8']))]
+#     if not gdfs8.empty:
+#         scanSpatial(gdfs8, i, '8')
+
+#     gdfs9 = gdf[(gdf['scan'].isin(['9']))]
+#     if not gdfs9.empty:
+#         scanSpatial(gdfs9, i, '9')
+
+#     gdfs10 = gdf[(gdf['scan'].isin(['10']))]
+#     if not gdfs10.empty:
+#         scanSpatial(gdfs10, i, '10')
+
+#     # Create layers for non-scan data / Crie camadas para dados não digitalizados
+#     gdfago = gdf[(gdf['scan'].isin(['ago']))]
+#     if not gdfago.empty:
+#         gdfago.to_file('gpkgData/'+i[:-4]+'scans.gpkg', driver="GPKG", layer=i[:-4]+'_ago')
+
+#     gdfother = gdf[(gdf['scan'].isin(['other']))]
+#     if not gdfother.empty:
+#         gdfother.to_file('gpkgData/'+i[:-4]+'scans.gpkg', driver="GPKG", layer=i[:-4]+'_other')
+    
+#     return(gdf)
+
+def scanExport(gdf, i, dir_sel):
     spatialCounter = '1'
     gdfs1 = gdf[(gdf['scan'].isin(['1']))]
     if not gdfs1.empty:
-        scanSpatial(gdfs1, i, '1')
+        scanSpatial(gdfs1, i, '1', dir_sel)
 
     gdfs2 = gdf[(gdf['scan'].isin(['2']))]
     if not gdfs2.empty:
-        scanSpatial(gdfs2, i, '2')
+        scanSpatial(gdfs2, i, '2', dir_sel)
 
     gdfs3 = gdf[(gdf['scan'].isin(['3']))]
     if not gdfs3.empty:
-        scanSpatial(gdfs3, i, '3')
+        scanSpatial(gdfs3, i, '3', dir_sel)
 
     gdfs4 = gdf[(gdf['scan'].isin(['4']))]
     if not gdfs4.empty:
-        scanSpatial(gdfs4, i, '4')
+        scanSpatial(gdfs4, i, '4', dir_sel)
 
     gdfs5 = gdf[(gdf['scan'].isin(['5']))]
     if not gdfs5.empty:
-        scanSpatial(gdfs5, i, '5')
+        scanSpatial(gdfs5, i, '5', dir_sel)
 
     gdfs6 = gdf[(gdf['scan'].isin(['6']))]
     if not gdfs6.empty:
-        scanSpatial(gdfs6, i, '6')
+        scanSpatial(gdfs6, i, '6', dir_sel)
 
     gdfs7 = gdf[(gdf['scan'].isin(['7']))]
     if not gdfs7.empty:
-        scanSpatial(gdfs7, i, '7')
+        scanSpatial(gdfs7, i, '7', dir_sel)
 
     gdfs8 = gdf[(gdf['scan'].isin(['8']))]
     if not gdfs8.empty:
-        scanSpatial(gdfs8, i, '8')
+        scanSpatial(gdfs8, i, '8', dir_sel)
 
     gdfs9 = gdf[(gdf['scan'].isin(['9']))]
     if not gdfs9.empty:
-        scanSpatial(gdfs9, i, '9')
+        scanSpatial(gdfs9, i, '9', dir_sel)
 
     gdfs10 = gdf[(gdf['scan'].isin(['10']))]
     if not gdfs10.empty:
-        scanSpatial(gdfs10, i, '10')
+        scanSpatial(gdfs10, i, '10', dir_sel)
 
     # Create layers for non-scan data / Crie camadas para dados não digitalizados
     gdfago = gdf[(gdf['scan'].isin(['ago']))]
     if not gdfago.empty:
-        gdfago.to_file('gpkgData/'+i[:-4]+'scans.gpkg', driver="GPKG", layer=i[:-4]+'_ago')
+        scanSpatial(gdfago, i, 'ago', dir_sel)
+        # gdfago.to_file(dir_sel+'/gpkgData/'+i[:-4]+'scans.gpkg', driver="GPKG", layer=i[:-4]+'_ago')
 
     gdfother = gdf[(gdf['scan'].isin(['other']))]
     if not gdfother.empty:
-        gdfother.to_file('gpkgData/'+i[:-4]+'scans.gpkg', driver="GPKG", layer=i[:-4]+'_other')
-    
-    return(gdf)
+        scanSpatial(gdfago, i, 'other', dir_sel)
+        # gdfother.to_file(dir_sel+'/gpkgData/'+i[:-4]+'scans.gpkg', driver="GPKG", layer=i[:-4]+'_other')
 
-def scanSpatialDir(gdf, i, spatialCounter, dir_sel):
+def scanSpatial(gdfscan, i, spatialCounter, dir_sel):
     # Get centroid value of all points in scan / Obtenha o valor do centroide de todos os pontos na varredura
-    centroid = gdf.dissolve().centroid
+    centroid = gdfscan.dissolve().centroid
     borderLine = gpd.read_file('/home/kyle/Nextcloud/Monkey_Research/Data_Work/CapuchinExtraGIS/FragmentData.gpkg', layer='EdgeLine')
     border = borderLine.unary_union
 
     # Calculate distance of each point in the group to the centroid and border
     # Calcular a distância de cada ponto no grupo para o centroide e fronteira
-    for row in gdf['geometry']:
-        gdf.loc[:,'distCentr'] = gdf.distance(centroid[0])
-        gdf.loc[:,'distBorder'] = gdf.distance(border)
+    for row in gdfscan['geometry']:
+        gdfscan.loc[:,'distCentr'] = gdfscan.distance(centroid[0])
+        gdfscan.loc[:,'distBorder'] = gdfscan.distance(border)
 
     # Create geodataframe for the area, perimeter, and polygon of each scan
-    area = gdf.dissolve().convex_hull
+    area = gdfscan.dissolve().convex_hull
     area = gpd.GeoDataFrame(gpd.GeoSeries(area))
     area = area.rename(columns={0:'geometry'}).set_geometry('geometry')
-    area.loc[:,'area'] = area.area
-    area.loc[:,'perimeter'] = area.length
-    area.loc[:,'individuals'] = len(gdf)
-    area.loc[:,'ind/m2'] = len(gdf)/area['area']
-    area.loc[:,'ind/perim(m)'] = len(gdf)/area['perimeter']
+    area.loc[:,'area(m2)'] = area.area
+    area.loc[:,'perimeter(m)'] = area.length
+    area.loc[:,'individuals'] = len(gdfscan)
+    area.loc[:,'ind/m2*100'] = (len(gdfscan)/area['area(m2)'])*100
+    area.loc[:,'ind/perim(m)*100'] = (len(gdfscan)/area['perimeter(m)'])*100
 
-    centroid.to_file(dir_sel+'/gpkgData/'+i[:-4]+'scans.gpkg', driver="GPKG", layer=i[:-4]+'_scan'+spatialCounter+'_centroid')
-    area.to_file(dir_sel+'/gpkgData/'+i[:-4]+'scans.gpkg', driver="GPKG", layer=i[:-4]+'_scan'+spatialCounter+'_zone')
-    gdf.to_file(dir_sel+'/gpkgData/'+i[:-4]+'scans.gpkg', driver="GPKG", layer=i[:-4]+'_scan'+spatialCounter)
+    #Append to master CSV with scan by scan data NON-geographic / Anexar ao CSV mestre com varredura por varredura de dados NÃO geográficos
+    mastercsv = area.copy()
+    mastercsv.pop('geometry')
+    mastercsv.insert(loc=0, column='scan', value = i[:-4]+'scan'+spatialCounter)
+    mastercsv.loc[:,'centroid'] = centroid
+    mastercsv.loc[:,'centBorder'] = mastercsv['centroid'].distance(border)
+    
+    
 
-def scanExportDir(gdf, i, dir_sel):
-    spatialCounter = '1'
-    gdfs1 = gdf[(gdf['scan'].isin(['1']))]
-    if not gdfs1.empty:
-        scanSpatialDir(gdfs1, i, '1', dir_sel)
+    if dir_sel:
+        centroid.to_file(dir_sel+'/gpkgData/'+i[:-4]+'scans.gpkg', driver="GPKG", layer=i[:-4]+'_scan'+spatialCounter+'_centroid')
+        area.to_file(dir_sel+'/gpkgData/'+i[:-4]+'scans.gpkg', driver="GPKG", layer=i[:-4]+'_scan'+spatialCounter+'_zone')
+        gdfscan.to_file(dir_sel+'/gpkgData/'+i[:-4]+'scans.gpkg', driver="GPKG", layer=i[:-4]+'_scan'+spatialCounter)
+        if os.path.isfile(dir_sel+'/csvDayFiles/master.csv'):
+            mastercsv.to_csv(dir_sel+'/csvDayFiles/master.csv', index=False, mode='a', header=False)
+        else:
+            mastercsv.to_csv(dir_sel+'/csvDayFiles/master.csv', index=False, mode='w', header=True)
+    else:
+        centroid.to_file('gpkgData/'+i[:-4]+'scans.gpkg', driver="GPKG", layer=i[:-4]+'_scan'+spatialCounter+'_centroid')
+        area.to_file('gpkgData/'+i[:-4]+'scans.gpkg', driver="GPKG", layer=i[:-4]+'_scan'+spatialCounter+'_zone')
+        gdfscan.to_file('gpkgData/'+i[:-4]+'scans.gpkg', driver="GPKG", layer=i[:-4]+'_scan'+spatialCounter)
+        if os.path.isfile('csvDayFiles/master.csv'):
+            mastercsv.to_csv('csvDayFiles/master.csv', index=False, mode='a', header=False)
+        else:
+            mastercsv.to_csv('csvDayFiles/master.csv', index=False, mode='w', header=True)
 
-    gdfs2 = gdf[(gdf['scan'].isin(['2']))]
-    if not gdfs2.empty:
-        scanSpatialDir(gdfs2, i, '2', dir_sel)
-
-    gdfs3 = gdf[(gdf['scan'].isin(['3']))]
-    if not gdfs3.empty:
-        scanSpatialDir(gdfs3, i, '3', dir_sel)
-
-    gdfs4 = gdf[(gdf['scan'].isin(['4']))]
-    if not gdfs4.empty:
-        scanSpatialDir(gdfs4, i, '4', dir_sel)
-
-    gdfs5 = gdf[(gdf['scan'].isin(['5']))]
-    if not gdfs5.empty:
-        scanSpatialDir(gdfs5, i, '5', dir_sel)
-
-    gdfs6 = gdf[(gdf['scan'].isin(['6']))]
-    if not gdfs6.empty:
-        scanSpatialDir(gdfs6, i, '6', dir_sel)
-
-    gdfs7 = gdf[(gdf['scan'].isin(['7']))]
-    if not gdfs7.empty:
-        scanSpatialDir(gdfs7, i, '7', dir_sel)
-
-    gdfs8 = gdf[(gdf['scan'].isin(['8']))]
-    if not gdfs8.empty:
-        scanSpatialDir(gdfs8, i, '8', dir_sel)
-
-    gdfs9 = gdf[(gdf['scan'].isin(['9']))]
-    if not gdfs9.empty:
-        scanSpatialDir(gdfs9, i, '9', dir_sel)
-
-    gdfs10 = gdf[(gdf['scan'].isin(['10']))]
-    if not gdfs10.empty:
-        scanSpatialDir(gdfs10, i, '10', dir_sel)
-
-    # Create layers for non-scan data / Crie camadas para dados não digitalizados
-    gdfago = gdf[(gdf['scan'].isin(['ago']))]
-    if not gdfago.empty:
-        gdfago.to_file(dir_sel+'/gpkgData/'+i[:-4]+'scans.gpkg', driver="GPKG", layer=i[:-4]+'_ago')
-
-    gdfother = gdf[(gdf['scan'].isin(['other']))]
-    if not gdfother.empty:
-        gdfother.to_file(dir_sel+'/gpkgData/'+i[:-4]+'scans.gpkg', driver="GPKG", layer=i[:-4]+'_other')
