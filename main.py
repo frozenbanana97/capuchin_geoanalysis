@@ -130,17 +130,17 @@ def big_loop():
     # border = gpd.read_file('/home/kyle/Nextcloud/Monkey_Research/Data_Work/CapuchinExtraGIS/FragmentData.gpkg', layer='EdgeLine')
 
     # Remove old master file if it exists / Remova o arquivo mestre antigo, se existir
-    if os.path.isfile('csvDayFiles/master.csv'):
-        os.remove('csvDayFiles/master.csv')
-    if os.path.isfile(dir_sel+'/csvDayFiles/master.csv'):
-        os.remove(dir_sel+'/csvDayFiles/master.csv')
+    if os.path.isfile('csvDayFiles/scansMaster.csv'):
+        os.remove('csvDayFiles/scansMaster.csv')
+    if os.path.isfile(dir_sel+'/csvDayFiles/scansMaster.csv'):
+        os.remove(dir_sel+'/csvDayFiles/scansMaster.csv')
     
     # Loop thorugh all GPX files and perform analysis / Percorra todos os arquivos GPX e realize análises
     for i in gpxDict:
         print('running')
 
-        gdfFullCen = []
-        gdfFullBor = []
+        CenList = []
+        BordList = []
         
         # Open and read in the .gpx to a dataframe / Abra e leia no .gpx para um dataframe
         if dir_sel:
@@ -237,31 +237,26 @@ def big_loop():
         # Export each scan as a separate layer using the scanExport and scanSpatial methods in spatialFunctions
         # Exporte cada varredura como uma camada separada usando os métodos scanExport e scanSpatial em spatialFunctions   
         if toggleScans() == 'yes':
-                scanExport(gdf, i, dir_sel, gdfFullCen, gdfFullBor)
+                scanExport(gdf, i, dir_sel, CenList, BordList)
 
-        # gdf['distCentr'] = gdfFullCen
-        # gdf['distBorder'] = gdfFullBor  
-
+        # Append list from dataframe
+        # Take vals from gdfFull coming from scanSpatial and copy them over 
+        
         if dir_sel:
-            # Export gdf into gpkg / Exportar gdf para gpkg
-            gdf.to_file(dir_sel+'/gpkgData/'+i[:-4]+'scans.gpkg', driver="GPKG", layer=i[:-4]+'_wholeDay')
-            
             # Save to csv / Salvar em csv
             gdf.to_csv(dir_sel+'/csvDayFiles/'+i[:-4]+'.csv')
 
+            # Export gdf into gpkg / Exportar gdf para gpkg
+            gdf.to_file(dir_sel+'/gpkgData/'+i[:-4]+'scans.gpkg', driver="GPKG", layer=i[:-4]+'_wholeDay')
+        
         else:
+            # Save to csv / Salvar em csv
+            gdf.to_csv('csvDayFiles/'+i[:-4]+'.csv')
+
             # Export gdf into gpkg / Exportar gdf para gpkg
             gdf.to_file('gpkgData/'+i[:-4]+'scans.gpkg', driver="GPKG", layer=i[:-4]+'_wholeDay')
-
-            # Save to csv / Salvar em csv
-            gdf.to_csv('csvDayFiles/'+i[:-4]+'.csv')              
-        
-    
-
-
-    
-
-        print('done')
+    # print(CenList)
+    print('done')
 
 # all widgets will be here
 # Labels
