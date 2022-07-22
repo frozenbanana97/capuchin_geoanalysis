@@ -1,7 +1,10 @@
+from doctest import master
 import os
 import pandas as pd
 import geopandas as gpd
 from datetime import datetime, timedelta
+from shapely import wkt
+from shapely.geometry import LineString
 
 def timeScan(df):
     # Setup time variables for scan labeling / Variáveis de tempo de configuração para rotulagem de digitalização
@@ -159,14 +162,14 @@ def scanExport(gdf, i, dir_sel, CenList, BordList):
     gdfs1 = gdf[(gdf['scan'].isin(['1']))]
     if not gdfs1.empty:
         scanSpatial(gdfs1, i, '1', dir_sel, gdf, CenList, BordList)
-        gdfCen1 = CenList
-        print(type(gdfCen1))
+        # gdfCen1 = CenList
+        # print(type(gdfCen1))
 
     gdfs2 = gdf[(gdf['scan'].isin(['2']))]
     if not gdfs2.empty:
         scanSpatial(gdfs2, i, '2', dir_sel, gdf, CenList, BordList)
-        gdfCen2 = CenList
-        print(type(gdfCen2))
+        # gdfCen2 = CenList
+        # print(type(gdfCen2))
 
     gdfs3 = gdf[(gdf['scan'].isin(['3']))]
     if not gdfs3.empty:
@@ -248,8 +251,16 @@ def scanSpatial(gdfscan, i, spatialCounter, dir_sel, gdfFull, CenList, BordList)
     mastercsv.insert(loc=0, column='scan', value = i[:-4]+'scan'+spatialCounter)
     mastercsv.loc[:,'centroid'] = centroid
     mastercsv.loc[:,'centBorder(m)'] = mastercsv['centroid'].distance(border)
+
+    date = mastercsv['scan'].str[:8]
+    scan = mastercsv['scan'].str[12:]
+    mastercsv.pop('scan')
+
+    mastercsv.insert(loc=0, column='date', value=date, allow_duplicates=True)
+    mastercsv.insert(loc=1, column='scan', value=scan, allow_duplicates=True)
     # mastercsv.set_geometry('centroid')
     
+    # centroidDist()
     
     if dir_sel:
         centroid.to_file(dir_sel+'/gpkgData/'+i[:-4]+'scans.gpkg', driver="GPKG", layer=i[:-4]+'_scan'+spatialCounter+'_centroid')
@@ -268,3 +279,46 @@ def scanSpatial(gdfscan, i, spatialCounter, dir_sel, gdfFull, CenList, BordList)
         else:
             mastercsv.to_csv('csvDayFiles/scansMaster.csv', index=False, mode='w', header=True)
 
+def centroidDist(dir_sel):
+    if dir_sel:
+        mastercsv = pd.read_csv(dir_sel+'/csvDayFiles/scansMaster.csv',)
+    else:
+        mastercsv = pd.read_csv('csvDayFiles/scansMaster.csv',)
+
+    mastercsv['centroid'] = mastercsv['centroid'].apply(wkt.loads)
+    master = gpd.GeoDataFrame(mastercsv, geometry='centroid', crs='EPSG:31985')
+
+    dfmaster = master[master['scan'].apply(lambda x: str(x).isdigit())]
+    dfmaster = dfmaster.sort_values('date').reset_index(drop=True)
+
+    groupmaster = dfmaster.groupby(['date']).agg({'centroid':list})
+    groupmaster['centroid'] = groupmaster['centroid'].apply(lambda x: LineString(x))
+    groupedmaster = gpd.GeoDataFrame(groupmaster)
+    groupedmaster.to_csv('grouped.csv')
+
+    lines = pd.read_csv('grouped.csv',)
+    lines.rename(columns={'centroid':'geometry'}, inplace=True)
+    lines['geometry'] = lines['geometry'].apply(wkt.loads)
+    lines = gpd.GeoDataFrame(lines, geometry='geometry', crs='EPSG:31985')
+    lines = lines.reset_index()
+
+    for i, row in lines.iterrows():
+        date = str(row['date'])
+        dateline = lines.loc[[i]]
+        dateline.loc[:,'length'] = dateline.length
+
+        mastercsv.loc[:,'dist(m)'] = dateline['length']
+        if dir_sel:
+            dateline.to_file(dir_sel+'/gpkgData/'+date+'scans.gpkg', driver="GPKG", layer=date+'_route')
+        else:
+            dateline.to_file('gpkgData/'+date+'scans.gpkg', driver="GPKG", layer=date+'_route')
+
+    if dir_sel:
+        mastercsv.to_csv(dir_sel+'/csvDayFiles/scansMaster.csv')
+    else:
+        mastercsv.to_csv('csvDayFiles/scansMaster.csv')
+
+        os.remove('grouped.csv')
+    
+    
+    
