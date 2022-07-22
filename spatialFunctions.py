@@ -227,13 +227,6 @@ def scanSpatial(gdfscan, i, spatialCounter, dir_sel, gdfFull, CenList, BordList)
         # Apply to the scan geodataframe / 
         gdfscan.loc[:,'distCentr'] = gdfscan.distance(centroid[0])
         gdfscan.loc[:,'distBorder'] = gdfscan.distance(border)
-        # Apply to the wholeDay geodataframe as list/ 
-        # gdfFull.loc[:,'distCentr'] = gdfscan.distance(centroid[0])
-        # gdfFull.loc[:,'distBorder'] = gdfscan.distance(border)
-        CenList.append(gdfscan.distance(centroid[0]))
-        BordList.append(gdfscan.distance(border))
-
-    # CenList.to_csv('CenList', index=False, mode='a', header=False)
 
     # Create geodataframe for the area incuding perimeter, and polygon of each scan / 
     zone = gdfscan.dissolve().convex_hull
@@ -247,7 +240,6 @@ def scanSpatial(gdfscan, i, spatialCounter, dir_sel, gdfFull, CenList, BordList)
 
     #Append to master CSV with scan by scan data NON-geographic / Anexar ao CSV mestre com varredura por varredura de dados NÃO geográficos
     mastercsv = zone.copy()
-    # mastercsv.pop('geometry')
     mastercsv.insert(loc=0, column='scan', value = i[:-4]+'scan'+spatialCounter)
     mastercsv.loc[:,'centroid'] = centroid
     mastercsv.loc[:,'centBorder(m)'] = mastercsv['centroid'].distance(border)
@@ -258,9 +250,6 @@ def scanSpatial(gdfscan, i, spatialCounter, dir_sel, gdfFull, CenList, BordList)
 
     mastercsv.insert(loc=0, column='date', value=date, allow_duplicates=True)
     mastercsv.insert(loc=1, column='scan', value=scan, allow_duplicates=True)
-    # mastercsv.set_geometry('centroid')
-    
-    # centroidDist()
     
     if dir_sel:
         centroid.to_file(dir_sel+'/gpkgData/'+i[:-4]+'scans.gpkg', driver="GPKG", layer=i[:-4]+'_scan'+spatialCounter+'_centroid')
