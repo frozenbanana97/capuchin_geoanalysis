@@ -157,69 +157,67 @@ def observations(df):
     df.loc[df['age/sex']=='', 'scan'] = 'other'
     df.loc[df['age/sex']=='ago', 'scan'] = 'ago'
 
-def scanExport(gdf, i, dir_sel, CenList, BordList):
+def scanExport(gdf, i, dir_sel):
 
     gdfs1 = gdf[(gdf['scan'].isin(['1']))]
     if not gdfs1.empty:
-        scanSpatial(gdfs1, i, '1', dir_sel, gdf, CenList, BordList)
+        scanSpatial(gdfs1, i, '1', dir_sel, gdf)
         # gdfCen1 = CenList
         # print(type(gdfCen1))
 
     gdfs2 = gdf[(gdf['scan'].isin(['2']))]
     if not gdfs2.empty:
-        scanSpatial(gdfs2, i, '2', dir_sel, gdf, CenList, BordList)
+        scanSpatial(gdfs2, i, '2', dir_sel, gdf)
         # gdfCen2 = CenList
         # print(type(gdfCen2))
 
     gdfs3 = gdf[(gdf['scan'].isin(['3']))]
     if not gdfs3.empty:
-        scanSpatial(gdfs3, i, '3', dir_sel, gdf, CenList, BordList)
+        scanSpatial(gdfs3, i, '3', dir_sel, gdf)
 
     gdfs4 = gdf[(gdf['scan'].isin(['4']))]
     if not gdfs4.empty:
-        scanSpatial(gdfs4, i, '4', dir_sel, gdf, CenList, BordList)
+        scanSpatial(gdfs4, i, '4', dir_sel, gdf)
 
     gdfs5 = gdf[(gdf['scan'].isin(['5']))]
     if not gdfs5.empty:
-        scanSpatial(gdfs5, i, '5', dir_sel, gdf, CenList, BordList)
+        scanSpatial(gdfs5, i, '5', dir_sel, gdf)
 
     gdfs6 = gdf[(gdf['scan'].isin(['6']))]
     if not gdfs6.empty:
-        scanSpatial(gdfs6, i, '6', dir_sel, gdf, CenList, BordList)
+        scanSpatial(gdfs6, i, '6', dir_sel, gdf)
 
     gdfs7 = gdf[(gdf['scan'].isin(['7']))]
     if not gdfs7.empty:
-        scanSpatial(gdfs7, i, '7', dir_sel, gdf, CenList, BordList)
+        scanSpatial(gdfs7, i, '7', dir_sel, gdf)
 
     gdfs8 = gdf[(gdf['scan'].isin(['8']))]
     if not gdfs8.empty:
-        scanSpatial(gdfs8, i, '8', dir_sel, gdf, CenList, BordList)
+        scanSpatial(gdfs8, i, '8', dir_sel, gdf)
 
     gdfs9 = gdf[(gdf['scan'].isin(['9']))]
     if not gdfs9.empty:
-        scanSpatial(gdfs9, i, '9', dir_sel, gdf, CenList, BordList)
+        scanSpatial(gdfs9, i, '9', dir_sel, gdf)
 
     gdfs10 = gdf[(gdf['scan'].isin(['10']))]
     if not gdfs10.empty:
-        scanSpatial(gdfs10, i, '10', dir_sel, gdf, CenList, BordList)
+        scanSpatial(gdfs10, i, '10', dir_sel, gdf)
 
     # Create layers for non-scan data / Crie camadas para dados não digitalizados
     gdfago = gdf[(gdf['scan'].isin(['ago']))]
     if not gdfago.empty:
-        scanSpatial(gdfago, i, 'ago', dir_sel, gdf, CenList, BordList)
+        scanSpatial(gdfago, i, 'ago', dir_sel, gdf)
 
     gdfother = gdf[(gdf['scan'].isin(['other']))]
     if not gdfother.empty:
-        scanSpatial(gdfago, i, 'other', dir_sel, gdf, CenList, BordList)
+        scanSpatial(gdfago, i, 'other', dir_sel, gdf)
 
 
-def scanSpatial(gdfscan, i, spatialCounter, dir_sel, gdfFull, CenList, BordList):
+def scanSpatial(gdfscan, i, spatialCounter, dir_sel, gdfFull):
     # Get centroid value of all points in scan / Obtenha o valor do centroide de todos os pontos na varredura
     centroid = gdfscan.dissolve().centroid
     borderLine = gpd.read_file('/home/kyle/Nextcloud/Monkey_Research/Data_Work/CapuchinExtraGIS/FragmentData.gpkg', layer='EdgeLine')
     border = borderLine.unary_union
-
-    CenList = []
 
     # Calculate distance of each point in the group to the centroid and border
     # Calcular a distância de cada ponto no grupo para o centroide e fronteira
@@ -235,8 +233,8 @@ def scanSpatial(gdfscan, i, spatialCounter, dir_sel, gdfFull, CenList, BordList)
     zone.loc[:,'area(m2)'] = zone.area
     zone.loc[:,'perimeter(m)'] = zone.length
     zone.loc[:,'individuals'] = len(gdfscan)
-    zone.loc[:,'ind/m2*100'] = (len(gdfscan)/zone['area(m2)'])*100
-    zone.loc[:,'ind/perim(m)*100'] = (len(gdfscan)/zone['perimeter(m)'])*100
+    zone.loc[:,'ind/ha'] = (len(gdfscan)/zone['area(m2)'])*1000
+    zone.loc[:,'ind/perim(km)'] = (len(gdfscan)/zone['perimeter(m)'])*1000
 
     #Append to master CSV with scan by scan data NON-geographic / Anexar ao CSV mestre com varredura por varredura de dados NÃO geográficos
     mastercsv = zone.copy()
@@ -250,7 +248,7 @@ def scanSpatial(gdfscan, i, spatialCounter, dir_sel, gdfFull, CenList, BordList)
 
     mastercsv.insert(loc=0, column='date', value=date, allow_duplicates=True)
     mastercsv.insert(loc=1, column='scan', value=scan, allow_duplicates=True)
-    
+
     if dir_sel:
         centroid.to_file(dir_sel+'/gpkgData/'+i[:-4]+'scans.gpkg', driver="GPKG", layer=i[:-4]+'_scan'+spatialCounter+'_centroid')
         zone.to_file(dir_sel+'/gpkgData/'+i[:-4]+'scans.gpkg', driver="GPKG", layer=i[:-4]+'_scan'+spatialCounter+'_zone')
@@ -267,6 +265,9 @@ def scanSpatial(gdfscan, i, spatialCounter, dir_sel, gdfFull, CenList, BordList)
             mastercsv.to_csv('csvDayFiles/scansMaster.csv', index=False, mode='a', header=False)
         else:
             mastercsv.to_csv('csvDayFiles/scansMaster.csv', index=False, mode='w', header=True)
+    
+    print(spatialCounter)
+
 
 def centroidDist(dir_sel):
     if dir_sel:
@@ -278,14 +279,14 @@ def centroidDist(dir_sel):
     master = gpd.GeoDataFrame(mastercsv, geometry='centroid', crs='EPSG:31985')
 
     dfmaster = master[master['scan'].apply(lambda x: str(x).isdigit())]
-    dfmaster = dfmaster.sort_values('date').reset_index(drop=True)
+    dfmaster = dfmaster.sort_values(by = ['date', 'scan'], ascending = [True, True]).reset_index(drop=True)
 
     groupmaster = dfmaster.groupby(['date']).agg({'centroid':list})
     groupmaster['centroid'] = groupmaster['centroid'].apply(lambda x: LineString(x))
     groupedmaster = gpd.GeoDataFrame(groupmaster)
-    groupedmaster.to_csv('grouped.csv')
+    groupedmaster.to_csv('temp.csv')
 
-    lines = pd.read_csv('grouped.csv',)
+    lines = pd.read_csv('temp.csv',)
     lines.rename(columns={'centroid':'geometry'}, inplace=True)
     lines['geometry'] = lines['geometry'].apply(wkt.loads)
     lines = gpd.GeoDataFrame(lines, geometry='geometry', crs='EPSG:31985')
@@ -296,18 +297,39 @@ def centroidDist(dir_sel):
         dateline = lines.loc[[i]]
         dateline.loc[:,'length'] = dateline.length
 
-        mastercsv.loc[:,'dist(m)'] = dateline['length']
         if dir_sel:
             dateline.to_file(dir_sel+'/gpkgData/'+date+'scans.gpkg', driver="GPKG", layer=date+'_route')
         else:
             dateline.to_file('gpkgData/'+date+'scans.gpkg', driver="GPKG", layer=date+'_route')
+    
+    point2 = mastercsv['centroid'].shift(-1)
+    point2 = gpd.GeoDataFrame(point2, geometry='centroid', crs='EPSG:31985')
+    
+    mastercsv = gpd.GeoDataFrame(mastercsv, geometry='centroid', crs='EPSG:31985')
+    mastercsv['distCenCen(m)'] = mastercsv['centroid'].distance(point2)
+
+    # Remove dist val from agos
+
+    mastercsv = mastercsv.sort_values('date').reset_index(drop=True)
+    shiftPos = mastercsv.pop('zone')
+    mastercsv['zone'] = shiftPos
+    shiftPos = mastercsv.pop('centroid')
+    mastercsv['centroid'] = shiftPos
+
+    # for row['scan'] in mastercsv:
+    #     print(row.dtypes)
+    # if not row.isdigit():
+    #     row['distCenCen(m)'] = ''
+        # row['distCenCen(m)'].shift(-1) = ''
+#
+
 
     if dir_sel:
         mastercsv.to_csv(dir_sel+'/csvDayFiles/scansMaster.csv')
     else:
         mastercsv.to_csv('csvDayFiles/scansMaster.csv')
 
-        os.remove('grouped.csv')
+    os.remove('temp.csv')
     
     
     

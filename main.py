@@ -197,6 +197,7 @@ def big_loop():
 
         # Run the timeScan method in spatialFunctions to apply each point to its appropriate scan
         # Execute o método timeScan em spatialFunctions para aplicar cada ponto à sua varredura apropriada
+        print(i)
         if toggleScans() == 'yes':
             timeScan(df)
         
@@ -237,7 +238,7 @@ def big_loop():
         # Export each scan as a separate layer using the scanExport and scanSpatial methods in spatialFunctions
         # Exporte cada varredura como uma camada separada usando os métodos scanExport e scanSpatial em spatialFunctions   
         if toggleScans() == 'yes':
-                scanExport(gdf, i, dir_sel, CenList, BordList)
+                scanExport(gdf, i, dir_sel)
 
         # Append list from dataframe
         # Take vals from gdfFull coming from scanSpatial and copy them over 
