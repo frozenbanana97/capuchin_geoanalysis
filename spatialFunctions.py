@@ -239,13 +239,10 @@ def scanExport(gdf, i, dir_sel):
 
     print('cenAppend Lenght: ',len(cenAppend))
     print('cenAppend: ',cenAppend)
-    ############
+    
     # Write lists to columns in the current dataframe / Gravar listas em colunas no dataframe atual
     gdf.insert(loc=7, column='distBorder', value=borAppend, allow_duplicates=True)
     gdf.insert(loc=7, column='distCentroid', value=cenAppend, allow_duplicates=True)
-
-
-    print(gdf)
     
 
 
@@ -259,25 +256,14 @@ def scanSpatial(gdfscan, i, spatialCounter, dir_sel, gdfFull, cenList, borList):
     # Calculate distance of each point in the group to the centroid and border
     # Calcular a distância de cada ponto no grupo para o centroide e fronteira
     for row in gdfscan['geometry']:
-        # Apply to the scan geodataframe / 
+        # Apply to the scan geodataframe / Aplicar ao geodataframe de varredura
         gdfscan.loc[:,'distCentr'] = gdfscan.distance(centroid[0])
         gdfscan.loc[:,'distBorder'] = gdfscan.distance(border)
-
-        # Append data to a list for csv daily export / 
-        # cenAppend = gdfscan['distCentr'].tolist()
-        # borAppend = gdfscan['distBorder'].tolist()
-        # cenList.append(cenAppend)
-        # print(len(cenList)) #good for length
-        # borList.append(borAppend)
     
     cenList = gdfscan['distCentr'].tolist()
     borList = gdfscan['distBorder'].tolist()
-    # print('cenList',cenList)
-    # cenList.append(cenAppend)
-    # borList.append(borAppend)
-    # print(cenList) # is repeating???
     
-    # Create geodataframe for the area incuding perimeter, and polygon of each scan / 
+    # Create geodataframe for the area incuding perimeter, and polygon of each scan / Crie geodataframe para a área incluindo o perímetro e o polígono de cada varredura
     zone = gdfscan.dissolve().convex_hull
     zone = gpd.GeoDataFrame(gpd.GeoSeries(zone))
     zone = zone.rename(columns={0:'zone'}).set_geometry('zone')
@@ -361,21 +347,13 @@ def centroidDist(dir_sel):
     mastercsv = gpd.GeoDataFrame(mastercsv, geometry='centroid', crs='EPSG:31985')
     mastercsv['distCenCen(m)'] = mastercsv['centroid'].distance(point2)
 
-    # Remove dist val from agos
+    
 
     mastercsv = mastercsv.sort_values('date').reset_index(drop=True)
     shiftPos = mastercsv.pop('zone')
     mastercsv['zone'] = shiftPos
     shiftPos = mastercsv.pop('centroid')
     mastercsv['centroid'] = shiftPos
-
-    # for row['scan'] in mastercsv:
-    #     print(row.dtypes)
-    # if not row.isdigit():
-    #     row['distCenCen(m)'] = ''
-        # row['distCenCen(m)'].shift(-1) = ''
-#
-
 
     if dir_sel:
         mastercsv.to_csv(dir_sel+'/csvDayFiles/scansMaster.csv')
@@ -384,5 +362,6 @@ def centroidDist(dir_sel):
 
     os.remove('temp.csv')
     
-    
+# def cenCleanup():
+    # Remove dist val from agos and last scan of the day
     

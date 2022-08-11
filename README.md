@@ -1,46 +1,41 @@
 This work has been transfered from my fork of [https://github.com/frozenbanana97/automacao](https://github.com/frozenbanana97/automacao)
 <br>
-
 # Contents
 
-- [The Program](#the-program)
-    - [Quick Setup](#quick-setup)
-- [Data Parsing, Prep, & Analysis](#data-parsing-prep--analysis)
-    - [Instructions](#instructions)
-    - [Setting up the Virtual Environment](#setting-up-the-virtual-environment)
-    - [Installing Python Requirements](#installing-python-requirements)
-- [Pre-Analysis Data Format](#pre-analysis-data-format)
-    - [Issues & Limitations](#issues--limitations)
-- [Software Installation Guide](#software-installation-guide)
-    - [Python Installation](#python-installation)
-    - [QGIS Installation](#qgis-installation)
-    - [Visual Studio Code](#visual-studio-code)
-      - [Opening the Project Files in VS Code (not using Git)](#opening-the-project-files-in-vs-code-not-using-git)
-      - [Opening the Project Files in VS Code (using Git)](#opening-the-project-files-in-vs-code-using-git)
-    - [To Git, or not to Git](#to-git-or-not-to-git)
-      - [Not to Git](#not-to-git)
-      - [To Git](#to-git)
-- [Roadmap](#roadmap)
+* [The Program](#the-program)
+    * [Quick Setup](#quick-setup)
+* [Data Parsing, Prep, & Analysis](#data-parsing-prep--analysis)
+    * [Instructions](#instructions)
+    * [Setting up the Virtual Environment](#setting-up-the-virtual-environment)
+    * [Installing Python Requirements](#installing-python-requirements)
+* [Pre-Analysis Data Format](#pre-analysis-data-format)
+    * [Issues & Limitations](#issues--limitations)
+* [Software Installation Guide](#software-installation-guide)
+    * [Python Installation](#python-installation)
+    * [QGIS Installation](#qgis-installation)
+    * [Visual Studio Code](#visual-studio-code)
+        * [Opening the Project Files in VS Code (not using Git)](#opening-the-project-files-in-vs-code-not-using-git)
+        * [Opening the Project Files in VS Code (using Git)](#opening-the-project-files-in-vs-code-using-git)
+    * [To Git, or not to Git](#to-git-or-not-to-git)
+        * [Not to Git](#not-to-git)
+        * [To Git](#to-git)
+* [Roadmap](#roadmap)
 
 <br>
-
 # The Program
 
 This program is made to allow for quick analysis and data preperation in primate observation studies, such as scan sampling. To use this program you must have the minimum of Python and the project requiremtns installed as well as the proper type of data to analyze.
 <br>
-
 ### Quick Setup
 
 To get started using the bare minimum to get the data analyzed, you will need Python installed and the raw data in the correct format.
 <br>
-
-- Collect data in the proper format, if you are using Locus Map the GPX export is the correct format. [See here](#pre-analysis-data-format) for more info.
-- Install Python 3. For help [jump to here](#python-installation)
-- Install the required packages in your Python environemt using `pip install -r requirements.txt`, whether using a [virtual environemt](#setting-up-the-virtual-environment)(recommended) or a global one. Windows users will need to do some extra manual work to install two dependencies (Fiona and GDAL). I have provided them for a 64 bit system with Pythom 3.10 installed (the current version as of writing) so these should work for most people,[see here](#installing-python-requirements) for more info.
--  Now you can simply run `main.py` to start the program in your Python command line: `python3 main.py`. Select the directory the GPX files are in, choose the options to run with and click run! The output files will be in the same directory as the GPX files.
+* Collect data in the proper format, if you are using Locus Map the GPX export is the correct format. [See here](#pre-analysis-data-format) for more info.
+* Install Python 3. For help [jump to here](#python-installation)
+* Install the required packages in your Python environemt using `pip install -r requirements.txt`, whether using a [virtual environemt](#setting-up-the-virtual-environment)(recommended) or a global one. Windows users will need to do some extra manual work to install two dependencies (Fiona and GDAL). I have provided them for a 64 bit system with Pythom 3.10 installed (the current version as of writing) so these should work for most people,[see here](#installing-python-requirements) for more info.
+* Now you can simply run `main.py` to start the program in your Python command line: `python3 main.py`. Select the directory the GPX files are in, choose the options to run with and click run! The output files will be in the same directory as the GPX files.
 
 <br>
-
 # Data Parsing, Prep, & Analysis
 <br>
 This prohram was made for working with scan sampling data specifically for primatological purposes.
@@ -51,7 +46,6 @@ This prohram was made for working with scan sampling data specifically for prima
 * The GPX files to be analysed should all be copied into one directory, the program will create any additional required directories for data storage.
 * You will need a Python environment, whether global (installed on your computer) or a virtual environment (recommended, see instructions in steps below, or see [here](https://github.com/frozenbanana97/documentation) for setting one up and troubleshooting), with the proper requirements from `requirements.txt` installed.
 * Once everything is installed correctly, run `main.py` with `python3 main.py` and choose the desired options, the analysed data will be exported in the selected directory under a sub directory gpkgData/ ready for use in GIS applications as well as the folder csvDayFiles/ in .csv format. See the installation instructions if Python and other programs are not yet installed.
-<br>
 
 ##### Notes
 
@@ -65,7 +59,7 @@ Follow these steps to create and enter a python virtual environment:
 
 * First make sure you have python 3.8.10 or higher installed on your system, follow instructions above to download and install it.
 * The `venv` (virtual environment) is installed with python on your system, this can be done by running the following code. You can also check the [official python documentation](https://docs.python.org/3/library/venv.html) if there are any problems. Your virtual environment should be created in the working directory for this project.
-* To open the terminal in VS Code use `Ctrl+`` (the same key with the \~ tilda right below escape), now you can create your virtual environment with the code below (make sure you are in the correct directory). In Linux you can simply open the terminal while in Windows you'll need to open command prompt
+* To open the terminal in VS Code use \`Ctrl+\`\` (the same key with the \~ tilda right below escape), now you can create your virtual environment with the code below (make sure you are in the correct directory). In Linux you can simply open the terminal while in Windows you'll need to open command prompt
 
 ```
 python3 -m venv /venvName
@@ -96,7 +90,6 @@ Activate the virtual environment:
 ```
 <br>
 * Now you should see the virtual environements name on the command line of your terminal. This means all commands using that terminal are being executed through the virtual environment. If this does not work you can troubleshoot using with the [official python documentation](https://docs.python.org/3/library/venv.html) or [my own documentation](https://github.com/frozenbanana97/documentation), admittedly not as thorough but may come in handy.
-<br>
 
 ### Installing Python Requirements
 
@@ -113,7 +106,9 @@ The environment should now be ready to run the scripts!
 ##### Windows
 
 Windows lacks some of the packages required so you'll have to download them manually, go to the `Windows Dependencies` folder at the top of this page and downlaod both the Fiona and GDAL files into the project directory. NOTE - these files are for a 64 bit version of Windows running Pyhon 3.10, if your system does not match this you should download the files yourself using instructions provided in [my documentation](https://github.com/frozenbanana97/documentation).
-<br> Now install them using the Python terminal running out of the directory the filesa re downloaded:
+
+Now install them using the Python terminal running out of the directory the filesa re downloaded:
+
 <br>
 (if you downloaded different versions make sure to use those file names)
 <br>
@@ -175,7 +170,6 @@ There is a major limitation however. If the age/sex part of the observation (ni,
 
 The scan seperation segment of the code is also hard-coded in and is not fully scalable. I put in code to account for upwards of 10 scans per day, but again if this proves problematic it can be fixed by simply copy-pasting the existing code and changing the identifier values.
 <br>
-
 # Software Installation Guide
 
 **Required Software**
@@ -323,13 +317,11 @@ Now Git is set up! You can close the terminal.
 
 # Roadmap
 
-* Get centroid and border distances into the whole day and ago and other scans
-* Centroid to centroid, scan by scan distance in temporal order.
+* Centroid to centroid, scan by scan distance in temporal order - done but needs refining
+* Mkae border file choosable/more obvious or included in package
 * Area overlap between scans
-* Pack extra data pertaining to each scan into a data frame. Centroid, zone, dist perim, dist next centroid, group size.
 * Home range
+* Automated map creation by day
+* \*maybe\* Aggregate all data and make a webmap tool to view it with a time slider day by day, hour by hour averages of monkey location
 * Create working .exe
 * Add how to use .gitignore
-* Automated map creation by day
-    * Tool to view scan by scan
-* Aggregate all data and make a webmap tool to view it with a time slider day by day, hour by hour averages of monkey location

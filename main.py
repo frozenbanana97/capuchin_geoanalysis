@@ -48,7 +48,7 @@ class WrappingLabel(tk.Label):
 
 # Select working directory
 def getdirectory():
-    # get a directory path by user
+    # Get a directory path by user / Obter um caminho de diretório por usuário
     dir_select=filedialog.askdirectory()
     dirpath.set(dir_select)
     label_path=WrappingLabel(root,text=dir_select,font=('italic 9'))
@@ -64,7 +64,6 @@ def focus_next_window(event):
 
 # function to display text when button is clicked
 def run():
-    # gpx_read()
     usertoggle()
     toggleScans()
     toggleObservations()
@@ -126,7 +125,7 @@ def big_loop():
                 print(gpxDict)
                 print('not dir path')
     
-    # # Import fragment border
+    # Import fragment border
     # border = gpd.read_file('/home/kyle/Nextcloud/Monkey_Research/Data_Work/CapuchinExtraGIS/FragmentData.gpkg', layer='EdgeLine')
 
     # Remove old master file if it exists / Remova o arquivo mestre antigo, se existir
@@ -139,9 +138,6 @@ def big_loop():
     for i in gpxDict:
         print('running')
 
-        cenList = []
-        borList = []
-        
         # Open and read in the .gpx to a dataframe / Abra e leia no .gpx para um dataframe
         if dir_sel:
             gpxCurrent = i
@@ -239,9 +235,6 @@ def big_loop():
         # Exporte cada varredura como uma camada separada usando os métodos scanExport e scanSpatial em spatialFunctions   
         if toggleScans() == 'yes':
                 scanExport(gdf, i, dir_sel)
-
-        # Append list from dataframe
-        # Take vals from gdfFull coming from scanSpatial and copy them over 
         
         if dir_sel:
             # Save to csv / Salvar em csv
@@ -257,8 +250,6 @@ def big_loop():
             # Export gdf into gpkg / Exportar gdf para gpkg
             gdf.to_file('gpkgData/'+i[:-4]+'scans.gpkg', driver="GPKG", layer=i[:-4]+'_wholeDay')
     
-    centroidDist(dir_sel)
-    print(cenList)
     print('done')
 
 # all widgets will be here
