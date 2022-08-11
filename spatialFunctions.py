@@ -1,5 +1,6 @@
 from doctest import master
 import os
+from site import check_enableusersite
 import pandas as pd
 import geopandas as gpd
 from datetime import datetime, timedelta
@@ -158,62 +159,98 @@ def observations(df):
     df.loc[df['age/sex']=='ago', 'scan'] = 'ago'
 
 def scanExport(gdf, i, dir_sel):
+    cenList = []
+    borList = []
+    cenAppend = []
+    borAppend = []
 
     gdfs1 = gdf[(gdf['scan'].isin(['1']))]
     if not gdfs1.empty:
-        scanSpatial(gdfs1, i, '1', dir_sel, gdf)
-        # gdfCen1 = CenList
-        # print(type(gdfCen1))
+        cenList, borList = scanSpatial(gdfs1, i, '1', dir_sel, gdf, cenList, borList)
+        cenAppend.extend(cenList)
+        borAppend.extend(borList)
 
     gdfs2 = gdf[(gdf['scan'].isin(['2']))]
     if not gdfs2.empty:
-        scanSpatial(gdfs2, i, '2', dir_sel, gdf)
-        # gdfCen2 = CenList
-        # print(type(gdfCen2))
+        cenList, borList = scanSpatial(gdfs2, i, '2', dir_sel, gdf, cenList, borList)
+        cenAppend.extend(cenList)
+        borAppend.extend(borList)
 
     gdfs3 = gdf[(gdf['scan'].isin(['3']))]
     if not gdfs3.empty:
-        scanSpatial(gdfs3, i, '3', dir_sel, gdf)
+        cenList, borList = scanSpatial(gdfs3, i, '3', dir_sel, gdf, cenList, borList)
+        cenAppend.extend(cenList)
+        borAppend.extend(borList)
 
     gdfs4 = gdf[(gdf['scan'].isin(['4']))]
     if not gdfs4.empty:
-        scanSpatial(gdfs4, i, '4', dir_sel, gdf)
+        cenList, borList = scanSpatial(gdfs4, i, '4', dir_sel, gdf, cenList, borList)
+        cenAppend.extend(cenList)
+        borAppend.extend(borList)
 
     gdfs5 = gdf[(gdf['scan'].isin(['5']))]
     if not gdfs5.empty:
-        scanSpatial(gdfs5, i, '5', dir_sel, gdf)
+        cenList, borList = scanSpatial(gdfs5, i, '5', dir_sel, gdf, cenList, borList)
+        cenAppend.extend(cenList)
+        borAppend.extend(borList)
 
     gdfs6 = gdf[(gdf['scan'].isin(['6']))]
     if not gdfs6.empty:
-        scanSpatial(gdfs6, i, '6', dir_sel, gdf)
+        cenList, borList = scanSpatial(gdfs6, i, '6', dir_sel, gdf, cenList, borList)
+        cenAppend.extend(cenList)
+        borAppend.extend(borList)
 
     gdfs7 = gdf[(gdf['scan'].isin(['7']))]
     if not gdfs7.empty:
-        scanSpatial(gdfs7, i, '7', dir_sel, gdf)
+        cenList, borList = scanSpatial(gdfs7, i, '7', dir_sel, gdf, cenList, borList)
+        cenAppend.extend(cenList)
+        borAppend.extend(borList)
 
     gdfs8 = gdf[(gdf['scan'].isin(['8']))]
     if not gdfs8.empty:
-        scanSpatial(gdfs8, i, '8', dir_sel, gdf)
+        cenList, borList = scanSpatial(gdfs8, i, '8', dir_sel, gdf, cenList, borList)
+        cenAppend.extend(cenList)
+        borAppend.extend(borList)
 
     gdfs9 = gdf[(gdf['scan'].isin(['9']))]
     if not gdfs9.empty:
-        scanSpatial(gdfs9, i, '9', dir_sel, gdf)
+        cenList, borList = scanSpatial(gdfs9, i, '9', dir_sel, gdf, cenList, borList)
+        cenAppend.extend(cenList)
+        borAppend.extend(borList)
 
     gdfs10 = gdf[(gdf['scan'].isin(['10']))]
     if not gdfs10.empty:
-        scanSpatial(gdfs10, i, '10', dir_sel, gdf)
+        cenList, borList = scanSpatial(gdfs10, i, '10', dir_sel, gdf, cenList, borList)
+        cenAppend.extend(cenList)
+        borAppend.extend(borList)
 
     # Create layers for non-scan data / Crie camadas para dados não digitalizados
     gdfago = gdf[(gdf['scan'].isin(['ago']))]
     if not gdfago.empty:
-        scanSpatial(gdfago, i, 'ago', dir_sel, gdf)
+        cenList, borList = scanSpatial(gdfago, i, 'ago', dir_sel, gdf, cenList, borList)
+        cenAppend.extend(cenList)
+        borAppend.extend(borList)
 
     gdfother = gdf[(gdf['scan'].isin(['other']))]
     if not gdfother.empty:
-        scanSpatial(gdfago, i, 'other', dir_sel, gdf)
+        cenList, borList = scanSpatial(gdfago, i, 'other', dir_sel, gdf, cenList, borList)
+        cenAppend.extend(cenList)
+        borAppend.extend(borList)
+
+    print('cenAppend Lenght: ',len(cenAppend))
+    print('cenAppend: ',cenAppend)
+    ############
+    # Write lists to columns in the current dataframe / Gravar listas em colunas no dataframe atual
+    gdf.insert(loc=7, column='distBorder', value=borAppend, allow_duplicates=True)
+    gdf.insert(loc=7, column='distCentroid', value=cenAppend, allow_duplicates=True)
 
 
-def scanSpatial(gdfscan, i, spatialCounter, dir_sel, gdfFull):
+    print(gdf)
+    
+
+
+def scanSpatial(gdfscan, i, spatialCounter, dir_sel, gdfFull, cenList, borList):
+
     # Get centroid value of all points in scan / Obtenha o valor do centroide de todos os pontos na varredura
     centroid = gdfscan.dissolve().centroid
     borderLine = gpd.read_file('/home/kyle/Nextcloud/Monkey_Research/Data_Work/CapuchinExtraGIS/FragmentData.gpkg', layer='EdgeLine')
@@ -226,6 +263,20 @@ def scanSpatial(gdfscan, i, spatialCounter, dir_sel, gdfFull):
         gdfscan.loc[:,'distCentr'] = gdfscan.distance(centroid[0])
         gdfscan.loc[:,'distBorder'] = gdfscan.distance(border)
 
+        # Append data to a list for csv daily export / 
+        # cenAppend = gdfscan['distCentr'].tolist()
+        # borAppend = gdfscan['distBorder'].tolist()
+        # cenList.append(cenAppend)
+        # print(len(cenList)) #good for length
+        # borList.append(borAppend)
+    
+    cenList = gdfscan['distCentr'].tolist()
+    borList = gdfscan['distBorder'].tolist()
+    # print('cenList',cenList)
+    # cenList.append(cenAppend)
+    # borList.append(borAppend)
+    # print(cenList) # is repeating???
+    
     # Create geodataframe for the area incuding perimeter, and polygon of each scan / 
     zone = gdfscan.dissolve().convex_hull
     zone = gpd.GeoDataFrame(gpd.GeoSeries(zone))
@@ -236,7 +287,7 @@ def scanSpatial(gdfscan, i, spatialCounter, dir_sel, gdfFull):
     zone.loc[:,'ind/ha'] = (len(gdfscan)/zone['area(m2)'])*1000
     zone.loc[:,'ind/perim(km)'] = (len(gdfscan)/zone['perimeter(m)'])*1000
 
-    #Append to master CSV with scan by scan data NON-geographic / Anexar ao CSV mestre com varredura por varredura de dados NÃO geográficos
+    # Append to master CSV with scan by scan data NON-geographic / Anexar ao CSV mestre com varredura por varredura de dados NÃO geográficos
     mastercsv = zone.copy()
     mastercsv.insert(loc=0, column='scan', value = i[:-4]+'scan'+spatialCounter)
     mastercsv.loc[:,'centroid'] = centroid
@@ -267,6 +318,8 @@ def scanSpatial(gdfscan, i, spatialCounter, dir_sel, gdfFull):
             mastercsv.to_csv('csvDayFiles/scansMaster.csv', index=False, mode='w', header=True)
     
     print(spatialCounter)
+
+    return cenList, borList
 
 
 def centroidDist(dir_sel):

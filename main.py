@@ -104,7 +104,7 @@ def toggleObservations():
         return(obsToggle)
 
 # Run for loop to cover every gpx file in directory / Execute o loop para cobrir todos os arquivos gpx no diretório
-def big_loop():
+def big_loop():   
     gpxDict = dict()
     print('big loop')
     dir_sel = dirpath.get()
@@ -139,8 +139,8 @@ def big_loop():
     for i in gpxDict:
         print('running')
 
-        CenList = []
-        BordList = []
+        cenList = []
+        borList = []
         
         # Open and read in the .gpx to a dataframe / Abra e leia no .gpx para um dataframe
         if dir_sel:
@@ -258,8 +258,7 @@ def big_loop():
             gdf.to_file('gpkgData/'+i[:-4]+'scans.gpkg', driver="GPKG", layer=i[:-4]+'_wholeDay')
     
     centroidDist(dir_sel)
-    
-    # print(CenList)
+    print(cenList)
     print('done')
 
 # all widgets will be here
