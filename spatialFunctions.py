@@ -250,7 +250,7 @@ def scanSpatial(gdfscan, i, spatialCounter, dir_sel, gdfFull, cenList, borList):
 
     # Get centroid value of all points in scan / Obtenha o valor do centroide de todos os pontos na varredura
     centroid = gdfscan.dissolve().centroid
-    borderLine = gpd.read_file('/home/kyle/Nextcloud/Monkey_Research/Data_Work/CapuchinExtraGIS/FragmentData.gpkg', layer='EdgeLine')
+    borderLine = gpd.read_file('FragmentData.gpkg', layer='EdgeLine')
     border = borderLine.unary_union
 
     # Calculate distance of each point in the group to the centroid and border
