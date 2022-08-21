@@ -1,5 +1,5 @@
 This work has been transfered from my fork of [https://github.com/frozenbanana97/automacao](https://github.com/frozenbanana97/automacao)
-<br>
+
 # Contents
 
 - [The Program](#the-program)
@@ -21,11 +21,9 @@ This work has been transfered from my fork of [https://github.com/frozenbanana97
       - [To Git](#to-git)
 - [Roadmap](#roadmap)
 
-
 # The Program
 
 This program is made to allow for quick analysis and data preperation in primate observation studies, such as scan sampling. To use this program you must have the minimum of Python and the project requiremtns installed as well as the proper type of data to analyze.
-
 
 ### Basic Quick Setup Step-by-Step
 
