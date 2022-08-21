@@ -2,50 +2,85 @@ This work has been transfered from my fork of [https://github.com/frozenbanana97
 <br>
 # Contents
 
-* [The Program](#the-program)
-    * [Quick Setup](#quick-setup)
-* [Data Parsing, Prep, & Analysis](#data-parsing-prep--analysis)
-    * [Instructions](#instructions)
-    * [Setting up the Virtual Environment](#setting-up-the-virtual-environment)
-    * [Installing Python Requirements](#installing-python-requirements)
-* [Pre-Analysis Data Format](#pre-analysis-data-format)
-    * [Issues & Limitations](#issues--limitations)
-* [Software Installation Guide](#software-installation-guide)
-    * [Python Installation](#python-installation)
-    * [QGIS Installation](#qgis-installation)
-    * [Visual Studio Code](#visual-studio-code)
-        * [Opening the Project Files in VS Code (not using Git)](#opening-the-project-files-in-vs-code-not-using-git)
-        * [Opening the Project Files in VS Code (using Git)](#opening-the-project-files-in-vs-code-using-git)
-    * [To Git, or not to Git](#to-git-or-not-to-git)
-        * [Not to Git](#not-to-git)
-        * [To Git](#to-git)
-* [Roadmap](#roadmap)
+- [The Program](#the-program)
+    - [Basic Quick Setup Step-by-Step](#basic-quick-setupstep-by-step)
+- [Data Parsing, Prep, & Analysis](#data-parsing-prep--analysis)
+    - [Instructions](#instructions)
+    - [Setting up the Virtual Environment](#setting-up-the-virtual-environment)
+    - [Installing Python Requirements](#installing-python-requirements)
+- [Pre-Analysis Data Format](#pre-analysis-data-format)
+    - [Issues & Limitations](#issues--limitations)
+- [Software Installation Guide](#software-installation-guide)
+    - [Python Installation](#python-installation)
+    - [QGIS Installation](#qgis-installation)
+    - [Visual Studio Code](#visual-studio-code)
+      - [Opening the Project Files in VS Code (not using Git)](#opening-the-project-files-in-vs-code-not-using-git)
+      - [Opening the Project Files in VS Code (using Git)](#opening-the-project-files-in-vs-code-using-git)
+    - [To Git, or not to Git](#to-git-or-not-to-git)
+      - [Not to Git](#not-to-git)
+      - [To Git](#to-git)
+- [Roadmap](#roadmap)
 
-<br>
+
 # The Program
 
 This program is made to allow for quick analysis and data preperation in primate observation studies, such as scan sampling. To use this program you must have the minimum of Python and the project requiremtns installed as well as the proper type of data to analyze.
-<br>
-### Quick Setup
+
+
+### Basic Quick Setup Step-by-Step
 
 To get started using the bare minimum to get the data analyzed, you will need Python installed and the raw data in the correct format.
-<br>
-* Collect data in the proper format, if you are using Locus Map the GPX export is the correct format. [See here](#pre-analysis-data-format) for more info.
-* Install Python 3. For help [jump to here](#python-installation)
-* Install the required packages in your Python environemt using `pip install -r requirements.txt`, whether using a [virtual environemt](#setting-up-the-virtual-environment)(recommended) or a global one. Windows users will need to do some extra manual work to install two dependencies (Fiona and GDAL). I have provided them for a 64 bit system with Pythom 3.10 installed (the current version as of writing) so these should work for most people,[see here](#installing-python-requirements) for more info.
-* Now you can simply run `main.py` to start the program in your Python command line: `python3 main.py`. Select the directory the GPX files are in, choose the options to run with and click run! The output files will be in the same directory as the GPX files.
 
+Note: These instructions do not include creating a virtual environment which is fine for using the program. If you wish to further develop, work on the code, modify, or add to the program I would highly recommend following the installation instruction that use a [virtual environment](#setting-up-the-virtual-environment).
 <br>
+* Collect data in the proper format, if you are using Locus Map the GPX export is already in the correct format. [See here](#pre-analysis-data-format) for more info.
+
+##### Windows
+
+* [Download Python](https://www.python.org/downloads/) and run the installer.
+* Download this repository as a zip, see [here](#not-to-git) for additional help.
+* Unzip the repository, with the new folder open hold shift and right click. Choose either `OpenCommand Prompt window here` **OR** `Open PowerShell window here` to open the terminal in the project directory.
+* In the terminal and run the following commands in this order:
+
+```
+pip install GDAL-3.4.2-cp310-cp310-win_amd64.whl
+```
+
+```
+pip install Fiona-1.8.21-cp310-cp310-win_amd64.whl
+```
+
+```
+pip install -r requirements.txt
+```
+
+* You can now run main.py and the program will launch! You have to leave the associated command prompt window open for the time being.
+* With the program window now open, you can select the directory with the GPX files in it
+
+##### Linux
+
+* Python should already be installed, you can check in terminal with `python3 --verison`. If it is not installed run `sudo apt install python3`.
+* Download this repository as a zip, see [here](#not-to-git) for additional help.
+* Unzip the repository and open terminal in the new directory.
+* In terminal (cd'd in the correct directory) run:
+
+```
+pip install -r requirements.txt
+```
+
+* You can now run main.py by typing `python3 main.py` and the program will launch! You have to leave the associated terminal open.
+
+
 # Data Parsing, Prep, & Analysis
-<br>
-This prohram was made for working with scan sampling data specifically for primatological purposes.
+
+This program was made for working with scan sampling data specifically for primatological purposes.
 
 ### Instructions
 
 * To run the algorithm, you will need both `main.py` and `spatialFunctions.py` downloaded in your working directory.
 * The GPX files to be analysed should all be copied into one directory, the program will create any additional required directories for data storage.
 * You will need a Python environment, whether global (installed on your computer) or a virtual environment (recommended, see instructions in steps below, or see [here](https://github.com/frozenbanana97/documentation) for setting one up and troubleshooting), with the proper requirements from `requirements.txt` installed.
-* Once everything is installed correctly, run `main.py` with `python3 main.py` and choose the desired options, the analysed data will be exported in the selected directory under a sub directory gpkgData/ ready for use in GIS applications as well as the folder csvDayFiles/ in .csv format. See the installation instructions if Python and other programs are not yet installed.
+* Once everything is installed correctly, run `main.py` either by double clicking (Windows) or with `python3 main.py` (Linux) and choose the desired options, the analysed data will be exported in the selected directory under a sub directory gpkgData/ ready for use in GIS applications as well as the folder csvDayFiles/ in .csv format. See the installation instructions if Python and other programs are not yet installed.
 
 ##### Notes
 
