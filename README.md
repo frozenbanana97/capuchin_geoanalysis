@@ -351,6 +351,7 @@ Now Git is set up! You can close the terminal.
 # Roadmap
 
 * Centroid to centroid, scan by scan distance in temporal order - done but needs refining
+* Timestamp of scan in mastercsv
 * Make border file selectable/more obvious or included in package
 * Area overlap between scans
 * show 25% of group leading the movememnt
