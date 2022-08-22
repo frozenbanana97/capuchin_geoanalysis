@@ -95,7 +95,7 @@ Follow these steps to create and enter a python virtual environment:
 * To open the terminal in VS Code use \`Ctrl+\`\` (the same key with the \~ tilda right below escape), now you can create your virtual environment with the code below (make sure you are in the correct directory). In Linux you can simply open the terminal while in Windows you'll need to open command prompt
 
 ```
-python3 -m venv /venvName
+python3 -m venv ./venvName
 ```
 
 * To start the virtual environment, navigate to its folder, locate either `/Scripts/` or `/bin/` depending on your OS and installation method. Within this folder locate the activate script, copy this directory into your python workspace (terminal window, VS Code terminal etc.) and run it as so:
