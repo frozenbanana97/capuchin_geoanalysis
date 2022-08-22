@@ -36,7 +36,7 @@ Note: These instructions do not include creating a virtual environment which is 
 
 ##### Windows
 
-* [Download Python](https://www.python.org/downloads/) and run the installer. Make sure to add Python to PATH. 
+* [Download Python](https://www.python.org/downloads/) and run the installer. Make sure to add Python to PATH. If your current Python is not in PATH please add it. You can always remove and re-install Python if you are having issues.
 * Download this repository as a zip, see [here](#not-to-git) for additional help.
 * Unzip the repository, with the new folder open hold shift and right click. Choose either `Open Command Prompt window here` **OR** `Open PowerShell window here` to open the terminal in the project directory.
 * In the terminal and run the following commands in this order:
