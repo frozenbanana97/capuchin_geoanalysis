@@ -58,7 +58,7 @@ pip install -r requirements.txt
 
 ##### Linux
 
-* Python should already be installed, you can check in terminal with `python3 --verison`. If it is not installed run `sudo apt install python3`.
+* Python should already be installed, you can check in terminal with `python3 --version`. If it is not installed run `sudo apt install python3`.
 * Download this repository as a zip, see [here](#not-to-git) for additional help.
 * Unzip the repository and open terminal in the new directory.
 * In terminal (cd'd in the correct directory) run:
