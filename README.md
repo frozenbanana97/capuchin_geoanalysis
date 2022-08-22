@@ -37,7 +37,7 @@ Note: These instructions do not include creating a virtual environment which is 
 
 * [Download Python](https://www.python.org/downloads/) and run the installer.
 * Download this repository as a zip, see [here](#not-to-git) for additional help.
-* Unzip the repository, with the new folder open hold shift and right click. Choose either `OpenCommand Prompt window here` **OR** `Open PowerShell window here` to open the terminal in the project directory.
+* Unzip the repository, with the new folder open hold shift and right click. Choose either `Open Command Prompt window here` **OR** `Open PowerShell window here` to open the terminal in the project directory.
 * In the terminal and run the following commands in this order:
 
 ```
@@ -66,8 +66,7 @@ pip install -r requirements.txt
 pip install -r requirements.txt
 ```
 
-* You can now run main.py by typing `python3 main.py` and the program will launch! You have to leave the associated terminal open.
-
+* You can now run main.py by typing `python3 main.py` in the terminal and the program will launch! You have to leave the associated terminal open.
 
 # Data Parsing, Prep, & Analysis
 
@@ -351,8 +350,9 @@ Now Git is set up! You can close the terminal.
 # Roadmap
 
 * Centroid to centroid, scan by scan distance in temporal order - done but needs refining
-* Mkae border file choosable/more obvious or included in package
+* Make border file selectable/more obvious or included in package
 * Area overlap between scans
+* show 25% of group leading the movememnt
 * Home range
 * Automated map creation by day
 * \*maybe\* Aggregate all data and make a webmap tool to view it with a time slider day by day, hour by hour averages of monkey location
