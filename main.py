@@ -250,6 +250,8 @@ def big_loop():
             # Export gdf into gpkg / Exportar gdf para gpkg
             gdf.to_file('gpkgData/'+i[:-4]+'scans.gpkg', driver="GPKG", layer=i[:-4]+'_wholeDay')
     
+    centroidDist(dir_sel)
+    
     print('done')
 
 # all widgets will be here

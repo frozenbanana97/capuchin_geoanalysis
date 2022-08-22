@@ -237,8 +237,8 @@ def scanExport(gdf, i, dir_sel):
         cenAppend.extend(cenList)
         borAppend.extend(borList)
 
-    print('cenAppend Lenght: ',len(cenAppend))
-    print('cenAppend: ',cenAppend)
+    # print('cenAppend Lenght: ',len(cenAppend))
+    # print('cenAppend: ',cenAppend)
     
     # Write lists to columns in the current dataframe / Gravar listas em colunas no dataframe atual
     gdf.insert(loc=7, column='distBorder', value=borAppend, allow_duplicates=True)
@@ -350,6 +350,7 @@ def centroidDist(dir_sel):
     
 
     mastercsv = mastercsv.sort_values('date').reset_index(drop=True)
+    # print(mastercsv)
     shiftPos = mastercsv.pop('zone')
     mastercsv['zone'] = shiftPos
     shiftPos = mastercsv.pop('centroid')
