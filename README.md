@@ -30,13 +30,13 @@ This program is made to allow for quick analysis and data preperation in primate
 Follow this section alone to be able to use the program to analyze your GPX data, all aditional section are for more in-depth/ advanced use.
 To get started using the bare minimum to get the data analyzed, you will need Python installed and the raw data in the correct format.
 
-Note: These instructions do not include creating a virtual environment which is fine for using the program. If you wish to further develop, work on the code, modify, or add to the program I would highly recommend following the installation instruction that use a [virtual environment](#setting-up-the-virtual-environment).
-<br>
+Note: These instructions do not include creating a virtual environment which is fine for using the program. If you wish to further develop, work on the code, modify, or add to the program I would highly recommend following the installation instruction that use a [virtual environment](#setting-up-the-virtual-environment).<br>
+
 * Collect data in the proper format, if you are using Locus Map the GPX export is already in the correct format. [See here](#pre-analysis-data-format) for more info.
 
 ##### Windows
 
-* [Download Python](https://www.python.org/downloads/) and run the installer. Make sure to add Python to PATH. If your current Python is not in PATH please add it. You can always remove and re-install Python if you are having issues.
+* [Download Python](https://www.python.org/downloads/) and run the installer. Make sure to add Python to PATH. If your current Python is not in PATH please add it. You can always remove and re-install Python if you are having issues. Please see [here](#python-installation) for additional instruction.
 * Download this repository as a zip, see [here](#not-to-git) for additional help.
 * Unzip the repository, with the new folder open hold shift and right click. Choose either `Open Command Prompt window here` **OR** `Open PowerShell window here` to open the terminal in the project directory.
 * In the terminal and run the following commands in this order:
