@@ -32,6 +32,7 @@ This program is made to allow for quick analysis and data preperation in primate
 Follow this section alone to be able to use the program to analyze your GPX data, all aditional sections are for a more in-depth/advanced use.
 To get started using the bare minimum to get the data analyzed, you will need Python installed and the raw data in the correct format.
 <br>
+
 * Collect data in the proper format, if you are using Locus Map the GPX export is already in the correct format. [See here](#pre-analysis-data-format) for more info.
 
 ##### Windows
