@@ -231,15 +231,15 @@ def scanExport(gdf, i, dir_sel):
         cenAppend.extend(cenList)
         borAppend.extend(borList)
 
-    gdfother = gdf[(gdf['scan'].isin(['other']))]
+    gdfother = gdf[(gdf['scan'].isin(['other','']))]
     if not gdfother.empty:
-        cenList, borList = scanSpatial(gdfago, i, 'other', dir_sel, gdf, cenList, borList)
+        cenList, borList = scanSpatial(gdfother, i, 'other', dir_sel, gdf, cenList, borList)
         cenAppend.extend(cenList)
         borAppend.extend(borList)
 
     # print('cenAppend Lenght: ',len(cenAppend))
     # print('cenAppend: ',cenAppend)
-    
+        
     # Write lists to columns in the current dataframe / Gravar listas em colunas no dataframe atual
     gdf.insert(loc=7, column='distBorder', value=borAppend, allow_duplicates=True)
     gdf.insert(loc=7, column='distCentroid', value=cenAppend, allow_duplicates=True)
