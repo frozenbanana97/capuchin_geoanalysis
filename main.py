@@ -23,7 +23,7 @@ pd.set_option('mode.chained_assignment',None)
 root = Tk()
 
 # root window title and dimension
-root.title('Capuchin Geoanalysis Settings')
+root.title('Scan Sample Geoanalysis Settings')
 # Set geometry (widthxheight)
 root.geometry('500x300')
 
@@ -31,11 +31,13 @@ root.geometry('500x300')
 scansButton = IntVar(value=1)  
 obsButton = IntVar(value=1) 
 user_button = IntVar()
+format_button = IntVar(value=1)
 gpxDict = dict()
 userIn = ''
 observer = ''
 group = ''
 weather = ''
+gpxCSV = 1
 dirpath = StringVar()
 
 class WrappingLabel(tk.Label):
@@ -67,6 +69,7 @@ def run():
     usertoggle()
     toggleScans()
     toggleObservations()
+    formatToggle()
     big_loop()
 
 def usertoggle():
@@ -102,67 +105,115 @@ def toggleObservations():
         obsToggle=''
         return(obsToggle)
 
+def formatToggle():
+    val = format_button.get()
+    if val == 1:
+        print('Use GPX')
+        gpxCSV = 1
+        return(gpxCSV)
+    if val == 0:
+        print('Use CSV')
+        gpxCSV = 0
+        return(gpxCSV)
+
 # Run for loop to cover every gpx file in directory / Execute o loop para cobrir todos os arquivos gpx no diretório
-def big_loop():   
-    gpxDict = dict()
-    print('big loop')
+def big_loop():
+    # Import fragment border
+    # border = gpd.read_file('/home/kyle/Nextcloud/Monkey_Research/Data_Work/CapuchinExtraGIS/FragmentData.gpkg', layer='EdgeLine')
+
     dir_sel = dirpath.get()
     print('dir selected')
     print(dir_sel)
-
-    if dir_sel:
-        for file in os.listdir(dir_sel):
-            if file.endswith('.gpx'):
-                gpxDict[file] = dir_sel+'_file_'+file
-                print('GPX dict')
-                print(gpxDict)
-                print('dir path')        
-    else:
-        for file in os.listdir():
-            if file.endswith('.gpx'):
-                gpxDict[file] = 'file_'+file
-                print('GPX dict')
-                print(gpxDict)
-                print('not dir path')
-    
-    # Import fragment border
-    # border = gpd.read_file('/home/kyle/Nextcloud/Monkey_Research/Data_Work/CapuchinExtraGIS/FragmentData.gpkg', layer='EdgeLine')
 
     # Remove old master file if it exists / Remova o arquivo mestre antigo, se existir
     if os.path.isfile('csvDayFiles/scansMaster.csv'):
         os.remove('csvDayFiles/scansMaster.csv')
     if os.path.isfile(dir_sel+'/csvDayFiles/scansMaster.csv'):
         os.remove(dir_sel+'/csvDayFiles/scansMaster.csv')
+
+    # Read GPX files selected / 
+    if formatToggle() == 1:
+        gpxDict = dict()
+        print('big loop GPX')
+        
+        if dir_sel:
+            for file in os.listdir(dir_sel):
+                if file.endswith('.gpx'):
+                    gpxDict[file] = dir_sel+'_file_'+file
+                    print('GPX dict')
+                    print(gpxDict)
+                    print('dir path')        
+        else:
+            for file in os.listdir():
+                if file.endswith('.gpx'):
+                    gpxDict[file] = 'file_'+file
+                    print('GPX dict')
+                    print(gpxDict)
+                    print('not dir path')
     
+    # Read CSV files selected
+    if formatToggle() == 0:
+        gpxDict = dict()
+        print('big loop CSV')
+
+        if dir_sel:
+            for file in os.listdir(dir_sel):
+                if file.endswith('.csv'):
+                    gpxDict[file] = dir_sel+'_file_'+file
+                    print('CSV dict')
+                    print(gpxDict)
+                    print('dir path')        
+        else:
+            for file in os.listdir():
+                if file.endswith('.csv'):
+                    gpxDict[file] = 'file_'+file
+                    print('CSV dict')
+                    print(gpxDict)
+                    print('not dir path')
+               
     # Loop thorugh all GPX files and perform analysis / Percorra todos os arquivos GPX e realize análises
     for i in gpxDict:
         print('running')
 
         # Open and read in the .gpx to a dataframe / Abra e leia no .gpx para um dataframe
         if dir_sel:
-            gpxCurrent = i
-            gpxCurrent = open(dir_sel+'/'+gpxCurrent)
-            gpxCurrent = gpxpy.parse(gpxCurrent)
-            gpxCurrent = gpxCurrent.to_xml()
-            df = pd.read_xml(gpxCurrent)
+            if formatToggle() == 1:
+                gpxCurrent = i
+                gpxCurrent = open(dir_sel+'/'+gpxCurrent)
+                gpxCurrent = gpxpy.parse(gpxCurrent)
+                gpxCurrent = gpxCurrent.to_xml()
+                df = pd.read_xml(gpxCurrent)
+            if formatToggle() == 0:
+                gpxCurrent = i
+                gpxCurrent = open(dir_sel+'/'+gpxCurrent)
+                # gpxCurrent = gpxpy.parse(gpxCurrent)
+                # gpxCurrent = gpxCurrent.to_xml()
+                df = pd.read_csv(gpxCurrent)
         else:
-            gpxCurrent = i
-            gpxCurrent = open(gpxCurrent)
-            gpxCurrent = gpxpy.parse(gpxCurrent)
-            gpxCurrent = gpxCurrent.to_xml()
-            df = pd.read_xml(gpxCurrent)
+            if formatToggle() == 1:
+                gpxCurrent = i
+                gpxCurrent = open(gpxCurrent)
+                gpxCurrent = gpxpy.parse(gpxCurrent)
+                gpxCurrent = gpxCurrent.to_xml()
+                df = pd.read_xml(gpxCurrent)            
+            if formatToggle() == 0:
+                gpxCurrent = i
+                gpxCurrent = open(gpxCurrent)
+                # gpxCurrent = gpxpy.parse(gpxCurrent)
+                # gpxCurrent = gpxCurrent.to_xml()
+                df = pd.read_csv(gpxCurrent)
 
-              
-        # Remove unecessary columns / Remova colunas desnecessárias
-        df.pop('desc')
-        df.pop('time')
-        if 'hdop' in df.columns:
-            df.pop('hdop')
-        df = df.drop(index=0)
+        if formatToggle() == 1:
+            # Remove unecessary columns / Remova colunas desnecessárias
+            df.pop('desc')
+            df.pop('time')
+            if 'hdop' in df.columns:
+                df.pop('hdop')
+            df = df.drop(index=0)
 
-        # Reorganize columns / Reorganizar colunas
-        shiftPos = df.pop('name')
-        df.insert(0, 'name', shiftPos)
+            # Reorganize columns / Reorganizar colunas
+            shiftPos = df.pop('name')
+            df.insert(0, 'name', shiftPos)
 
         # Ask for observer, group, climate conditions / Pergunte por observador, grupo, condições climáticas
         if usertoggle() == 'yes':
@@ -177,26 +228,27 @@ def big_loop():
             if weather:
                 df.insert(loc=1, column='weather', value=weather, allow_duplicates=True)
 
-        # Split 'name' into date, time, and observations / Dividir 'nome' em data, hora e observações
-        date = df['name'].str[:10]
-        df.insert(loc=0, column='date', value=date, allow_duplicates=True)
+        if formatToggle() == 1:
+            # Split 'name' into date, time, and observations / Dividir 'nome' em data, hora e observações
+            date = df['name'].str[:10]
+            df.insert(loc=0, column='date', value=date, allow_duplicates=True)
 
-        time = df['name'].str[11:19]
-        df.insert(loc=1, column='time', value=time, allow_duplicates=True)
+            time = df['name'].str[11:19]
+            df.insert(loc=1, column='time', value=time, allow_duplicates=True)
 
-        obs = df['name'].str[19:]
-        df.insert(loc=2, column='obs', value=obs, allow_duplicates=True)
-        # Remove whitespace from observations column / Remover espaço em branco da coluna de observações
-        df['obs'] = df['obs'].str.strip()
+            obs = df['name'].str[19:]
+            df.insert(loc=2, column='obs', value=obs, allow_duplicates=True)
+            # Remove whitespace from observations column / Remover espaço em branco da coluna de observações
+            df['obs'] = df['obs'].str.strip()
 
-        df.pop('name')
+            df.pop('name')
 
         # Run the timeScan method in spatialFunctions to apply each point to its appropriate scan
         # Execute o método timeScan em spatialFunctions para aplicar cada ponto à sua varredura apropriada
         print(i)
         if toggleScans() == 'yes':
             timeScan(df)
-        
+            
         # Run the observations method in spatialFunctions / Execute o método de observações em spatialFunctions
         if toggleObservations() == 'yes':
             observations(df)
@@ -249,9 +301,9 @@ def big_loop():
 
             # Export gdf into gpkg / Exportar gdf para gpkg
             gdf.to_file('gpkgData/'+i[:-4]+'scans.gpkg', driver="GPKG", layer=i[:-4]+'_wholeDay')
-    
+
     centroidDist(dir_sel)
-    
+
     print('done')
 
 # all widgets will be here
@@ -301,6 +353,22 @@ obs_btn = Checkbutton(root, text = 'Parse Observations',
                       width = 15,
                       command=toggleObservations)
 
+gpx_btn = Checkbutton(root, text = 'Use GPX', 
+                      variable = format_button,
+                      onvalue = 1,
+                      offvalue = 0,
+                      height = 1,
+                      width = 15,
+                      command=formatToggle)
+
+csv_btn = Checkbutton(root, text = 'Use CSV', 
+                      variable = format_button,
+                      onvalue = 0,
+                      offvalue = 1,
+                      height = 1,
+                      width = 15,
+                      command=formatToggle)
+
 def main():
     # Set Grid for GUI. Some widgets may be located elsewhere (dir output)
     userIn_btn.grid(row=1)
@@ -314,6 +382,8 @@ def main():
 
     scans_btn.grid()
     obs_btn.grid()
+    gpx_btn.grid()
+    csv_btn.grid()
 
     dir_btn.grid()
     # Path in the directory choosing function
