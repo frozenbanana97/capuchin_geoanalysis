@@ -9,7 +9,7 @@ from shapely.geometry import LineString
 
 def timeScan(df):
     # Setup time variables for scan labeling / Variáveis de tempo de configuração para rotulagem de digitalização
-    scanStart = df.at[1,'time']
+    scanStart = df.at[0,'time']
     scanStart = datetime.strptime(scanStart,'%H:%M:%S')
     scanEnd = scanStart + timedelta(minutes=20)
     df.insert(loc=2, column='scan', value=0, allow_duplicates=True)
@@ -56,7 +56,7 @@ def timeScan(df):
         elif (scanStart + timedelta(minutes=scanMins*30-bufferMins)) <= row <= (scanEnd + timedelta(minutes=scanMins*30+bufferMins)):
             scanNum.append('16')
 
-        # If no times fit, apply N/A / Se nenhum tempo se encaixar, aplique N/A
+        # If no times fit, apply '' / Se nenhum tempo se encaixar, aplique ''
         else:
             scanNum.append('') 
 
@@ -70,10 +70,10 @@ def observations(df):
     scanBehaviour = []
 
     # Run loop to parse observations and store in lists / Executar loop para analisar observações e armazenar em listas
-    for row in df['obs']:
+    for row in df['obs'].astype(str):
             # Check the two character codes first to avoid conflicts and any misidentified lines such as 'mf' and 'ff' going to 'm' and 'f'
             # Verifique os dois códigos de caracteres primeiro para evitar conflitos e quaisquer linhas mal identificadas, como 'mf' e 'ff' indo para 'm' e 'f'
-            if row[:2] == 'j1':
+            if row[:2].lower() == 'j1':
                     # Append relevant values to appropriate lists / Anexar valores relevantes a listas apropriadas
                     scanAgeSex.append('j1')
                     scanStrata.append(row[2:3])
@@ -81,63 +81,63 @@ def observations(df):
                             scanBehaviour.append(row[3:])
                     else:
                             scanBehaviour.append('lof')
-            elif row[:2] == 'j2':
+            elif row[:2].lower() == 'j2':
                     scanAgeSex.append('j2')
                     scanStrata.append(row[2:3])
                     if row[3:]:
                             scanBehaviour.append(row[3:])
                     else:
                             scanBehaviour.append('lof')
-            elif row[:2] == 'j3':
+            elif row[:2].lower() == 'j3':
                     scanAgeSex.append('j3')
                     scanStrata.append(row[2:3])
                     if row[3:]:
                             scanBehaviour.append(row[3:])
                     else:
                             scanBehaviour.append('lof')
-            elif row[:2] == 'ff':
+            elif row[:2].lower() == 'ff':
                     scanAgeSex.append('ff')
                     scanStrata.append(row[2:3])
                     if row[3:]:
                             scanBehaviour.append(row[3:])
                     else:
                             scanBehaviour.append('lof')
-            elif row[:2] == 'mf':
+            elif row[:2].lower() == 'mf':
                     scanAgeSex.append('mf')
                     scanStrata.append(row[2:3])
                     if row[3:]:
                             scanBehaviour.append(row[3:])
                     else:
                             scanBehaviour.append('lof')
-            elif row[:2] == 'sa':
+            elif row[:2].lower() == 'sa':
                     scanAgeSex.append('sa')
                     scanStrata.append(row[2:3])
                     if row[3:]:
                             scanBehaviour.append(row[3:])
                     else:
                             scanBehaviour.append('lof')
-            elif row[:2] == 'ni':
+            elif row[:2].lower() == 'ni':
                     scanAgeSex.append('ni')
                     scanStrata.append(row[2:3])
                     if row[3:]:
                             scanBehaviour.append(row[3:])
                     else:
                             scanBehaviour.append('lof')
-            elif row[:1] == 'f':
+            elif row[:1].lower() == 'f':
                     scanAgeSex.append('f')
                     scanStrata.append(row[1:2])
                     if row[3:]:
                             scanBehaviour.append(row[2:])
                     else:
                             scanBehaviour.append('lof')
-            elif row[:1] == 'm':
+            elif row[:1].lower() == 'm':
                     scanAgeSex.append('m')
                     scanStrata.append(row[1:2])
                     if row[3:]:
                             scanBehaviour.append(row[2:])
                     else:
                             scanBehaviour.append('lof')
-            elif row[:3] == 'ago':
+            elif row[:3].lower() == 'ago':
                     scanAgeSex.append('ago')
                     scanStrata.append('')
                     scanBehaviour.append('')
@@ -279,8 +279,8 @@ def scanSpatial(gdfscan, i, spatialCounter, dir_sel, gdfFull, cenList, borList):
     mastercsv.loc[:,'centroid'] = centroid
     mastercsv.loc[:,'centBorder(m)'] = mastercsv['centroid'].distance(border)
 
-    date = mastercsv['scan'].str[:8]
-    scan = mastercsv['scan'].str[12:]
+    date = mastercsv['scan'].str[:10]
+    scan = mastercsv['scan'].str[14:]
     mastercsv.pop('scan')
 
     mastercsv.insert(loc=0, column='date', value=date, allow_duplicates=True)
@@ -349,7 +349,7 @@ def centroidDist(dir_sel):
 
     
 
-    mastercsv = mastercsv.sort_values('date').reset_index(drop=True)
+    mastercsv = mastercsv.sort_values(by = ['date', 'scan'], ascending = [True, True]).reset_index(drop=True)
     # print(mastercsv)
     shiftPos = mastercsv.pop('zone')
     mastercsv['zone'] = shiftPos

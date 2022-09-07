@@ -162,7 +162,7 @@ def big_loop():
                     gpxDict[file] = dir_sel+'_file_'+file
                     print('CSV dict')
                     print(gpxDict)
-                    print('dir path')        
+                    print('dir path')
         else:
             for file in os.listdir():
                 if file.endswith('.csv'):
@@ -189,6 +189,7 @@ def big_loop():
                 # gpxCurrent = gpxpy.parse(gpxCurrent)
                 # gpxCurrent = gpxCurrent.to_xml()
                 df = pd.read_csv(gpxCurrent)
+                df.reset_index(inplace=True, drop=True)
         else:
             if formatToggle() == 1:
                 gpxCurrent = i
@@ -202,6 +203,8 @@ def big_loop():
                 # gpxCurrent = gpxpy.parse(gpxCurrent)
                 # gpxCurrent = gpxCurrent.to_xml()
                 df = pd.read_csv(gpxCurrent)
+                df.reset_index(inplace=True, drop=True)
+                
 
         if formatToggle() == 1:
             # Remove unecessary columns / Remova colunas desnecessárias
@@ -209,26 +212,13 @@ def big_loop():
             df.pop('time')
             if 'hdop' in df.columns:
                 df.pop('hdop')
-            df = df.drop(index=0)
+            df = df.drop(index=0) # Locus adds an empty row here, remove this line if not needed
+            df.reset_index(inplace=True, drop=True)
 
             # Reorganize columns / Reorganizar colunas
             shiftPos = df.pop('name')
             df.insert(0, 'name', shiftPos)
 
-        # Ask for observer, group, climate conditions / Pergunte por observador, grupo, condições climáticas
-        if usertoggle() == 'yes':
-            observer = observer_input.get(1.0, 'end-1c')
-            group = group_input.get(1.0, 'end-1c')
-            weather = weather_input.get(1.0, 'end-1c')
-            # Insert user input columns if they have a value / Insira colunas de entrada do usuário se elas tiverem um valor
-            if observer:
-                df.insert(loc=1, column='observer', value=observer, allow_duplicates=True)
-            if group:
-                df.insert(loc=1, column='group', value=group, allow_duplicates=True)
-            if weather:
-                df.insert(loc=1, column='weather', value=weather, allow_duplicates=True)
-
-        if formatToggle() == 1:
             # Split 'name' into date, time, and observations / Dividir 'nome' em data, hora e observações
             date = df['name'].str[:10]
             df.insert(loc=0, column='date', value=date, allow_duplicates=True)
@@ -242,6 +232,19 @@ def big_loop():
             df['obs'] = df['obs'].str.strip()
 
             df.pop('name')
+
+        # Ask for observer, group, climate conditions / Pergunte por observador, grupo, condições climáticas
+        if usertoggle() == 'yes':
+            observer = observer_input.get(1.0, 'end-1c')
+            group = group_input.get(1.0, 'end-1c')
+            weather = weather_input.get(1.0, 'end-1c')
+            # Insert user input columns if they have a value / Insira colunas de entrada do usuário se elas tiverem um valor
+            if observer:
+                df.insert(loc=3, column='observer', value=observer, allow_duplicates=True)
+            if group:
+                df.insert(loc=3, column='group', value=group, allow_duplicates=True)
+            if weather:
+                df.insert(loc=3, column='weather', value=weather, allow_duplicates=True)
 
         # Run the timeScan method in spatialFunctions to apply each point to its appropriate scan
         # Execute o método timeScan em spatialFunctions para aplicar cada ponto à sua varredura apropriada
