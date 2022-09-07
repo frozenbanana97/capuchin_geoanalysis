@@ -14,7 +14,9 @@ def timeScan(df):
     scanEnd = scanStart + timedelta(minutes=20)
     df.insert(loc=2, column='scan', value=0, allow_duplicates=True)
     scanMins = 20
-    bufferMins = 5
+    bufferMins = scanMins/4
+    print(scanStart,scanEnd)
+    print(scanEnd + timedelta(minutes=scanMins*2+bufferMins))
 
     # Create list for temporary storage of scan ID's / Criar lista para armazenamento temporário de IDs de digitalização
     scanNum = []
@@ -23,7 +25,7 @@ def timeScan(df):
     # Faça um loop para verificar cada vez em relação aos horários de cada dia e atribuir a ID de verificação
     for row in df['time']:
         row = datetime.strptime(row,'%H:%M:%S')
-        if scanStart <= row <= scanEnd:
+        if scanStart <= row <= (scanEnd + timedelta(minutes=scanMins+bufferMins)):
             scanNum.append('1')
         elif (scanStart + timedelta(minutes=scanMins*2-bufferMins)) <= row <= (scanEnd + timedelta(minutes=scanMins*2+bufferMins)):
             scanNum.append('2')
