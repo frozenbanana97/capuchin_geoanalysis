@@ -9,14 +9,12 @@ from shapely.geometry import LineString
 
 def timeScan(df):
     # Setup time variables for scan labeling / Variáveis de tempo de configuração para rotulagem de digitalização
-    scanStart = df.at[0,'time']
-    scanStart = datetime.strptime(scanStart,'%H:%M:%S')
-    scanEnd = scanStart + timedelta(minutes=20)
-    df.insert(loc=2, column='scan', value=0, allow_duplicates=True)
     scanMins = 20
     bufferMins = scanMins/4
-    print(scanStart,scanEnd)
-    print(scanEnd + timedelta(minutes=scanMins*2+bufferMins))
+    scanStart = df.at[0,'time']
+    scanStart = datetime.strptime(scanStart,'%H:%M:%S')
+    scanEnd = scanStart + timedelta(minutes = scanMins)
+    df.insert(loc=2, column='scan', value=0, allow_duplicates=True)
 
     # Create list for temporary storage of scan ID's / Criar lista para armazenamento temporário de IDs de digitalização
     scanNum = []
@@ -25,7 +23,7 @@ def timeScan(df):
     # Faça um loop para verificar cada vez em relação aos horários de cada dia e atribuir a ID de verificação
     for row in df['time']:
         row = datetime.strptime(row,'%H:%M:%S')
-        if scanStart <= row <= (scanEnd + timedelta(minutes=scanMins+bufferMins)):
+        if scanStart <= row <= (scanEnd + timedelta(minutes = bufferMins)):
             scanNum.append('1')
         elif (scanStart + timedelta(minutes=scanMins*2-bufferMins)) <= row <= (scanEnd + timedelta(minutes=scanMins*2+bufferMins)):
             scanNum.append('2')
@@ -160,7 +158,7 @@ def observations(df):
     df.loc[df['age/sex']=='', 'scan'] = 'other'
     df.loc[df['age/sex']=='ago', 'scan'] = 'ago'
 
-def scanExport(gdf, i, dir_sel):
+def scanExport(gdf, i, dir_sel, borderLine):
     cenList = []
     borList = []
     cenAppend = []
@@ -168,74 +166,74 @@ def scanExport(gdf, i, dir_sel):
 
     gdfs1 = gdf[(gdf['scan'].isin(['1']))]
     if not gdfs1.empty:
-        cenList, borList = scanSpatial(gdfs1, i, '1', dir_sel, gdf, cenList, borList)
+        cenList, borList = scanSpatial(gdfs1, i, '1', dir_sel, borderLine, cenList, borList)
         cenAppend.extend(cenList)
         borAppend.extend(borList)
 
     gdfs2 = gdf[(gdf['scan'].isin(['2']))]
     if not gdfs2.empty:
-        cenList, borList = scanSpatial(gdfs2, i, '2', dir_sel, gdf, cenList, borList)
+        cenList, borList = scanSpatial(gdfs2, i, '2', dir_sel, borderLine, cenList, borList)
         cenAppend.extend(cenList)
         borAppend.extend(borList)
 
     gdfs3 = gdf[(gdf['scan'].isin(['3']))]
     if not gdfs3.empty:
-        cenList, borList = scanSpatial(gdfs3, i, '3', dir_sel, gdf, cenList, borList)
+        cenList, borList = scanSpatial(gdfs3, i, '3', dir_sel, borderLine, cenList, borList)
         cenAppend.extend(cenList)
         borAppend.extend(borList)
 
     gdfs4 = gdf[(gdf['scan'].isin(['4']))]
     if not gdfs4.empty:
-        cenList, borList = scanSpatial(gdfs4, i, '4', dir_sel, gdf, cenList, borList)
+        cenList, borList = scanSpatial(gdfs4, i, '4', dir_sel, borderLine, cenList, borList)
         cenAppend.extend(cenList)
         borAppend.extend(borList)
 
     gdfs5 = gdf[(gdf['scan'].isin(['5']))]
     if not gdfs5.empty:
-        cenList, borList = scanSpatial(gdfs5, i, '5', dir_sel, gdf, cenList, borList)
+        cenList, borList = scanSpatial(gdfs5, i, '5', dir_sel, borderLine, cenList, borList)
         cenAppend.extend(cenList)
         borAppend.extend(borList)
 
     gdfs6 = gdf[(gdf['scan'].isin(['6']))]
     if not gdfs6.empty:
-        cenList, borList = scanSpatial(gdfs6, i, '6', dir_sel, gdf, cenList, borList)
+        cenList, borList = scanSpatial(gdfs6, i, '6', dir_sel, borderLine, cenList, borList)
         cenAppend.extend(cenList)
         borAppend.extend(borList)
 
     gdfs7 = gdf[(gdf['scan'].isin(['7']))]
     if not gdfs7.empty:
-        cenList, borList = scanSpatial(gdfs7, i, '7', dir_sel, gdf, cenList, borList)
+        cenList, borList = scanSpatial(gdfs7, i, '7', dir_sel, borderLine, cenList, borList)
         cenAppend.extend(cenList)
         borAppend.extend(borList)
 
     gdfs8 = gdf[(gdf['scan'].isin(['8']))]
     if not gdfs8.empty:
-        cenList, borList = scanSpatial(gdfs8, i, '8', dir_sel, gdf, cenList, borList)
+        cenList, borList = scanSpatial(gdfs8, i, '8', dir_sel, borderLine, cenList, borList)
         cenAppend.extend(cenList)
         borAppend.extend(borList)
 
     gdfs9 = gdf[(gdf['scan'].isin(['9']))]
     if not gdfs9.empty:
-        cenList, borList = scanSpatial(gdfs9, i, '9', dir_sel, gdf, cenList, borList)
+        cenList, borList = scanSpatial(gdfs9, i, '9', dir_sel, borderLine, cenList, borList)
         cenAppend.extend(cenList)
         borAppend.extend(borList)
 
     gdfs10 = gdf[(gdf['scan'].isin(['10']))]
     if not gdfs10.empty:
-        cenList, borList = scanSpatial(gdfs10, i, '10', dir_sel, gdf, cenList, borList)
+        cenList, borList = scanSpatial(gdfs10, i, '10', dir_sel, borderLine, cenList, borList)
         cenAppend.extend(cenList)
         borAppend.extend(borList)
 
     # Create layers for non-scan data / Crie camadas para dados não digitalizados
     gdfago = gdf[(gdf['scan'].isin(['ago']))]
     if not gdfago.empty:
-        cenList, borList = scanSpatial(gdfago, i, 'ago', dir_sel, gdf, cenList, borList)
+        cenList, borList = scanSpatial(gdfago, i, 'ago', dir_sel, borderLine, cenList, borList)
         cenAppend.extend(cenList)
         borAppend.extend(borList)
 
     gdfother = gdf[(gdf['scan'].isin(['other','']))]
     if not gdfother.empty:
-        cenList, borList = scanSpatial(gdfother, i, 'other', dir_sel, gdf, cenList, borList)
+        cenList, borList = scanSpatial(gdfother, i, 'other', dir_sel, borderLine, cenList, borList)
         cenAppend.extend(cenList)
         borAppend.extend(borList)
 
@@ -248,11 +246,10 @@ def scanExport(gdf, i, dir_sel):
     
 
 
-def scanSpatial(gdfscan, i, spatialCounter, dir_sel, gdfFull, cenList, borList):
+def scanSpatial(gdfscan, i, spatialCounter, dir_sel, borderLine, cenList, borList):
 
     # Get centroid value of all points in scan / Obtenha o valor do centroide de todos os pontos na varredura
     centroid = gdfscan.dissolve().centroid
-    borderLine = gpd.read_file('FragmentData.gpkg', layer='EdgeLine')
     border = borderLine.unary_union
 
     # Calculate distance of each point in the group to the centroid and border

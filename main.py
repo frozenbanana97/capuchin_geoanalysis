@@ -25,7 +25,7 @@ root = Tk()
 # root window title and dimension
 root.title('Scan Sample Geoanalysis Settings')
 # Set geometry (widthxheight)
-root.geometry('500x300')
+root.geometry('550x350')
 
 # varibales to be used by functions
 scansButton = IntVar(value=1)  
@@ -39,6 +39,7 @@ group = ''
 weather = ''
 gpxCSV = 1
 dirpath = StringVar()
+filepath = StringVar()
 
 class WrappingLabel(tk.Label):
     '''a type of Label that automatically adjusts the wrap to the size'''
@@ -53,11 +54,21 @@ def getdirectory():
     # Get a directory path by user / Obter um caminho de diretório por usuário
     dir_select=filedialog.askdirectory()
     dirpath.set(dir_select)
-    label_path=WrappingLabel(root,text=dir_select,font=('italic 9'))
-    label_path.grid(row=7,column=2)
+    label_path=WrappingLabel(root,text=dir_select,font=('italic 8'))
+    label_path.grid(row=9,column=2)
     print(dirpath)
     print(dir_select)
     return(dirpath)
+
+def getEdgeFile():
+    # Get a directory path by user / Obter um caminho de diretório por usuário
+    file_select=filedialog.askopenfilename()
+    filepath.set(file_select)
+    label_path=WrappingLabel(root,text=file_select,font=('italic 8'))
+    label_path.grid(row=10,column=2)
+    print(filepath)
+    print(file_select)
+    return(filepath)
 
 # Have tab move to next widget
 def focus_next_window(event):
@@ -122,8 +133,31 @@ def big_loop():
     # border = gpd.read_file('/home/kyle/Nextcloud/Monkey_Research/Data_Work/CapuchinExtraGIS/FragmentData.gpkg', layer='EdgeLine')
 
     dir_sel = dirpath.get()
-    print('dir selected')
-    print(dir_sel)
+    border = filepath.get()
+    # borderdf = pd.DataFrame(border)
+    sep = border.split('.')
+
+    # Check if the kind of file the edge of the fragmet is
+    if sep[-1] == 'gpkg':
+        gpkglayer = layer_input.get(1.0, 'end-1c')
+        print('gpkg', layer_input)
+        borderLine = gpd.read_file(border, layer = gpkglayer)
+        # Add check to ensure layer exists
+    elif sep[-1] == 'shp':
+        print('shp')
+        borderLine = gpd.read_file(border)
+    elif sep[-1] == 'kml':
+        print('kml')
+        gpd.io.file.fiona.drvsupport.supported_drivers['KML'] = 'rw'
+        borderLine = gpd.read_file(border)
+        borderLine = borderLine.set_crs('EPSG:4326')
+        borderLine = borderLine.to_crs('EPSG:31985')
+    else:
+        print('ERROR: unrecognized filetype, please use a GeoPackage, Shapefile, or KML')
+        main()
+    
+    print('dir selected: ', dir_sel)
+    print('edge file selected: ', border)
 
     # Remove old master file if it exists / Remova o arquivo mestre antigo, se existir
     if os.path.isfile('csvDayFiles/scansMaster.csv'):
@@ -289,7 +323,7 @@ def big_loop():
         # Export each scan as a separate layer using the scanExport and scanSpatial methods in spatialFunctions
         # Exporte cada varredura como uma camada separada usando os métodos scanExport e scanSpatial em spatialFunctions   
         if toggleScans() == 'yes':
-                scanExport(gdf, i, dir_sel)
+                scanExport(gdf, i, dir_sel, borderLine)
         
         if dir_sel:
             # Save to csv / Salvar em csv
@@ -308,11 +342,13 @@ def big_loop():
     centroidDist(dir_sel)
 
     print('done')
+    main()
 
 # all widgets will be here
 # Labels
-lbl = Label(root, text='Time to parse GPX data').grid()
-dir_path=Label(root,text=dirpath,font=('italic 10'))
+lbl = Label(root, text='See LINK for help').grid()
+layer_lbl = Label(root, text='GPKG Layer Name')
+layer_input = Text(root, height=1,width=20)
 
 # User Input
 observer_lbl = Label(root, text='Observer')
@@ -328,6 +364,8 @@ weather_input = Text(root, height=1,width=20)
 
 # Buttons
 dir_btn = Button(root, text='Select Directory', command=getdirectory)
+
+file_btn = Button(root, text='Select Edge File', command=getEdgeFile)
 
 run_btn = Button(root, text = 'Run' ,
              fg = 'black', command=run)
@@ -383,12 +421,16 @@ def main():
     group_input.grid(row=3,column=2)
     weather_input.grid(row=4,column=2)
 
-    scans_btn.grid()
-    obs_btn.grid()
-    gpx_btn.grid()
-    csv_btn.grid()
+    scans_btn.grid(row=5)
+    obs_btn.grid(row=6)
+    gpx_btn.grid(row=7)
+    csv_btn.grid(row=8)
 
-    dir_btn.grid()
+    dir_btn.grid(row=9)
+    file_btn.grid(row=10)
+    layer_lbl.grid(row=11)
+    layer_input.grid(row=11, column=2)
+
     # Path in the directory choosing function
     run_btn.grid()
     # Execute Tkinter
