@@ -4,24 +4,24 @@ For instructions scroll down.
 
 # Contents
 
-- [The Program](#the-program)
-    - [Basic Quick Setup Step-by-Step](#basic-quick-setupstep-by-step)
-- [Data Parsing, Prep, & Analysis](#data-parsing-prep--analysis)
-    - [Instructions](#instructions)
-    - [Setting up the Virtual Environment](#setting-up-the-virtual-environment)
-    - [Installing Python Requirements](#installing-python-requirements)
-- [Pre-Analysis Data Format](#pre-analysis-data-format)
-    - [Issues & Limitations](#issues--limitations)
-- [Software Installation Guide](#software-installation-guide)
-    - [Python Installation](#python-installation)
-    - [QGIS Installation](#qgis-installation)
-    - [Visual Studio Code](#visual-studio-code)
-      - [Opening the Project Files in VS Code (not using Git)](#opening-the-project-files-in-vs-code-not-using-git)
-      - [Opening the Project Files in VS Code (using Git)](#opening-the-project-files-in-vs-code-using-git)
-    - [To Git, or not to Git](#to-git-or-not-to-git)
-      - [Not to Git](#not-to-git)
-      - [To Git](#to-git)
-- [Roadmap](#roadmap)
+* [The Program](#the-program)
+    * [Basic Quick Setup Step-by-Step](#basic-quick-setupstep-by-step)
+* [Data Parsing, Prep, & Analysis](#data-parsing-prep--analysis)
+    * [Instructions](#instructions)
+    * [Setting up the Virtual Environment](#setting-up-the-virtual-environment)
+    * [Installing Python Requirements](#installing-python-requirements)
+* [Pre-Analysis Data Format](#pre-analysis-data-format)
+    * [Issues & Limitations](#issues--limitations)
+* [Software Installation Guide](#software-installation-guide)
+    * [Python Installation](#python-installation)
+    * [QGIS Installation](#qgis-installation)
+    * [Visual Studio Code](#visual-studio-code)
+        * [Opening the Project Files in VS Code (not using Git)](#opening-the-project-files-in-vs-code-not-using-git)
+        * [Opening the Project Files in VS Code (using Git)](#opening-the-project-files-in-vs-code-using-git)
+    * [To Git, or not to Git](#to-git-or-not-to-git)
+        * [Not to Git](#not-to-git)
+        * [To Git](#to-git)
+* [Roadmap](#roadmap)
 
 # The Program
 
@@ -32,7 +32,6 @@ This program is made to allow for quick analysis and data preperation in primate
 Follow this section alone to be able to use the program to analyze your GPX data, all aditional sections are for a more in-depth/advanced use.
 To get started using the bare minimum to get the data analyzed, you will need Python installed and the raw data in the correct format.
 <br>
-
 * Collect data in the proper format, if you are using Locus Map the GPX export is already in the correct format. [See here](#pre-analysis-data-format) for more info.
 
 ##### Windows
@@ -357,13 +356,10 @@ Now Git is set up! You can close the terminal.
 # Roadmap
 
 * Centroid to centroid, scan by scan distance in temporal order - done but needs refining
-* Double check the buffer when importing from CSV
 * Timestamp of scan in mastercsv
-* Make border file selectable/more obvious or included in package
 * Area overlap between scans
 * show 25% of group leading the movememnt
 * Home range
 * Automated map creation by day
-* \*maybe\* Aggregate all data and make a webmap tool to view it with a time slider day by day, hour by hour averages of monkey location
 * Create working .exe
 * Add how to use .gitignore
