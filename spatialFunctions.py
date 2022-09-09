@@ -7,9 +7,8 @@ from datetime import datetime, timedelta
 from shapely import wkt
 from shapely.geometry import LineString
 
-def timeScan(df):
+def timeScan(df, scanMins):
     # Setup time variables for scan labeling / Variáveis de tempo de configuração para rotulagem de digitalização
-    scanMins = 20
     bufferMins = scanMins/4
     scanStart = df.at[0,'time']
     scanStart = datetime.strptime(scanStart,'%H:%M:%S')

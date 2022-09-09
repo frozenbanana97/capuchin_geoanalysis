@@ -41,11 +41,11 @@ gpxCSV = 1
 dirpath = StringVar()
 filepath = StringVar()
 
-class WrappingLabel(tk.Label):
-    '''a type of Label that automatically adjusts the wrap to the size'''
-    def __init__(self, master=None, **kwargs):
-        tk.Label.__init__(self, master, **kwargs)
-        self.bind('<Configure>', lambda e: self.config(wraplength=self.winfo_width()))
+# class WrappingLabel(tk.Label):
+#     '''a type of Label that automatically adjusts the wrap to the size'''
+#     def __init__(self, master=None, **kwargs):
+#         tk.Label.__init__(self, master, **kwargs)
+#         self.bind('<Configure>', lambda e: self.config(wraplength=self.winfo_width()))
 
 # Functions to be used by widgets
 
@@ -54,8 +54,8 @@ def getdirectory():
     # Get a directory path by user / Obter um caminho de diretório por usuário
     dir_select=filedialog.askdirectory()
     dirpath.set(dir_select)
-    label_path=WrappingLabel(root,text=dir_select,font=('italic 8'))
-    label_path.grid(row=9,column=2)
+    label_path=Label(root,text=dir_select,font=('italic 8'), anchor=W, justify=LEFT, wraplength=300)
+    label_path.grid(row=10,column=2,columnspan=2)
     print(dirpath)
     print(dir_select)
     return(dirpath)
@@ -64,8 +64,8 @@ def getEdgeFile():
     # Get a directory path by user / Obter um caminho de diretório por usuário
     file_select=filedialog.askopenfilename()
     filepath.set(file_select)
-    label_path=WrappingLabel(root,text=file_select,font=('italic 8'))
-    label_path.grid(row=10,column=2)
+    label_path=Label(root,text=file_select,font=('italic 8'), anchor=W, justify=LEFT, wraplength=300)
+    label_path.grid(row=11,column=2,columnspan=2)
     print(filepath)
     print(file_select)
     return(filepath)
@@ -284,7 +284,11 @@ def big_loop():
         # Execute o método timeScan em spatialFunctions para aplicar cada ponto à sua varredura apropriada
         print(i)
         if toggleScans() == 'yes':
-            timeScan(df)
+            # Get scan duration and convert to int / 
+            scanMins = scanMins_input.get(1.0, 'end-1c')
+            scanMins = int(scanMins)
+            print('Scan mins:',scanMins)
+            timeScan(df, scanMins)
             
         # Run the observations method in spatialFunctions / Execute o método de observações em spatialFunctions
         if toggleObservations() == 'yes':
@@ -354,12 +358,15 @@ layer_input = Text(root, height=1,width=20)
 observer_lbl = Label(root, text='Observer')
 group_lbl = Label(root, text='Group')
 weather_lbl = Label(root, text='Weather')
+scansMins_lbl = Label(root, text='Scans Length (min):')
 
 observer_input = Text(root, height=1,width=20)
 observer_input.bind('<Tab>', focus_next_window)
 group_input = Text(root, height=1,width=20)
 group_input.bind('<Tab>', focus_next_window)
 weather_input = Text(root, height=1,width=20)
+weather_input.bind('<Tab>', focus_next_window)
+scanMins_input = Text(root, height=1, width=5)
 
 
 # Buttons
@@ -422,14 +429,16 @@ def main():
     weather_input.grid(row=4,column=2)
 
     scans_btn.grid(row=5)
-    obs_btn.grid(row=6)
-    gpx_btn.grid(row=7)
-    csv_btn.grid(row=8)
+    scansMins_lbl.grid(row=6)
+    scanMins_input.grid(row=6, column=2)
+    obs_btn.grid(row=7)
+    gpx_btn.grid(row=8)
+    csv_btn.grid(row=9)
 
-    dir_btn.grid(row=9)
-    file_btn.grid(row=10)
-    layer_lbl.grid(row=11)
-    layer_input.grid(row=11, column=2)
+    dir_btn.grid(row=10)
+    file_btn.grid(row=11)
+    layer_lbl.grid(row=12)
+    layer_input.grid(row=12, column=2)
 
     # Path in the directory choosing function
     run_btn.grid()
