@@ -4,24 +4,24 @@ For instructions scroll down.
 
 # Contents
 
-* [The Program](#the-program)
-    * [Basic Quick Setup Step-by-Step](#basic-quick-setupstep-by-step)
-* [Data Parsing, Prep, & Analysis](#data-parsing-prep--analysis)
-    * [Instructions](#instructions)
-    * [Setting up the Virtual Environment](#setting-up-the-virtual-environment)
-    * [Installing Python Requirements](#installing-python-requirements)
-* [Pre-Analysis Data Format](#pre-analysis-data-format)
-    * [Issues & Limitations](#issues--limitations)
-* [Software Installation Guide](#software-installation-guide)
-    * [Python Installation](#python-installation)
-    * [QGIS Installation](#qgis-installation)
-    * [Visual Studio Code](#visual-studio-code)
-        * [Opening the Project Files in VS Code (not using Git)](#opening-the-project-files-in-vs-code-not-using-git)
-        * [Opening the Project Files in VS Code (using Git)](#opening-the-project-files-in-vs-code-using-git)
-    * [To Git, or not to Git](#to-git-or-not-to-git)
-        * [Not to Git](#not-to-git)
-        * [To Git](#to-git)
-* [Roadmap](#roadmap)
+- [The Program](#the-program)
+    - [Basic Quick Setup Step-by-Step](#basic-quick-setupstep-by-step)
+- [Data Parsing, Prep, & Analysis](#data-parsing-prep--analysis)
+    - [Instructions](#instructions)
+    - [Setting up the Virtual Environment](#setting-up-the-virtual-environment)
+    - [Installing Python Requirements](#installing-python-requirements)
+- [Pre-Analysis Data Format](#pre-analysis-data-format)
+    - [Issues & Limitations](#issues--limitations)
+- [Software Installation Guide](#software-installation-guide)
+    - [Python Installation](#python-installation)
+    - [QGIS Installation](#qgis-installation)
+    - [Visual Studio Code](#visual-studio-code)
+      - [Opening the Project Files in VS Code (not using Git)](#opening-the-project-files-in-vs-code-not-using-git)
+      - [Opening the Project Files in VS Code (using Git)](#opening-the-project-files-in-vs-code-using-git)
+    - [To Git, or not to Git](#to-git-or-not-to-git)
+      - [Not to Git](#not-to-git)
+      - [To Git](#to-git)
+- [Roadmap](#roadmap)
 
 # The Program
 
@@ -355,11 +355,9 @@ Now Git is set up! You can close the terminal.
 
 # Roadmap
 
-* Centroid to centroid, scan by scan distance in temporal order - done but needs refining
 * Timestamp of scan in mastercsv
 * Area overlap between scans
 * show 25% of group leading the movememnt
 * Home range
 * Automated map creation by day
 * Create working .exe
-* Add how to use .gitignore
