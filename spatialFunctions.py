@@ -280,10 +280,12 @@ def scanSpatial(gdfscan, i, spatialCounter, dir_sel, borderLine, cenList, borLis
 
     date = mastercsv['scan'].str[:10]
     scan = mastercsv['scan'].str[14:]
+    time = gdfscan['time'].loc[gdfscan.index[0]]
     mastercsv.pop('scan')
 
     mastercsv.insert(loc=0, column='date', value=date, allow_duplicates=True)
     mastercsv.insert(loc=1, column='scan', value=scan, allow_duplicates=True)
+    mastercsv.insert(loc=2, column='time', value=time, allow_duplicates=True)
 
     if dir_sel:
         centroid.to_file(dir_sel+'/gpkgData/'+i[:-4]+'scans.gpkg', driver="GPKG", layer=i[:-4]+'_scan'+spatialCounter+'_centroid')
@@ -373,6 +375,8 @@ def cenCleanup(dir_sel):
     mcsv.pop('shift')
     mcsv.loc[mcsv['scan'] == 'ago', 'centBorder(m)'] = np.nan
     mcsv.loc[mcsv['scan'] == 'other', 'centBorder(m)'] = np.nan
+    mcsv.loc[mcsv['scan'] == 'ago', 'time'] = np.nan
+    mcsv.loc[mcsv['scan'] == 'other', 'time'] = np.nan
     if dir_sel:
         mcsv.to_csv(dir_sel+'/csvDayFiles/scansMaster.csv', index=False)
     else:

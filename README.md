@@ -355,7 +355,6 @@ Now Git is set up! You can close the terminal.
 
 # Roadmap
 
-* Timestamp of scan in mastercsv
 * Area overlap between scans
 * show 25% of group leading the movememnt
 * Home range
