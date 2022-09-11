@@ -1,4 +1,3 @@
-from typing import Dict
 import gpxpy
 import pandas as pd
 import geopandas as gpd
@@ -49,16 +48,10 @@ group = ''
 weather = ''
 gpxCSV = 1
 dirpath = StringVar()
+dirpath2 = StringVar()
 filepath = StringVar()
 
-# class WrappingLabel(tk.Label):
-#     '''a type of Label that automatically adjusts the wrap to the size'''
-#     def __init__(self, master=None, **kwargs):
-#         tk.Label.__init__(self, master, **kwargs)
-#         self.bind('<Configure>', lambda e: self.config(wraplength=self.winfo_width()))
-
-# Functions to be used by widgets
-
+# Tab 1 - Parse
 # Select working directory
 def getdirectory():
     # Get a directory path by user / Obter um caminho de diretório por usuário
@@ -204,6 +197,20 @@ csv_btn = Checkbutton(tab1, text = 'Use CSV',
                       width = 15,
                       command=formatToggle)
 
+# Tab 2 - Analyze
+def getdirectory2():
+    # Get a directory path by user / Obter um caminho de diretório por usuário
+    dir_select2=filedialog.askdirectory()
+    dirpath2.set(dir_select2)
+    label_path=Label(tab2,text=dir_select2,font=('italic 8'), anchor=W, justify=LEFT, wraplength=300)
+    label_path.grid(row=1,column=2,columnspan=2)
+    print(dirpath2)
+    print(dir_select2)
+    return(dirpath2)
+
+# Buttons 2
+dir_btn2 = Button(tab2, text='Select Directory', command=getdirectory2)
+
 def main():
     # Set Grid for GUI. Some widgets may be located elsewhere (dir output)
     userIn_btn.grid(row=1)
@@ -227,6 +234,9 @@ def main():
     layer_lbl.grid(row=12)
     layer_input.grid(row=12, column=2)
 
+    # Tab 2 - Analyze
+    dir_btn2.grid(row=1)
+
     # Path in the directory choosing function
     run_btn.grid()
     # Execute Tkinter
@@ -234,20 +244,18 @@ def main():
 
 # Run for loop to cover every gpx file in directory / Execute o loop para cobrir todos os arquivos gpx no diretório
 def parse_loop():
-    # Import fragment border
-    # border = gpd.read_file('/home/kyle/Nextcloud/Monkey_Research/Data_Work/CapuchinExtraGIS/FragmentData.gpkg', layer='EdgeLine')
 
     dir_sel = dirpath.get()
     border = filepath.get()
     # borderdf = pd.DataFrame(border)
     sep = border.split('.')
 
-    # Check if the kind of file the edge of the fragmet is
+    # Check if the kind of file the edge of the fragmet is / 
     if sep[-1] == 'gpkg':
         gpkglayer = layer_input.get(1.0, 'end-1c')
         print('gpkg', layer_input)
         borderLine = gpd.read_file(border, layer = gpkglayer)
-        # Add check to ensure layer exists
+        # Add check to ensure layer exists / 
     elif sep[-1] == 'shp':
         print('shp')
         borderLine = gpd.read_file(border)
