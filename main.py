@@ -13,6 +13,7 @@ from spatialFunctions import *
 import tkinter as tk
 from tkinter import *
 from tkinter import filedialog
+from tkinter import ttk
 
 # Remove warning message for future warnings / Remover mensagem de aviso para avisos futuros
 warnings.filterwarnings(action='ignore',category=FutureWarning)
@@ -26,6 +27,15 @@ root = Tk()
 root.title('Scan Sample Geoanalysis Settings')
 # Set geometry (widthxheight)
 root.geometry('550x350')
+
+# Tabs
+tabControl = ttk.Notebook(root)
+tab1 = ttk.Frame(tabControl)
+tab2 = ttk.Frame(tabControl)
+
+tabControl.add(tab1, text='Parse Data')
+tabControl.add(tab2, text='Analyze Data')
+tabControl.grid()
 
 # varibales to be used by functions
 scansButton = IntVar(value=1)  
@@ -54,7 +64,7 @@ def getdirectory():
     # Get a directory path by user / Obter um caminho de diretório por usuário
     dir_select=filedialog.askdirectory()
     dirpath.set(dir_select)
-    label_path=Label(root,text=dir_select,font=('italic 8'), anchor=W, justify=LEFT, wraplength=300)
+    label_path=Label(tab1,text=dir_select,font=('italic 8'), anchor=W, justify=LEFT, wraplength=300)
     label_path.grid(row=10,column=2,columnspan=2)
     print(dirpath)
     print(dir_select)
@@ -64,7 +74,7 @@ def getEdgeFile():
     # Get a directory path by user / Obter um caminho de diretório por usuário
     file_select=filedialog.askopenfilename()
     filepath.set(file_select)
-    label_path=Label(root,text=file_select,font=('italic 8'), anchor=W, justify=LEFT, wraplength=300)
+    label_path=Label(tab1,text=file_select,font=('italic 8'), anchor=W, justify=LEFT, wraplength=300)
     label_path.grid(row=11,column=2,columnspan=2)
     print(filepath)
     print(file_select)
@@ -129,33 +139,32 @@ def formatToggle():
 
 # all widgets will be here
 # Labels
-lbl = Label(root, text='See LINK for help').grid()
-layer_lbl = Label(root, text='GPKG Layer Name')
-layer_input = Text(root, height=1,width=20)
+layer_lbl = Label(tab1, text='GPKG Layer Name')
+layer_input = Text(tab1, height=1,width=20)
 
 # User Input
-observer_lbl = Label(root, text='Observer')
-group_lbl = Label(root, text='Group')
-weather_lbl = Label(root, text='Weather')
-scansMins_lbl = Label(root, text='Scans Length (min):')
+observer_lbl = Label(tab1, text='Observer')
+group_lbl = Label(tab1, text='Group')
+weather_lbl = Label(tab1, text='Weather')
+scansMins_lbl = Label(tab1, text='Scans Length (min):')
 
-observer_input = Text(root, height=1,width=20)
+observer_input = Text(tab1, height=1,width=20)
 observer_input.bind('<Tab>', focus_next_window)
-group_input = Text(root, height=1,width=20)
+group_input = Text(tab1, height=1,width=20)
 group_input.bind('<Tab>', focus_next_window)
-weather_input = Text(root, height=1,width=20)
+weather_input = Text(tab1, height=1,width=20)
 weather_input.bind('<Tab>', focus_next_window)
-scanMins_input = Text(root, height=1, width=5)
+scanMins_input = Text(tab1, height=1, width=5)
 
 # Buttons
-dir_btn = Button(root, text='Select Directory', command=getdirectory)
+dir_btn = Button(tab1, text='Select Directory', command=getdirectory)
 
-file_btn = Button(root, text='Select Edge File', command=getEdgeFile)
+file_btn = Button(tab1, text='Select Edge File', command=getEdgeFile)
 
-run_btn = Button(root, text = 'Run' ,
+run_btn = Button(tab1, text = 'Run' ,
              fg = 'black', command=run)
 
-userIn_btn = Checkbutton(root, text='Include user input?',
+userIn_btn = Checkbutton(tab1, text='Include user input?',
                       variable = user_button,
                       onvalue = 1,
                       offvalue = 0,
@@ -163,7 +172,7 @@ userIn_btn = Checkbutton(root, text='Include user input?',
                       width = 15,
                       command=usertoggle)
 
-scans_btn = Checkbutton(root, text = 'Analyze Scans', 
+scans_btn = Checkbutton(tab1, text = 'Analyze Scans', 
                       variable = scansButton,
                       onvalue = 1,
                       offvalue = 0,
@@ -171,7 +180,7 @@ scans_btn = Checkbutton(root, text = 'Analyze Scans',
                       width = 15,
                       command=toggleScans)
 
-obs_btn = Checkbutton(root, text = 'Parse Observations', 
+obs_btn = Checkbutton(tab1, text = 'Parse Observations', 
                       variable = obsButton,
                       onvalue = 1,
                       offvalue = 0,
@@ -179,7 +188,7 @@ obs_btn = Checkbutton(root, text = 'Parse Observations',
                       width = 15,
                       command=toggleObservations)
 
-gpx_btn = Checkbutton(root, text = 'Use GPX', 
+gpx_btn = Checkbutton(tab1, text = 'Use GPX', 
                       variable = format_button,
                       onvalue = 1,
                       offvalue = 0,
@@ -187,7 +196,7 @@ gpx_btn = Checkbutton(root, text = 'Use GPX',
                       width = 15,
                       command=formatToggle)
 
-csv_btn = Checkbutton(root, text = 'Use CSV', 
+csv_btn = Checkbutton(tab1, text = 'Use CSV', 
                       variable = format_button,
                       onvalue = 0,
                       offvalue = 1,
