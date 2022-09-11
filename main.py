@@ -91,7 +91,7 @@ def run():
     toggleScans()
     toggleObservations()
     formatToggle()
-    big_loop()
+    parse_loop()
 
 def usertoggle():
     val = user_button.get()
@@ -233,7 +233,7 @@ def main():
     root.mainloop()
 
 # Run for loop to cover every gpx file in directory / Execute o loop para cobrir todos os arquivos gpx no diretório
-def big_loop():
+def parse_loop():
     # Import fragment border
     # border = gpd.read_file('/home/kyle/Nextcloud/Monkey_Research/Data_Work/CapuchinExtraGIS/FragmentData.gpkg', layer='EdgeLine')
 
