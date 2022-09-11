@@ -127,6 +127,102 @@ def formatToggle():
         gpxCSV = 0
         return(gpxCSV)
 
+# all widgets will be here
+# Labels
+lbl = Label(root, text='See LINK for help').grid()
+layer_lbl = Label(root, text='GPKG Layer Name')
+layer_input = Text(root, height=1,width=20)
+
+# User Input
+observer_lbl = Label(root, text='Observer')
+group_lbl = Label(root, text='Group')
+weather_lbl = Label(root, text='Weather')
+scansMins_lbl = Label(root, text='Scans Length (min):')
+
+observer_input = Text(root, height=1,width=20)
+observer_input.bind('<Tab>', focus_next_window)
+group_input = Text(root, height=1,width=20)
+group_input.bind('<Tab>', focus_next_window)
+weather_input = Text(root, height=1,width=20)
+weather_input.bind('<Tab>', focus_next_window)
+scanMins_input = Text(root, height=1, width=5)
+
+# Buttons
+dir_btn = Button(root, text='Select Directory', command=getdirectory)
+
+file_btn = Button(root, text='Select Edge File', command=getEdgeFile)
+
+run_btn = Button(root, text = 'Run' ,
+             fg = 'black', command=run)
+
+userIn_btn = Checkbutton(root, text='Include user input?',
+                      variable = user_button,
+                      onvalue = 1,
+                      offvalue = 0,
+                      height = 1,
+                      width = 15,
+                      command=usertoggle)
+
+scans_btn = Checkbutton(root, text = 'Analyze Scans', 
+                      variable = scansButton,
+                      onvalue = 1,
+                      offvalue = 0,
+                      height = 1,
+                      width = 15,
+                      command=toggleScans)
+
+obs_btn = Checkbutton(root, text = 'Parse Observations', 
+                      variable = obsButton,
+                      onvalue = 1,
+                      offvalue = 0,
+                      height = 1,
+                      width = 15,
+                      command=toggleObservations)
+
+gpx_btn = Checkbutton(root, text = 'Use GPX', 
+                      variable = format_button,
+                      onvalue = 1,
+                      offvalue = 0,
+                      height = 1,
+                      width = 15,
+                      command=formatToggle)
+
+csv_btn = Checkbutton(root, text = 'Use CSV', 
+                      variable = format_button,
+                      onvalue = 0,
+                      offvalue = 1,
+                      height = 1,
+                      width = 15,
+                      command=formatToggle)
+
+def main():
+    # Set Grid for GUI. Some widgets may be located elsewhere (dir output)
+    userIn_btn.grid(row=1)
+    observer_lbl.grid(row=2)
+    group_lbl.grid(row=3)
+    weather_lbl.grid(row=4)
+
+    observer_input.grid(row=2,column=2)
+    group_input.grid(row=3,column=2)
+    weather_input.grid(row=4,column=2)
+
+    scans_btn.grid(row=5)
+    scansMins_lbl.grid(row=6)
+    scanMins_input.grid(row=6, column=2)
+    obs_btn.grid(row=7)
+    gpx_btn.grid(row=8)
+    csv_btn.grid(row=9)
+
+    dir_btn.grid(row=10)
+    file_btn.grid(row=11)
+    layer_lbl.grid(row=12)
+    layer_input.grid(row=12, column=2)
+
+    # Path in the directory choosing function
+    run_btn.grid()
+    # Execute Tkinter
+    root.mainloop()
+
 # Run for loop to cover every gpx file in directory / Execute o loop para cobrir todos os arquivos gpx no diretório
 def big_loop():
     # Import fragment border
@@ -349,103 +445,6 @@ def big_loop():
 
     print('done')
     main()
-
-# all widgets will be here
-# Labels
-lbl = Label(root, text='See LINK for help').grid()
-layer_lbl = Label(root, text='GPKG Layer Name')
-layer_input = Text(root, height=1,width=20)
-
-# User Input
-observer_lbl = Label(root, text='Observer')
-group_lbl = Label(root, text='Group')
-weather_lbl = Label(root, text='Weather')
-scansMins_lbl = Label(root, text='Scans Length (min):')
-
-observer_input = Text(root, height=1,width=20)
-observer_input.bind('<Tab>', focus_next_window)
-group_input = Text(root, height=1,width=20)
-group_input.bind('<Tab>', focus_next_window)
-weather_input = Text(root, height=1,width=20)
-weather_input.bind('<Tab>', focus_next_window)
-scanMins_input = Text(root, height=1, width=5)
-
-
-# Buttons
-dir_btn = Button(root, text='Select Directory', command=getdirectory)
-
-file_btn = Button(root, text='Select Edge File', command=getEdgeFile)
-
-run_btn = Button(root, text = 'Run' ,
-             fg = 'black', command=run)
-
-userIn_btn = Checkbutton(root, text='Include user input?',
-                      variable = user_button,
-                      onvalue = 1,
-                      offvalue = 0,
-                      height = 1,
-                      width = 15,
-                      command=usertoggle)
-
-scans_btn = Checkbutton(root, text = 'Analyze Scans', 
-                      variable = scansButton,
-                      onvalue = 1,
-                      offvalue = 0,
-                      height = 1,
-                      width = 15,
-                      command=toggleScans)
-
-obs_btn = Checkbutton(root, text = 'Parse Observations', 
-                      variable = obsButton,
-                      onvalue = 1,
-                      offvalue = 0,
-                      height = 1,
-                      width = 15,
-                      command=toggleObservations)
-
-gpx_btn = Checkbutton(root, text = 'Use GPX', 
-                      variable = format_button,
-                      onvalue = 1,
-                      offvalue = 0,
-                      height = 1,
-                      width = 15,
-                      command=formatToggle)
-
-csv_btn = Checkbutton(root, text = 'Use CSV', 
-                      variable = format_button,
-                      onvalue = 0,
-                      offvalue = 1,
-                      height = 1,
-                      width = 15,
-                      command=formatToggle)
-
-def main():
-    # Set Grid for GUI. Some widgets may be located elsewhere (dir output)
-    userIn_btn.grid(row=1)
-    observer_lbl.grid(row=2)
-    group_lbl.grid(row=3)
-    weather_lbl.grid(row=4)
-
-    observer_input.grid(row=2,column=2)
-    group_input.grid(row=3,column=2)
-    weather_input.grid(row=4,column=2)
-
-    scans_btn.grid(row=5)
-    scansMins_lbl.grid(row=6)
-    scanMins_input.grid(row=6, column=2)
-    obs_btn.grid(row=7)
-    gpx_btn.grid(row=8)
-    csv_btn.grid(row=9)
-
-    dir_btn.grid(row=10)
-    file_btn.grid(row=11)
-    layer_lbl.grid(row=12)
-    layer_input.grid(row=12, column=2)
-
-    # Path in the directory choosing function
-    run_btn.grid()
-    # Execute Tkinter
-    root.mainloop()
 
 if __name__ == '__main__':
     main()
