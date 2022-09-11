@@ -3,6 +3,7 @@ import os
 from site import check_enableusersite
 import pandas as pd
 import geopandas as gpd
+import numpy as np
 from datetime import datetime, timedelta
 from shapely import wkt
 from shapely.geometry import LineString
@@ -345,22 +346,35 @@ def centroidDist(dir_sel):
     mastercsv = gpd.GeoDataFrame(mastercsv, geometry='centroid', crs='EPSG:31985')
     mastercsv['distCenCen(m)'] = mastercsv['centroid'].distance(point2)
 
-    
-
     mastercsv = mastercsv.sort_values(by = ['date', 'scan'], ascending = [True, True]).reset_index(drop=True)
-    # print(mastercsv)
     shiftPos = mastercsv.pop('zone')
     mastercsv['zone'] = shiftPos
     shiftPos = mastercsv.pop('centroid')
     mastercsv['centroid'] = shiftPos
 
     if dir_sel:
-        mastercsv.to_csv(dir_sel+'/csvDayFiles/scansMaster.csv')
+        mastercsv.to_csv(dir_sel+'/csvDayFiles/scansMaster.csv', index=False)
     else:
-        mastercsv.to_csv('csvDayFiles/scansMaster.csv')
+        mastercsv.to_csv('csvDayFiles/scansMaster.csv', index=False)
 
     os.remove('temp.csv')
     
-# def cenCleanup():
-    # Remove dist val from agos and last scan of the day
+def cenCleanup(dir_sel):
+    mcsv = pd.read_csv('Data_GPX/csvDayFiles/scansMaster.csv')
+
+    mcsv['shift'] = mcsv['distCenCen(m)'].shift(1)
+    mcsv.loc[mcsv['scan'] == 'ago', 'shift'] = np.nan
+    mcsv.loc[mcsv['scan'] == 'other', 'shift'] = np.nan
+
+    mcsv['shift'] = mcsv['shift'].shift(-1)
+    mcsv.loc[mcsv['scan'] == 'ago', 'shift'] = np.nan
+    mcsv.loc[mcsv['scan'] == 'other', 'shift'] = np.nan
+    mcsv['distCenCen(m)']=mcsv['shift']
+    mcsv.pop('shift')
+    mcsv.loc[mcsv['scan'] == 'ago', 'centBorder(m)'] = np.nan
+    mcsv.loc[mcsv['scan'] == 'other', 'centBorder(m)'] = np.nan
+    if dir_sel:
+        mcsv.to_csv(dir_sel+'/csvDayFiles/scansMaster.csv', index=False)
+    else:
+        mcsv.to_csv(dir_sel+'/csvDayFiles/scansMaster.csv', index=False)
     

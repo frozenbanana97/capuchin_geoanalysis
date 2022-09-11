@@ -331,19 +331,21 @@ def big_loop():
         
         if dir_sel:
             # Save to csv / Salvar em csv
-            gdf.to_csv(dir_sel+'/csvDayFiles/'+i[:-4]+'.csv')
+            gdf.to_csv(dir_sel+'/csvDayFiles/'+i[:-4]+'.csv', index=False)
 
             # Export gdf into gpkg / Exportar gdf para gpkg
             gdf.to_file(dir_sel+'/gpkgData/'+i[:-4]+'scans.gpkg', driver="GPKG", layer=i[:-4]+'_wholeDay')
         
         else:
             # Save to csv / Salvar em csv
-            gdf.to_csv('csvDayFiles/'+i[:-4]+'.csv')
+            gdf.to_csv('csvDayFiles/'+i[:-4]+'.csv', index=False)
 
             # Export gdf into gpkg / Exportar gdf para gpkg
             gdf.to_file('gpkgData/'+i[:-4]+'scans.gpkg', driver="GPKG", layer=i[:-4]+'_wholeDay')
 
     centroidDist(dir_sel)
+
+    cenCleanup(dir_sel)
 
     print('done')
     main()
