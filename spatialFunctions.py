@@ -248,6 +248,18 @@ def scanExport(gdf, i, dir_sel, borderLine):
 
 def scanSpatial(gdfscan, i, spatialCounter, dir_sel, borderLine, cenList, borList):
 
+    # Get number of each age/sex type / 
+    m = gdfscan.loc[(gdfscan['age/sex']=='m')].shape[0]
+    f = gdfscan.loc[(gdfscan['age/sex']=='f')].shape[0]
+    j1 = gdfscan.loc[(gdfscan['age/sex']=='j1')].shape[0]
+    j2 = gdfscan.loc[(gdfscan['age/sex']=='j2')].shape[0]
+    j3 = gdfscan.loc[(gdfscan['age/sex']=='j3')].shape[0]
+    sa = gdfscan.loc[(gdfscan['age/sex']=='sa')].shape[0]
+    mf = gdfscan.loc[(gdfscan['age/sex']=='mf')].shape[0]
+    ff = gdfscan.loc[(gdfscan['age/sex']=='ff')].shape[0]
+    ni = gdfscan.loc[(gdfscan['age/sex']=='ni')].shape[0]
+    tot = gdfscan.shape[0]
+
     # Get centroid value of all points in scan / Obtenha o valor do centroide de todos os pontos na varredura
     centroid = gdfscan.dissolve().centroid
     border = borderLine.unary_union
@@ -287,6 +299,16 @@ def scanSpatial(gdfscan, i, spatialCounter, dir_sel, borderLine, cenList, borLis
     mastercsv.insert(loc=1, column='scan', value=scan, allow_duplicates=True)
     mastercsv.insert(loc=2, column='time', value=time, allow_duplicates=True)
 
+    mastercsv['m %'] = m/tot
+    mastercsv['f %'] = f/tot
+    mastercsv['j1 %'] = j1/tot
+    mastercsv['j2 %'] = j2/tot
+    mastercsv['j3 %'] = j3/tot
+    mastercsv['sa %'] = sa/tot
+    mastercsv['mf %'] = mf/tot
+    mastercsv['ff %'] = ff/tot
+    mastercsv['ni %'] = ni/tot
+    
     if dir_sel:
         centroid.to_file(dir_sel+'/gpkgData/'+i[:-4]+'scans.gpkg', driver="GPKG", layer=i[:-4]+'_scan'+spatialCounter+'_centroid')
         zone.to_file(dir_sel+'/gpkgData/'+i[:-4]+'scans.gpkg', driver="GPKG", layer=i[:-4]+'_scan'+spatialCounter+'_zone')
@@ -353,6 +375,9 @@ def centroidDist(dir_sel):
     mastercsv['zone'] = shiftPos
     shiftPos = mastercsv.pop('centroid')
     mastercsv['centroid'] = shiftPos
+    shiftPos = mastercsv.pop('distCenCen(m)')
+    mastercsv.insert(9, 'distCenCen(m)', shiftPos)
+
 
     if dir_sel:
         mastercsv.to_csv(dir_sel+'/csvDayFiles/scansMaster.csv', index=False)
