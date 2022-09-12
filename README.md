@@ -355,8 +355,9 @@ Now Git is set up! You can close the terminal.
 
 # Roadmap
 
+* age/sex ratio per scan
 * Area overlap between scans
-* show 25% of group leading the movememnt
+* show 25% of group leading the movememnt incluing age/sex
 * Home range
 * Automated map creation by day
 * Create working .exe
