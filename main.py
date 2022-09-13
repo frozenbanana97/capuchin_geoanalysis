@@ -281,7 +281,7 @@ def parse_loop():
     # Read GPX files selected / 
     if formatToggle() == 1:
         gpxDict = dict()
-        print('big loop GPX')
+        print('parse loop GPX')
         
         if dir_sel:
             for file in os.listdir(dir_sel):
@@ -301,7 +301,7 @@ def parse_loop():
     # Read CSV files selected
     if formatToggle() == 0:
         gpxDict = dict()
-        print('big loop CSV')
+        print('parse loop CSV')
 
         if dir_sel:
             for file in os.listdir(dir_sel):
