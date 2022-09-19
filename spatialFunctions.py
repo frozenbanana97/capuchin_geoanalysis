@@ -353,9 +353,9 @@ def centroidDist(dir_sel,crs):
     if not dropped.empty:
         numdrop = dropped.shape[0]
         if dir_sel:
-            dropped.to_csv(dir_sel+'/csvDayFiles/dropped.csv', index = False)
+            dropped.to_csv(dir_sel+'/csvDayFiles/dropped.csv')
         else:
-            dropped.to_csv('csvDayFiles/dropped.csv', index = False)
+            dropped.to_csv('csvDayFiles/dropped.csv')
 
         print('ATTENTION:',numdrop,'days were not included in centorid distance calculations due to too few centroids. See \'dropped.csv\' and other related files.')
 
@@ -392,6 +392,8 @@ def centroidDist(dir_sel,crs):
     mastercsv['centroid'] = shiftPos
     shiftPos = mastercsv.pop('distCenCen(m)')
     mastercsv.insert(9, 'distCenCen(m)', shiftPos)
+    print('centroidDist end')
+    print(mastercsv)
 
 
     if dir_sel:
@@ -402,7 +404,11 @@ def centroidDist(dir_sel,crs):
     os.remove('temp.csv')
     
 def cenCleanup(dir_sel):
-    mcsv = pd.read_csv('Data_GPX/csvDayFiles/scansMaster.csv')
+    
+    if dir_sel:
+        mcsv = pd.read_csv(dir_sel+'/csvDayFiles/scansMaster.csv')
+    else:
+        mcsv = pd.read_csv('/csvDayFiles/scansMaster.csv')
 
     mcsv['shift'] = mcsv['distCenCen(m)'].shift(1)
     mcsv.loc[mcsv['scan'] == 'ago', 'shift'] = np.nan
@@ -420,5 +426,7 @@ def cenCleanup(dir_sel):
     if dir_sel:
         mcsv.to_csv(dir_sel+'/csvDayFiles/scansMaster.csv', index=False)
     else:
-        mcsv.to_csv(dir_sel+'/csvDayFiles/scansMaster.csv', index=False)
+        mcsv.to_csv('/csvDayFiles/scansMaster.csv', index=False)
+    print('cenCleanup end')
+    print(mcsv)
     
