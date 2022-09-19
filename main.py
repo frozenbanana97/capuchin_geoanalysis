@@ -488,7 +488,7 @@ def parse_loop():
 
     cenCleanup(dir_sel)
 
-    print('done')
+    print('DONE')
     main()
 
 if __name__ == '__main__':
