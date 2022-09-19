@@ -355,7 +355,11 @@ Now Git is set up! You can close the terminal.
 
 # Roadmap
 
+* Scan Interval Length
 * Area overlap between scans
+* Day Range (whole day convex hull)
+* Month range
+* year range
 * show 25% of group leading the movememnt incluing age/sex
 * Home range
 * Automated map creation by day
