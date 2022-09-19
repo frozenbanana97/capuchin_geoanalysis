@@ -355,9 +355,6 @@ Now Git is set up! You can close the terminal.
 
 # Roadmap
 
-* Remove timestamp from ago and other
-<br>  
-
 * Area overlap between scans
 * show 25% of group leading the movememnt incluing age/sex
 * Home range
