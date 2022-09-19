@@ -5,6 +5,8 @@ import warnings
 import os
 from os import mkdir
 from datetime import datetime, timedelta
+from fiona.drvsupport import supported_drivers
+supported_drivers['KML'] = 'rw'
 
 import spatialFunctions
 from spatialFunctions import *
@@ -283,7 +285,7 @@ def parse_loop():
         borderLine = gpd.read_file(border)
     elif sep[-1] == 'kml':
         print('kml')
-        gpd.io.file.fiona.drvsupport.supported_drivers['KML'] = 'rw'
+        # gpd.io.file.fiona.drvsupport.supported_drivers['KML'] = 'rw'
         borderLine = gpd.read_file(border)
         borderLine = borderLine.set_crs('EPSG:4326')
         borderLine = borderLine.to_crs(crs)
