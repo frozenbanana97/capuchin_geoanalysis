@@ -267,6 +267,9 @@ def parse_loop():
 
     # Set user defined CRS / 
     crs = crs_input.get(1.0, 'end-1c')
+    if not crs:
+        print('ERROR: missing CRS. Please input a projection/crs')
+        main()
     print('CRS: '+ crs)
 
     # Check if the kind of file the edge of the fragmet is / 
