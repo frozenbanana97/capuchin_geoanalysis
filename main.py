@@ -58,7 +58,7 @@ def getdirectory():
     dir_select=filedialog.askdirectory()
     dirpath.set(dir_select)
     label_path=Label(tab1,text=dir_select,font=('italic 8'), anchor=W, justify=LEFT, wraplength=300)
-    label_path.grid(row=10,column=2,columnspan=2)
+    label_path.grid(row=11,column=2,columnspan=2)
     print(dirpath)
     print(dir_select)
     return(dirpath)
@@ -68,7 +68,7 @@ def getEdgeFile():
     file_select=filedialog.askopenfilename()
     filepath.set(file_select)
     label_path=Label(tab1,text=file_select,font=('italic 8'), anchor=W, justify=LEFT, wraplength=300)
-    label_path.grid(row=11,column=2,columnspan=2)
+    label_path.grid(row=12,column=2,columnspan=2)
     print(filepath)
     print(file_select)
     return(filepath)
@@ -140,7 +140,7 @@ observer_lbl = Label(tab1, text='Observer')
 group_lbl = Label(tab1, text='Group')
 weather_lbl = Label(tab1, text='Weather')
 scansMins_lbl = Label(tab1, text='Scans Length (min):')
-crs_lbl = Label(tab1, text='Projection/CRS (eg.\'EPSG:31985\'):')
+crs_lbl = Label(tab1, text='Projection/CRS (eg.EPSG:31985):')
 
 observer_input = Text(tab1, height=1,width=20)
 observer_input.bind('<Tab>', focus_next_window)
@@ -319,6 +319,9 @@ def parse_loop():
                     print('GPX dict')
                     print(gpxDict)
                     print('not dir path')
+        if not gpxDict:
+            print('ERROR: no GPX files found in selected directory.')
+            main()
     
     # Read CSV files selected
     if formatToggle() == 0:
@@ -339,6 +342,9 @@ def parse_loop():
                     print('CSV dict')
                     print(gpxDict)
                     print('not dir path')
+        if not gpxDict:
+            print('ERROR: no CSV files found in selected directory.')
+            main()
                
     # Loop thorugh all GPX files and perform analysis / Percorra todos os arquivos GPX e realize análises
     for i in gpxDict:
