@@ -140,6 +140,7 @@ observer_lbl = Label(tab1, text='Observer')
 group_lbl = Label(tab1, text='Group')
 weather_lbl = Label(tab1, text='Weather')
 scansMins_lbl = Label(tab1, text='Scans Length (min):')
+crs_lbl = Label(tab1, text='Projection/CRS (eg.\'EPSG:31985\'):')
 
 observer_input = Text(tab1, height=1,width=20)
 observer_input.bind('<Tab>', focus_next_window)
@@ -148,6 +149,8 @@ group_input.bind('<Tab>', focus_next_window)
 weather_input = Text(tab1, height=1,width=20)
 weather_input.bind('<Tab>', focus_next_window)
 scanMins_input = Text(tab1, height=1, width=5)
+scanMins_input.bind('<Tab>', focus_next_window)
+crs_input = Text(tab1, height=1, width=10)
 
 # Buttons
 dir_btn = Button(tab1, text='Select Directory', command=getdirectory)
@@ -213,26 +216,38 @@ dir_btn2 = Button(tab2, text='Select Directory', command=getdirectory2)
 
 def main():
     # Set Grid for GUI. Some widgets may be located elsewhere (dir output)
-    userIn_btn.grid(row=1)
-    observer_lbl.grid(row=2)
-    group_lbl.grid(row=3)
-    weather_lbl.grid(row=4)
-
-    observer_input.grid(row=2,column=2)
-    group_input.grid(row=3,column=2)
-    weather_input.grid(row=4,column=2)
-
-    scans_btn.grid(row=5)
-    scansMins_lbl.grid(row=6)
-    scanMins_input.grid(row=6, column=2)
-    obs_btn.grid(row=7)
-    gpx_btn.grid(row=8)
-    csv_btn.grid(row=9)
-
-    dir_btn.grid(row=10)
-    file_btn.grid(row=11)
-    layer_lbl.grid(row=12)
-    layer_input.grid(row=12, column=2)
+    gridrow = 1
+    userIn_btn.grid(row=gridrow)
+    gridrow+=1
+    observer_lbl.grid(row=gridrow)
+    observer_input.grid(row=gridrow,column=2)
+    gridrow+=1
+    group_lbl.grid(row=gridrow)
+    group_input.grid(row=gridrow,column=2)
+    gridrow+=1
+    weather_lbl.grid(row=gridrow)
+    weather_input.grid(row=gridrow,column=2)
+    gridrow+=1
+    scans_btn.grid(row=gridrow)
+    gridrow+=1
+    scansMins_lbl.grid(row=gridrow)
+    scanMins_input.grid(row=gridrow, column=2)
+    gridrow+=1
+    crs_lbl.grid(row=gridrow)
+    crs_input.grid(row=gridrow, column=2)
+    gridrow+=1
+    obs_btn.grid(row=gridrow)
+    gridrow+=1
+    gpx_btn.grid(row=gridrow)
+    gridrow+=1
+    csv_btn.grid(row=gridrow)
+    gridrow+=1
+    dir_btn.grid(row=gridrow)
+    gridrow+=1
+    file_btn.grid(row=gridrow)
+    gridrow+=1
+    layer_lbl.grid(row=gridrow)
+    layer_input.grid(row=gridrow, column=2)
 
     # Tab 2 - Analyze
     dir_btn2.grid(row=1)
@@ -250,6 +265,10 @@ def parse_loop():
     # borderdf = pd.DataFrame(border)
     sep = border.split('.')
 
+    # Set user defined CRS / 
+    crs = crs_input.get(1.0, 'end-1c')
+    print('CRS: '+ crs)
+
     # Check if the kind of file the edge of the fragmet is / 
     if sep[-1] == 'gpkg':
         gpkglayer = layer_input.get(1.0, 'end-1c')
@@ -264,7 +283,7 @@ def parse_loop():
         gpd.io.file.fiona.drvsupport.supported_drivers['KML'] = 'rw'
         borderLine = gpd.read_file(border)
         borderLine = borderLine.set_crs('EPSG:4326')
-        borderLine = borderLine.to_crs('EPSG:31985')
+        borderLine = borderLine.to_crs(crs)
     else:
         print('ERROR: unrecognized filetype, please use a GeoPackage, Shapefile, or KML')
         main()
@@ -410,7 +429,7 @@ def parse_loop():
         # Make geographic and set CRS / Faça geográfica e defina CRS
         gdf = gpd.GeoDataFrame(df, geometry=gpd.points_from_xy(df.lon, df.lat)) 
         gdf = gdf.set_crs('EPSG:4326')
-        gdf = gdf.to_crs('EPSG:31985')
+        gdf = gdf.to_crs(crs)
             
         if dir_sel:    
             # Check and create save directory for gpkg files / Verifique e crie um diretório de salvamento para arquivos gpkg
@@ -456,7 +475,7 @@ def parse_loop():
             # Export gdf into gpkg / Exportar gdf para gpkg
             gdf.to_file('gpkgData/'+i[:-4]+'scans.gpkg', driver="GPKG", layer=i[:-4]+'_wholeDay')
 
-    centroidDist(dir_sel)
+    centroidDist(dir_sel, crs)
 
     cenCleanup(dir_sel)
 

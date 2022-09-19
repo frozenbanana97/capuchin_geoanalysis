@@ -331,14 +331,14 @@ def scanSpatial(gdfscan, i, spatialCounter, dir_sel, borderLine, cenList, borLis
     return cenList, borList
 
 
-def centroidDist(dir_sel):
+def centroidDist(dir_sel,crs):
     if dir_sel:
         mastercsv = pd.read_csv(dir_sel+'/csvDayFiles/scansMaster.csv',)
     else:
         mastercsv = pd.read_csv('csvDayFiles/scansMaster.csv',)
 
     mastercsv['centroid'] = mastercsv['centroid'].apply(wkt.loads)
-    master = gpd.GeoDataFrame(mastercsv, geometry='centroid', crs='EPSG:31985')
+    master = gpd.GeoDataFrame(mastercsv, geometry='centroid', crs=crs)
 
     dfmaster = master[master['scan'].apply(lambda x: str(x).isdigit())]
     dfmaster = dfmaster.sort_values(by = ['date', 'scan'], ascending = [True, True]).reset_index(drop=True)
@@ -351,7 +351,7 @@ def centroidDist(dir_sel):
     lines = pd.read_csv('temp.csv',)
     lines.rename(columns={'centroid':'geometry'}, inplace=True)
     lines['geometry'] = lines['geometry'].apply(wkt.loads)
-    lines = gpd.GeoDataFrame(lines, geometry='geometry', crs='EPSG:31985')
+    lines = gpd.GeoDataFrame(lines, geometry='geometry', crs=crs)
     lines = lines.reset_index()
 
     for i, row in lines.iterrows():
@@ -365,9 +365,9 @@ def centroidDist(dir_sel):
             dateline.to_file('gpkgData/'+date+'scans.gpkg', driver="GPKG", layer=date+'_route')
     
     point2 = mastercsv['centroid'].shift(-1)
-    point2 = gpd.GeoDataFrame(point2, geometry='centroid', crs='EPSG:31985')
+    point2 = gpd.GeoDataFrame(point2, geometry='centroid', crs=crs)
     
-    mastercsv = gpd.GeoDataFrame(mastercsv, geometry='centroid', crs='EPSG:31985')
+    mastercsv = gpd.GeoDataFrame(mastercsv, geometry='centroid', crs=crs)
     mastercsv['distCenCen(m)'] = mastercsv['centroid'].distance(point2)
 
     mastercsv = mastercsv.sort_values(by = ['date', 'scan'], ascending = [True, True]).reset_index(drop=True)

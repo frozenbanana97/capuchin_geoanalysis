@@ -355,8 +355,9 @@ Now Git is set up! You can close the terminal.
 
 # Roadmap
 
-* Make CRS selectable
 * Remove timestamp from ago and other
+<br>  
+
 * Area overlap between scans
 * show 25% of group leading the movememnt incluing age/sex
 * Home range
