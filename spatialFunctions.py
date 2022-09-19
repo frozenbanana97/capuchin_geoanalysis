@@ -333,9 +333,9 @@ def scanSpatial(gdfscan, i, spatialCounter, dir_sel, borderLine, cenList, borLis
 
 def centroidDist(dir_sel,crs):
     if dir_sel:
-        mastercsv = pd.read_csv(dir_sel+'/csvDayFiles/scansMaster.csv',)
+        mastercsv = pd.read_csv(dir_sel+'/csvDayFiles/scansMaster.csv')
     else:
-        mastercsv = pd.read_csv('csvDayFiles/scansMaster.csv',)
+        mastercsv = pd.read_csv('csvDayFiles/scansMaster.csv')
 
     mastercsv['centroid'] = mastercsv['centroid'].apply(wkt.loads)
     master = gpd.GeoDataFrame(mastercsv, geometry='centroid', crs=crs)
@@ -344,6 +344,21 @@ def centroidDist(dir_sel,crs):
     dfmaster = dfmaster.sort_values(by = ['date', 'scan'], ascending = [True, True]).reset_index(drop=True)
 
     groupmaster = dfmaster.groupby(['date']).agg({'centroid':list})
+
+    # Check if there are enough centroids to perform line calcs / 
+    groupmaster['length'] = groupmaster['centroid'].str.len()
+    dropped = groupmaster[groupmaster['length'] == 1]
+    groupmaster.drop(groupmaster.index[groupmaster['length'] == 1], inplace=True)
+
+    if not dropped.empty:
+        numdrop = dropped.shape[0]
+        if dir_sel:
+            dropped.to_csv(dir_sel+'/csvDayFiles/dropped.csv', index = False)
+        else:
+            dropped.to_csv('csvDayFiles/dropped.csv', index = False)
+
+        print('ATTENTION:',numdrop,'days were not included in centorid distance calculations due to too few centroids. See \'dropped.csv\' and other related files.')
+
     groupmaster['centroid'] = groupmaster['centroid'].apply(lambda x: LineString(x))
     groupedmaster = gpd.GeoDataFrame(groupmaster)
     groupedmaster.to_csv('temp.csv')
