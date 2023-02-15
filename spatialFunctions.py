@@ -310,17 +310,17 @@ def scanSpatial(gdfscan, i, spatialCounter, dir_sel, borderLine, cenList, borLis
     mastercsv['ni %'] = ni/tot
     
     if dir_sel:
-        centroid.to_file(dir_sel+'/gpkgData/'+i[:-4]+'scans.gpkg', driver="GPKG", layer=i[:-4]+'_scan'+spatialCounter+'_centroid')
-        zone.to_file(dir_sel+'/gpkgData/'+i[:-4]+'scans.gpkg', driver="GPKG", layer=i[:-4]+'_scan'+spatialCounter+'_zone')
-        gdfscan.to_file(dir_sel+'/gpkgData/'+i[:-4]+'scans.gpkg', driver="GPKG", layer=i[:-4]+'_scan'+spatialCounter)
+        centroid.to_file(dir_sel+'/gpkgData/'+i[:-4]+'_scans.gpkg', driver="GPKG", layer=i[:-4]+'_scan'+spatialCounter+'_centroid')
+        zone.to_file(dir_sel+'/gpkgData/'+i[:-4]+'_scans.gpkg', driver="GPKG", layer=i[:-4]+'_scan'+spatialCounter+'_zone')
+        gdfscan.to_file(dir_sel+'/gpkgData/'+i[:-4]+'_scans.gpkg', driver="GPKG", layer=i[:-4]+'_scan'+spatialCounter)
         if os.path.isfile(dir_sel+'/csvDayFiles/scansMaster.csv'):
             mastercsv.to_csv(dir_sel+'/csvDayFiles/scansMaster.csv', index=False, mode='a', header=False)
         else:
             mastercsv.to_csv(dir_sel+'/csvDayFiles/scansMaster.csv', index=False, mode='w', header=True)
     else:
-        centroid.to_file('gpkgData/'+i[:-4]+'scans.gpkg', driver="GPKG", layer=i[:-4]+'_scan'+spatialCounter+'_centroid')
-        zone.to_file('gpkgData/'+i[:-4]+'scans.gpkg', driver="GPKG", layer=i[:-4]+'_scan'+spatialCounter+'_zone')
-        gdfscan.to_file('gpkgData/'+i[:-4]+'scans.gpkg', driver="GPKG", layer=i[:-4]+'_scan'+spatialCounter)
+        centroid.to_file('gpkgData/'+i[:-4]+'_scans.gpkg', driver="GPKG", layer=i[:-4]+'_scan'+spatialCounter+'_centroid')
+        zone.to_file('gpkgData/'+i[:-4]+'_scans.gpkg', driver="GPKG", layer=i[:-4]+'_scan'+spatialCounter+'_zone')
+        gdfscan.to_file('gpkgData/'+i[:-4]+'_scans.gpkg', driver="GPKG", layer=i[:-4]+'_scan'+spatialCounter)
         if os.path.isfile('csvDayFiles/scansMaster.csv'):
             mastercsv.to_csv('csvDayFiles/scansMaster.csv', index=False, mode='a', header=False)
         else:
@@ -375,9 +375,9 @@ def centroidDist(dir_sel,crs):
         dateline.loc[:,'length'] = dateline.length
 
         if dir_sel:
-            dateline.to_file(dir_sel+'/gpkgData/'+date+'scans.gpkg', driver="GPKG", layer=date+'_route')
+            dateline.to_file(dir_sel+'/gpkgData/'+date+'_scans.gpkg', driver="GPKG", layer=date+'_route')
         else:
-            dateline.to_file('gpkgData/'+date+'scans.gpkg', driver="GPKG", layer=date+'_route')
+            dateline.to_file('gpkgData/'+date+'_scans.gpkg', driver="GPKG", layer=date+'_route')
     
     point2 = mastercsv['centroid'].shift(-1)
     point2 = gpd.GeoDataFrame(point2, geometry='centroid', crs=crs)
