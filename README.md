@@ -42,11 +42,11 @@ To get started using the bare minimum to get the data analyzed, you will need Py
 * In the terminal and run the following commands in this order:
 
 ```
-pip install GDAL-3.4.2-cp310-cp310-win_amd64.whl
+pip install GDAL-3.4.2-cp311-cp311-win_amd64.whl
 ```
 
 ```
-pip install Fiona-1.8.21-cp310-cp310-win_amd64.whl
+pip install Fiona-1.8.21-cp311-cp311-win_amd64.whl
 ```
 
 ```
