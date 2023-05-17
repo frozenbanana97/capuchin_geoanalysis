@@ -6,12 +6,12 @@ For instructions scroll down.
 
 - [The Program](#the-program)
     - [Basic Quick Setup Step-by-Step](#basic-quick-setupstep-by-step)
-- [Data Parsing, Prep, & Analysis](#data-parsing-prep--analysis)
+- [Data Parsing, Prep, \& Analysis](#data-parsing-prep--analysis)
     - [Instructions](#instructions)
     - [Setting up the Virtual Environment](#setting-up-the-virtual-environment)
     - [Installing Python Requirements](#installing-python-requirements)
 - [Pre-Analysis Data Format](#pre-analysis-data-format)
-    - [Issues & Limitations](#issues--limitations)
+    - [Issues \& Limitations](#issues--limitations)
 - [Software Installation Guide](#software-installation-guide)
     - [Python Installation](#python-installation)
     - [QGIS Installation](#qgis-installation)
@@ -32,21 +32,26 @@ This program is made to allow for quick analysis and data preperation in primate
 Follow this section alone to be able to use the program to analyze your GPX data, all aditional sections are for a more in-depth/advanced use.
 To get started using the bare minimum to get the data analyzed, you will need Python installed and the raw data in the correct format.
 <br>
-* Collect data in the proper format, if you are using Locus Map the GPX export is already in the correct format. [See here](#pre-analysis-data-format) for more info.
+
+* Collect data in the proper format, if you are using Locus Map the GPX export is already in the correct format. [See here](#pre-analysis-data-format) for more info. Basically every single day or session must be its own file. If your data is merged as multiple days you can utilize `monthToDay.py` to split them up once they are formatted correctly, see `SampleBlankCSV.csv`.
 
 ##### Windows
 
-* [Download Python](https://www.python.org/downloads/) and run the installer. **Make sure to add Python to PATH** by checking the box in bottom of the installation window. If your current Python is not in PATH please add it. You can always remove and re-install Python if you are having issues. Please see [here](#python-installation) for additional instruction.
+<br>
+**Note:** This guide assumes you are running a 64 bit computer with Windows installed (the vast majority of systems are nowadays)
+<br>
+
+* [Download Python 3.10.11](https://www.python.org/downloads/release/python-31011/) [direct installer download link](https://www.python.org/ftp/python/3.10.11/python-3.10.11-amd64.exe) and run the installer while **Making sure to add Python to PATH during installation**. Check the box in bottom of the installation window. If your current Python is not in PATH please add it. You can always remove and re-install Python if you are having issues. Please see [here](#python-installation) for additional instruction.
 * Download this repository (the files of the project) as a zip by clicking on the green box at the top of this page, see [here](#not-to-git) for additional help.
 * Unzip the repository. You can do this by right clicking it and extracting. Open the new folder, in a blank area inside the folder open hold shift and right click. Choose either `Open Command Prompt window here` **OR** `Open PowerShell window here` to open the terminal in the project directory.
-* In the terminal and run the following commands in this order:
+* In the terminal run the following commands in this order:
 
 ```
-pip install GDAL-3.4.3-cp311-cp311-win_amd64.whl
+pip install GDAL-3.4.3-cp310-cp310-win_amd64.whl
 ```
 
 ```
-pip install Fiona-1.8.21-cp311-cp311-win_amd64.whl
+pip install Fiona-1.8.21-cp310-cp310-win_amd64.whl
 ```
 
 ```
@@ -59,9 +64,13 @@ pip install -r requirements.txt
 * Now you can open and view the CSV's as well as the GeoPakcage files.
 * Everything passed this point is additional information for getting deeper into the project and not nexessary for just running the program.
 
+<br>
+
 ##### Linux
 
-* Python should already be installed, you can check in terminal with `python3 --version`. If it is not installed run `sudo apt install python3`.
+<br>
+
+* Python should already be installed, you can check in terminal with `python3 --version`. If it is not installed run `sudo apt install python3.10`.
 * Download this repository as a zip, see [here](#not-to-git) for additional help.
 * Unzip the repository and open terminal in the new directory.
 * In terminal (cd'd in the correct directory) run:
